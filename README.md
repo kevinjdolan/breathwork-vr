@@ -12,7 +12,7 @@ See [the experience catalog and review notes](docs/EXPERIENCES.md) for all eight
 
 In Quest, look at a card for 2.5 seconds; its highlight and percentage show selection progress. The menu anchors to the current gaze, including while lying down. Looking well away for a few seconds brings the menu back in front of you. On desktop, click a card or press **1–8**. Press **R** to re-anchor the desktop menu.
 
-Sessions fade back to the selector when complete. Hold a controller button, or Escape/Space on desktop, for 1.5 seconds to return early. Follow the breathing comfortably; holds can be gentle pauses.
+Sessions fade back to the selector when complete. To end early without controllers, look at the small **Menu** button beside the breathing view for 1.2 seconds. The session pauses; look at **End session** for 1.8 seconds to fade back to the selector, or choose **Continue** to resume. The control works while reclining and comes back into view after a large head turn. On desktop, press **M** or click Menu. Holding a controller button or Escape/Space for 1.5 seconds also returns early. Follow the breathing comfortably; holds can be gentle pauses.
 
 ## Run
 

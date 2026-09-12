@@ -33,3 +33,9 @@ Installed version **2.0.1**, code **8**, on the physical Quest 3. The first v2.0
 The corrected APK signature verifies, installation and cold launch succeeded, and a headset stereo capture shows all eight menu cards. Fresh process logs contain no script/shader errors. This verifies startup and menu rendering; it does not establish full-session comfort or sustained performance across all eight worlds.
 
 Current APK: 167,885,383 bytes; SHA-256 `63ad3808f92e50689695e7b5e88d641e47e0c1d42059706baa2c9f705e90735f`.
+
+## v2.1.0 session return control
+
+Added a world-anchored Menu gaze target with a separate Continue / End session confirmation. Tests exercise brief-glance rejection, dwell reset, audio pause, quiet breath particles, focus-loss recovery while paused, cancellation, reclining orientation, and a complete fade back to the selector. Existing session, hand, natural-end, and eight-world integration contracts pass. Three Mobile Vulkan captures cover the target, seated confirmation, and reclining confirmation with clean shader/script logs.
+
+Version **2.1.0**, code **9**, was signed, installed, and cold-launched on the physical Quest 3. Fresh startup logs are clean. Automated interaction coverage is from the desktop engine harness; this is not a claim of a manually performed headset gaze-return trial. APK: 167,892,118 bytes; SHA-256 `26b309ffebf100b817852e64536c17b3f1b8a7944f7790a048310a709fcd1769`.

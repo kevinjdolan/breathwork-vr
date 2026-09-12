@@ -15,6 +15,7 @@ extends Node
 @export var fade: float = 1.0
 @export var fractal_fold: float = 3.0
 
+var session_menu: SessionMenu
 var experience_id: String = "aurora_lake"
 var experience: Dictionary
 var experience_layer: Node3D
@@ -137,6 +138,12 @@ func _ready() -> void:
     arc.seek(0.0, true)
     _configure_experience()
     clock.configure(breath)
+    session_menu = SessionMenu.new()
+    session_menu.camera = camera
+    session_menu.opened.connect(_on_unfocus)
+    session_menu.continued.connect(_on_focus)
+    session_menu.return_requested.connect(_return_from_session_menu)
+    add_child(session_menu)
     if _test_mode:
         set_process(false)
         return
@@ -197,12 +204,16 @@ func _start_session() -> void:
             (get_node("../Audio/Water" + str(index)) as AudioStreamPlayer3D).play(float(index) * 9.3)
 
 func _on_focus() -> void:
-    music.stream_paused = false
-    breath.stream_paused = false
+    var paused: bool = session_menu != null and session_menu.is_open
+    music.stream_paused = paused
+    breath.stream_paused = paused
     for player: AudioStreamPlayer3D in _spatial_audio:
-        player.stream_paused = false
+        player.stream_paused = paused
 
 func _on_unfocus() -> void:
+    (inhale.process_material as ShaderMaterial).set_shader_parameter("inhale_visibility", 0.0)
+    (exhale.process_material as ShaderMaterial).set_shader_parameter("exhale_visibility", 0.0)
+    (exhale.process_material as ShaderMaterial).set_shader_parameter("exhale_active", false)
     music.stream_paused = true
     breath.stream_paused = true
     for player: AudioStreamPlayer3D in _spatial_audio:
@@ -265,6 +276,7 @@ func _on_music_finished() -> void:
 
 func _process(delta: float) -> void:
     # Pose uploads run every render frame, including while the soundtrack pauses.
+    session_menu.available = _started and fade < 0.9 and not _exiting
     _update_hands(delta)
     if not _started or music.stream_paused:
         return
@@ -573,3 +585,8 @@ func _configure_experience() -> void:
     experience_layer = load("res://experiences/" + experience_id + "/layer.gd").new()
     get_parent().add_child.call_deferred(experience_layer)
     print("VRMED EXPERIENCE ", experience_id, " rhythm=", clock.pattern)
+
+func _return_from_session_menu() -> void:
+    _return_to_menu = true
+    _on_focus()
+    request_exit()

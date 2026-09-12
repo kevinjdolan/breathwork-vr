@@ -75,7 +75,7 @@ func _ready() -> void:
         _label(ExperienceCatalog.rhythm_text(entry), center + Vector3(0, -0.062, 0.006), 20, Color(0.53, 0.61, 0.66))
     status = _label("Look at a world for 2.5 seconds to begin", Vector3(0, -0.81, 0), 26, Color(0.75, 0.80, 0.84))
     _label("Breathe comfortably; let any hold become a gentle pause.", Vector3(0, -0.91, 0), 21, Color(0.48, 0.57, 0.63))
-    _label("Hold a controller button to return. Desktop: click or press 1–8.", Vector3(0, -1.00, 0), 19, Color(0.48, 0.57, 0.63))
+    _label("During a session, look at Menu to pause or end. Desktop: M.", Vector3(0, -1.00, 0), 19, Color(0.48, 0.57, 0.63))
     cursor = Label3D.new()
     cursor.text = "·"
     cursor.font_size = 44

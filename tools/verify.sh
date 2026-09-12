@@ -23,4 +23,5 @@ run_engine --headless --xr-mode off --path "$project_dir" --script tests/test_se
 run_engine --headless --xr-mode off --path "$project_dir" --script tests/test_hands.gd -- --test
 run_engine --headless --xr-mode off --path "$project_dir" --max-fps 90 --script tests/test_end.gd -- --test
 run_engine --headless --xr-mode off --path "$project_dir" --script tests/test_suite.gd -- --test
+run_engine --headless --xr-mode off --path "$project_dir" --script tests/test_session_menu.gd -- --test
 "$python_bin" -m unittest discover -s tests -p 'test_*.py' -v

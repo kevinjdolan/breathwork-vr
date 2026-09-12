@@ -17,6 +17,12 @@ The new worlds were authored in seven separate implementation subsessions. Each 
 
 These are gentle pacing invitations. The startup menu explicitly invites comfortable breathing and treating holds as gentle pauses. Nothing requires the user to perform a forced breath or keep pace to continue.
 
+## Pause or return at any time
+
+A small Menu target sits beside the breathing view. Hold your gaze on it for 1.2 seconds to pause the soundtrack and breath guide. The confirmation appears in the current head orientation, including while reclining. Look at End session for 1.8 seconds to fade to the selector, or Continue to resume. Progress resets when looking away. Desktop supports M and mouse selection; the controller hold shortcut remains available.
+
+![Return confirmation](screenshots/session-menu.jpg)
+
 ## Review criteria carried forward
 
 - Incoming particles must gather before the cue, travel from the orb toward the tracked mouth, and fade without a deadline-driven rush. Outgoing and incoming populations remain distinguishable.
