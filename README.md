@@ -2,7 +2,7 @@
 
 Eight native Godot meditation worlds for Meta Quest, each eight minutes long. Choose a world from a spatial startup menu, then follow a gently drifting particle orb through breath-responsive geometry, fractals, water, clouds, neurons, circuits, or quiet crowds.
 
-The approved **Aurora Lake** experience remains available with its layered auroras, dynamic water, compact particle constellations, and positional sound. All worlds share tracked particle hands and reclining support. Prismatic Sanctuary features a slowly turning geometric tunnel, green plasma inhale paths, four-way blue outflow, and a white central light; the other seven worlds retain the drifting particle orb and near-mouth breathing streams. Each new world has its own breathing rhythm and original Lyria score.
+The approved **Aurora Lake** experience remains available with its layered auroras, dynamic water, compact particle constellations, and positional sound. All worlds share tracked particle hands and reclining support. Prismatic Sanctuary features a slowly turning geometric tunnel, green plasma inhale paths, four-way blue outflow, and a white central light; the other seven worlds retain the drifting particle orb and near-mouth breathing streams. Each new world has its own breathing rhythm and score. Prismatic Sanctuary uses a cohesive authored electronic arrangement; the other scores use original Lyria music.
 
 See [the experience catalog and review notes](docs/EXPERIENCES.md) for all eight directions, rhythms, and the critique/refinement process. The [verification record](docs/VERIFICATION.md) distinguishes desktop checks from headset validation.
 
@@ -49,7 +49,7 @@ Install the packages in `audio/requirements.txt`, FFmpeg/ffprobe, and `oggenc` (
 
 ## Audio and provenance
 
-Runtime audio is included under `assets/audio`. The eight soundtracks and eight spatial water/mote textures were generated with Google Lyria, then mastered locally. Each new score uses three authored movements with ten-second crossfades and an exact 480-second delivery. Authored prompts, generation code, and non-secret provenance are under `audio`. Regeneration requires `GEMINI_API_KEY` or `GOOGLE_API_KEY` in the environment. Untouched generation masters and large verification captures remain local and are excluded from Git and Android exports.
+Runtime audio is included under `assets/audio`. Seven soundtracks and the eight spatial water/mote textures use Google Lyria material mastered locally. Prismatic Sanctuary uses authored electronic synthesis to avoid competing backing music. Each Lyria score uses three authored movements with ten-second crossfades and an exact 480-second delivery. Authored prompts, generation code, and non-secret provenance are under `audio`. Regeneration requires `GEMINI_API_KEY` or `GOOGLE_API_KEY` in the environment. Untouched generation masters and large verification captures remain local and are excluded from Git and Android exports.
 
 The most recent refinement keeps the approved outbreath samples unchanged while softening the inhale. See the audio contract tests for the preserved sample hashes.
 

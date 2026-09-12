@@ -54,3 +54,8 @@ Each folder's `DESIGN.md` retains implementation details, its own critique, and 
 ### Prismatic refinement — version 2.2
 
 Prismatic Sanctuary now travels through a 16,384-point vault, follows gaze with approximately sixteen seconds of lag, contracts 40% with inhalation, pulses gently during the full hold, and expands on exhalation. Visible source objects feed two green plasma arcs to the nose; blue mouth particles branch toward the walls in four directions. Distant objects and walls dissolve into directional haze. The unfogged white center grows during the full hold and shrinks to zero at exhalation, using 500 ms transitions. The score is a distinct 90 BPM electronic trance composition with new Lyria stems. See the experience’s DESIGN.md for budgets and timing.
+
+
+### Version 2.3 refinement
+
+The Prismatic walls now combine 32,768 dense relief tiles with 8,192 floating filament particles. Deep radial folds carry nested rosettes, curling filigree and woven geometry. Occasional stylized eyes and geckos emerge during separate long passages, with gradual palette and relief changes. The music has also been rebuilt as one clocked electronic arrangement: generated backing recordings and keyboard-like plucks were removed after headset feedback found them jarring against the 90 BPM beat. A runtime test confirms that lake and mote players do not accompany this experience.

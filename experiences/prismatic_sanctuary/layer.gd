@@ -45,7 +45,9 @@ func _ready() -> void:
         add_child(node)
     _points("DistantHaze",3,"journey_fog.gdshader")
     (get_node("DistantHaze").material_override as ShaderMaterial).render_priority = -20
-    _points("ParticleVault",16384,"journey_vault.gdshader")
+    _points("ParticleVault",32768,"journey_vault.gdshader")
+    (get_node("ParticleVault").material_override as ShaderMaterial).render_priority = -15
+    _points("VaultFilaments",8192,"vault_filaments.gdshader")
     _points("DistantStar",320,"journey_star.gdshader")
     _build_plasma()
     _points("BlueOutflow",512,"outflow.gdshader")
@@ -56,7 +58,7 @@ func _ready() -> void:
     _cue.outline_size = 0
     _cue.modulate = Color(.48,.68,.79)
     add_child(_cue)
-    print("VRMED PRISMATIC families=16 objects=128 vault_points=16384 triangles=",_counts.reduce(func(a: int,b: int) -> int: return a+b,0)*8)
+    print("VRMED PRISMATIC families=16 objects=128 vault_tiles=32768 filaments=8192 triangles=",_counts.reduce(func(a: int,b: int) -> int: return a+b,0)*8)
 
 func _material(path: String) -> ShaderMaterial:
     var material: ShaderMaterial = ShaderMaterial.new()

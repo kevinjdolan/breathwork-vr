@@ -3,240 +3,22 @@
     {
       "id": "prismatic_sanctuary",
       "title": "Prismatic Sanctuary",
-      "artist": "Breathwork VR / Google Lyria",
-      "model": "lyria-3.5 + authored electronic synthesis",
+      "artist": "Breathwork VR",
+      "model": "authored electronic synthesis",
       "duration": 480,
       "file": "assets/audio/prismatic_sanctuary.ogg",
-      "sha256": "8ce23cd807b9245e265f9b50e53d6df000b22cf607e467fa920537590926469d",
-      "delivery_bytes": 7341939,
+      "sha256": "6d042077c5948c8654b8aa191870f04c6d59678ca0f3d3a2c84cd36b8e4883c7",
+      "delivery_bytes": 3081774,
       "target_lufs": -20,
       "tempo_bpm": 90,
       "beat_frames": 32000,
       "beat_count": 720,
-      "transition_starts": [
-        168,
-        336
-      ],
-      "crossfade_seconds": 10,
+      "arrangement": "One clocked arrangement: rounded kick, offbeat synth bass, filtered shaker and sustained 32-beat synth chords. No piano, plucked melody or independently timed backing recording.",
       "sources": [
         {
-          "id": "prismatic_trance90_0",
-          "model": "lyria-3.5",
-          "endpoint": "https://generativelanguage.googleapis.com/v1beta/interactions",
-          "interaction_id": "v1_ChdHcHFsYXItdU52LTBxdHNQOGJiUXdRdxIXR3BxbGFyLXVOdi0wcXRzUDhiYlF3UXc",
-          "prompt": "Create 178 seconds of original instrumental meditation music. Pure electronic psychedelic ambient synthesizer stem in D Dorian, an evolving luminous cosmic tunnel of warm resonant analog pads, glassy granular harmonics and liquid filtered oscillators. Bold hypnotic space, intimate electronic timbres. Strictly no piano, acoustic guitar, harp, strings, or music-box melodies. No drums or percussion in this stem: it will sit under a separately produced 90 BPM electronic rhythm. Sustained slow harmonies, no rhythmic arpeggio in the stem, no voices, no sharp transients, no dramatic drop or dark tension. Establish a quiet spacious welcome, gradually open into a sustained texture. No vocals, speech, drums, beat, climaxes, sudden attacks, harsh high frequencies, ominous tension, or dramatic tempo changes. The listener is lying still and breathing slowly. Calming energy throughout. Very soft edges and deep continuous musical development. End naturally; preserve ample reverb decay.",
-          "file": "prismatic_trance90_0.mp3",
-          "sha256": "7fd07798709ea3e55d579dd4415afe2d51a92be18bff0ec7d810e548b777a882",
-          "probe": {
-            "streams": [
-              {
-                "index": 0,
-                "codec_name": "mp3",
-                "codec_long_name": "MP3 (MPEG audio layer 3)",
-                "codec_type": "audio",
-                "codec_tag_string": "[0][0][0][0]",
-                "codec_tag": "0x0000",
-                "mime_codec_string": "mp4a.40.34",
-                "sample_fmt": "fltp",
-                "sample_rate": "44100",
-                "channels": 2,
-                "channel_layout": "stereo",
-                "bits_per_sample": 0,
-                "initial_padding": 0,
-                "r_frame_rate": "0/0",
-                "avg_frame_rate": "0/0",
-                "time_base": "1/14112000",
-                "start_pts": 0,
-                "start_time": "0.000000",
-                "duration_ts": 2461039896,
-                "duration": "174.393417",
-                "bit_rate": "192000",
-                "disposition": {
-                  "default": 0,
-                  "dub": 0,
-                  "original": 0,
-                  "comment": 0,
-                  "lyrics": 0,
-                  "karaoke": 0,
-                  "forced": 0,
-                  "hearing_impaired": 0,
-                  "visual_impaired": 0,
-                  "clean_effects": 0,
-                  "attached_pic": 0,
-                  "timed_thumbnails": 0,
-                  "non_diegetic": 0,
-                  "captions": 0,
-                  "descriptions": 0,
-                  "metadata": 0,
-                  "dependent": 0,
-                  "still_image": 0,
-                  "multilayer": 0
-                }
-              }
-            ],
-            "format": {
-              "filename": "prismatic_trance90_0.mp3",
-              "nb_streams": 1,
-              "nb_programs": 0,
-              "nb_stream_groups": 0,
-              "format_name": "mp3",
-              "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
-              "start_time": "0.000000",
-              "duration": "174.393417",
-              "size": "4191518",
-              "bit_rate": "192278",
-              "probe_score": 51
-            }
-          },
-          "response_text": [
-            "[[A0]]\n[[B1]]\n[[C2]]\n[[D3]]\n[[E4]]"
-          ]
-        },
-        {
-          "id": "prismatic_trance90_1",
-          "model": "lyria-3.5",
-          "endpoint": "https://generativelanguage.googleapis.com/v1beta/interactions",
-          "interaction_id": "v1_ChdRSnFsYW9EcEhvdXJxdHNQdG9qWC1RNBIXUUpxbGFvRHBIb3VycXRzUHRvalgtUTQ",
-          "prompt": "Create 178 seconds of original instrumental meditation music. Pure electronic psychedelic ambient synthesizer stem in D Dorian, an evolving luminous cosmic tunnel of warm resonant analog pads, glassy granular harmonics and liquid filtered oscillators. Bold hypnotic space, intimate electronic timbres. Strictly no piano, acoustic guitar, harp, strings, or music-box melodies. No drums or percussion in this stem: it will sit under a separately produced 90 BPM electronic rhythm. Sustained slow harmonies, no rhythmic arpeggio in the stem, no voices, no sharp transients, no dramatic drop or dark tension. Deepen gently into richer consonant overtones, keep intensity restrained and stable. No vocals, speech, drums, beat, climaxes, sudden attacks, harsh high frequencies, ominous tension, or dramatic tempo changes. The listener is lying still and breathing slowly. Calming energy throughout. Very soft edges and deep continuous musical development. End naturally; preserve ample reverb decay.",
-          "file": "prismatic_trance90_1.mp3",
-          "sha256": "10be6a6edfdbb5c6899ed772be2f19e5c874d0bb6f24cf7ed5b550f1e8c70c81",
-          "probe": {
-            "streams": [
-              {
-                "index": 0,
-                "codec_name": "mp3",
-                "codec_long_name": "MP3 (MPEG audio layer 3)",
-                "codec_type": "audio",
-                "codec_tag_string": "[0][0][0][0]",
-                "codec_tag": "0x0000",
-                "mime_codec_string": "mp4a.40.34",
-                "sample_fmt": "fltp",
-                "sample_rate": "44100",
-                "channels": 2,
-                "channel_layout": "stereo",
-                "bits_per_sample": 0,
-                "initial_padding": 0,
-                "r_frame_rate": "0/0",
-                "avg_frame_rate": "0/0",
-                "time_base": "1/14112000",
-                "start_pts": 0,
-                "start_time": "0.000000",
-                "duration_ts": 2411273340,
-                "duration": "170.866875",
-                "bit_rate": "192000",
-                "disposition": {
-                  "default": 0,
-                  "dub": 0,
-                  "original": 0,
-                  "comment": 0,
-                  "lyrics": 0,
-                  "karaoke": 0,
-                  "forced": 0,
-                  "hearing_impaired": 0,
-                  "visual_impaired": 0,
-                  "clean_effects": 0,
-                  "attached_pic": 0,
-                  "timed_thumbnails": 0,
-                  "non_diegetic": 0,
-                  "captions": 0,
-                  "descriptions": 0,
-                  "metadata": 0,
-                  "dependent": 0,
-                  "still_image": 0,
-                  "multilayer": 0
-                }
-              }
-            ],
-            "format": {
-              "filename": "prismatic_trance90_1.mp3",
-              "nb_streams": 1,
-              "nb_programs": 0,
-              "nb_stream_groups": 0,
-              "format_name": "mp3",
-              "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
-              "start_time": "0.000000",
-              "duration": "170.866875",
-              "size": "4106881",
-              "bit_rate": "192284",
-              "probe_score": 51
-            }
-          },
-          "response_text": [
-            "[[A0]]\n[[B1]]\n[[C2]]\n[[D3]]\n[[E4]]"
-          ]
-        },
-        {
-          "id": "prismatic_trance90_2",
-          "model": "lyria-3.5",
-          "endpoint": "https://generativelanguage.googleapis.com/v1beta/interactions",
-          "interaction_id": "v1_ChYxNXFsYXRpY0pkN0JxdHNQNmMyWlVBEhYxNXFsYXRpY0pkN0JxdHNQNmMyWlVB",
-          "prompt": "Create 144 seconds of original instrumental meditation music. Warm sustained electronic synthesizer harmonies in D Dorian. Rounded analog pads and gentle resonant overtones, no acoustic instruments and no percussion. Gradually simplify to a peaceful held chord with a long smooth decay. Instrumental electronic background texture. Gently resolve and thin into stillness, with a long soft final decay. No vocals, speech, drums, beat, climaxes, sudden attacks, harsh high frequencies, ominous tension, or dramatic tempo changes. The listener is lying still and breathing slowly. Calming energy throughout. Very soft edges and deep continuous musical development. End naturally; preserve ample reverb decay.",
-          "file": "prismatic_trance90_2.mp3",
-          "sha256": "0950a87132adac356995afa518f8a28bba128cba4fad63e3e114c048a3c6cb33",
-          "probe": {
-            "streams": [
-              {
-                "index": 0,
-                "codec_name": "mp3",
-                "codec_long_name": "MP3 (MPEG audio layer 3)",
-                "codec_type": "audio",
-                "codec_tag_string": "[0][0][0][0]",
-                "codec_tag": "0x0000",
-                "mime_codec_string": "mp4a.40.34",
-                "sample_fmt": "fltp",
-                "sample_rate": "44100",
-                "channels": 2,
-                "channel_layout": "stereo",
-                "bits_per_sample": 0,
-                "initial_padding": 0,
-                "r_frame_rate": "0/0",
-                "avg_frame_rate": "0/0",
-                "time_base": "1/14112000",
-                "start_pts": 0,
-                "start_time": "0.000000",
-                "duration_ts": 1965218892,
-                "duration": "139.258708",
-                "bit_rate": "192000",
-                "disposition": {
-                  "default": 0,
-                  "dub": 0,
-                  "original": 0,
-                  "comment": 0,
-                  "lyrics": 0,
-                  "karaoke": 0,
-                  "forced": 0,
-                  "hearing_impaired": 0,
-                  "visual_impaired": 0,
-                  "clean_effects": 0,
-                  "attached_pic": 0,
-                  "timed_thumbnails": 0,
-                  "non_diegetic": 0,
-                  "captions": 0,
-                  "descriptions": 0,
-                  "metadata": 0,
-                  "dependent": 0,
-                  "still_image": 0,
-                  "multilayer": 0
-                }
-              }
-            ],
-            "format": {
-              "filename": "prismatic_trance90_2.mp3",
-              "nb_streams": 1,
-              "nb_programs": 0,
-              "nb_stream_groups": 0,
-              "format_name": "mp3",
-              "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
-              "start_time": "0.000000",
-              "duration": "139.258708",
-              "size": "3348285",
-              "bit_rate": "192349",
-              "probe_score": 51
-            }
-          },
-          "response_text": [
-            "[[A0]]\n[[B1]]\n[[C2]]"
-          ]
+          "file": "prismatic_trance90_cohesive.wav",
+          "sha256": "9fdf0c4fcef8250a375d22625a47f106bb6ef9f636056643f4523c317cbf712e",
+          "origin": "Authored deterministic synthesis, no sampled/generated backing recording"
         }
       ]
     },
@@ -1666,6 +1448,6 @@
   "generated_tracks": 7,
   "master_count": 21,
   "failed": 0,
-  "master_bytes": 80660380,
-  "delivery_bytes": 52021266
+  "master_bytes": 253333754,
+  "delivery_bytes": 47761101
 }

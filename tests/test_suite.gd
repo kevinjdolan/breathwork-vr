@@ -51,6 +51,13 @@ func run() -> void:
         check(director.experience_layer != null or entry["id"] == "aurora_lake", "Layer instantiated")
         if entry["id"] == "aurora_lake":
             check(scene.get_node("WorldEnvironment").environment.background_mode == Environment.BG_SKY, "Lake sky survives returning from variants")
+        if entry["id"] == "prismatic_sanctuary":
+            director._start_session()
+            await process_frame
+            check(director.music.playing and director.breath.playing, "Prismatic starts its single score and breath guide")
+            check(director.music.stream.resource_path == "res://assets/audio/prismatic_sanctuary.ogg", "Only the selected score is routed to music playback")
+            for player: AudioStreamPlayer3D in director._spatial_audio:
+                check(not player.playing, "Lake and mote audio cannot overlay the prismatic score")
         check(clock.settle_at() <= 480.0, "No partial final cycle")
         scene.queue_free()
         await process_frame
