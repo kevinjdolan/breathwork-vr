@@ -107,3 +107,10 @@ static func ifs_point(address: int, transforms: Array[Transform3D]) -> Vector3:
     for depth: int in range(12):
         point = transforms[(address >> (depth * 2)) & 3] * point
     return point
+
+static func xr_session_focused(interface: OpenXRInterface) -> bool:
+    return interface.get_session_state() == OpenXRInterface.SESSION_STATE_FOCUSED
+
+static func xr_session_running(interface: OpenXRInterface) -> bool:
+    var state: int = interface.get_session_state()
+    return state >= OpenXRInterface.SESSION_STATE_SYNCHRONIZED and state <= OpenXRInterface.SESSION_STATE_FOCUSED

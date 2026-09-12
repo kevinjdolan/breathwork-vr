@@ -12,6 +12,10 @@ func _initialize() -> void:
     run.call_deferred()
 
 func run() -> void:
+    # Exercise the real engine API even when desktop tests never enter XR mode.
+    var interface: OpenXRInterface = OpenXRInterface.new()
+    check(not ExperienceMath.xr_session_focused(interface), "Uninitialized XR session is not focused")
+    check(not ExperienceMath.xr_session_running(interface), "Uninitialized XR session is not running")
     var entries: Array = ExperienceCatalog.all()
     check(entries.size() == 8, "Eight authored experiences")
     # Revisit the lake after every variant to catch shared Environment mutation.

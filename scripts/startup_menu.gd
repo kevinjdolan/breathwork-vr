@@ -107,7 +107,7 @@ func _anchor() -> void:
 func _process(delta: float) -> void:
     if leaving or camera == null:
         return
-    if get_viewport().use_xr and not xr.is_session_focused():
+    if get_viewport().use_xr and not ExperienceMath.xr_session_focused(xr):
         dwell = 0.0
         return
     age += delta
@@ -142,7 +142,7 @@ func _process(delta: float) -> void:
         selected = hovered
         dwell = 0.0
     if selected >= 0:
-        dwell += delta if get_viewport().use_xr and xr.is_session_focused() else 0.0
+        dwell += delta if get_viewport().use_xr and ExperienceMath.xr_session_focused(xr) else 0.0
         status.text = "%s  ·  %d%%" % [entries[selected]["title"], int(clampf(dwell / 2.5, 0, 1) * 100)] if get_viewport().use_xr else "Click to enter " + str(entries[selected]["title"])
         if dwell >= 2.5:
             _choose(selected)

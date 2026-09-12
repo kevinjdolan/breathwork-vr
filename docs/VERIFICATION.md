@@ -25,3 +25,11 @@ The signed debug APK is version **2.0.0**, version code **7**, package `com.kevi
 APK size: **167,884,843 bytes**. SHA-256: `71afe4bd6b26cd887a308503e8f2856c18c634eb165f458ff8dd120dccd678bb`.
 
 The physical Quest was disconnected at the final package check. This build has therefore not yet been installed or performance-tested on the headset. The earlier approved Aurora Lake build was tested on the Quest, but that result is not a substitute for testing this expanded suite.
+
+## v2.0.1 Quest startup correction
+
+Installed version **2.0.1**, code **8**, on the physical Quest 3. The first v2.0.0 installation exposed nonexistent OpenXR convenience-method calls in the native-only menu/session paths. Both now use Godot 4.6.3's `get_session_state()` and its named state constants. A regression check exercises the real engine API even with XR disabled; the complete scene/selector integration harness passes.
+
+The corrected APK signature verifies, installation and cold launch succeeded, and a headset stereo capture shows all eight menu cards. Fresh process logs contain no script/shader errors. This verifies startup and menu rendering; it does not establish full-session comfort or sustained performance across all eight worlds.
+
+Current APK: 167,885,383 bytes; SHA-256 `63ad3808f92e50689695e7b5e88d641e47e0c1d42059706baa2c9f705e90735f`.

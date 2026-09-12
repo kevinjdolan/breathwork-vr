@@ -49,3 +49,5 @@ An ADB-daemon warning after a successful export does not itself prove the APK fa
 - Duplicate mutable Godot environment resources per visit. Re-enter the original scene after every variant in a test; cached resources can otherwise leave the original sky replaced by a variant's background.
 - A spatial selector needs actual gaze ray intersection with a stable panel. Anchoring the panel to the head every frame prevents gaze from moving between cards. Anchor after tracking is ready, support reclined orientation, show dwell progress, and ease scene transitions.
 - Give each environment a bounded rendering contract and shared breath state. Inspect the integrated composition after independent layer reviews: a layer-only image cannot reveal overlap with the central orb or near-mouth stream.
+
+- Exercise native-only API calls in a headless regression test when possible. In Godot 4.6.3, query OpenXR lifecycle through `get_session_state()` and the `SESSION_STATE_*` constants; do not assume convenience methods such as `is_session_running()` exist. Desktop rendering can otherwise skip a broken XR-only branch.

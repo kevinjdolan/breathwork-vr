@@ -143,7 +143,7 @@ func _ready() -> void:
     _xr = XRServer.find_interface("OpenXR") as OpenXRInterface
     if _xr != null and _xr.is_initialized():
         get_viewport().use_xr = true
-        if _xr.is_session_running():
+        if ExperienceMath.xr_session_running(_xr):
             _on_session_begun.call_deferred()
         _xr.session_begun.connect(_on_session_begun)
         _xr.session_focussed.connect(_on_focus)
