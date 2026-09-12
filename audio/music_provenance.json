@@ -1,0 +1,32 @@
+{
+  "placeholder": false,
+  "model": "lyria-3.5",
+  "duration": 480,
+  "transition_starts": [
+    168,
+    336
+  ],
+  "crossfade_seconds": 10,
+  "target_lufs": -18,
+  "vorbis_quality": 6,
+  "sources": [
+    {
+      "id": "calm",
+      "sha256": "ce0be978d9489c0969d05e7b2e433a94432613a047d6581341f27eebe0500173",
+      "source_seconds": 171.154208,
+      "conformed_seconds": 178
+    },
+    {
+      "id": "deepening",
+      "sha256": "e574e3385f39152abb93be7b0086d9b6a3c0580aea06e8562e1fa295566ebc24",
+      "source_seconds": 178.912583,
+      "conformed_seconds": 178
+    },
+    {
+      "id": "peak_resolve",
+      "sha256": "8e3608563f25fc3518e6463e2b997f4a29b284812b1039bdad348666ba09742f",
+      "source_seconds": 137.691375,
+      "conformed_seconds": 144
+    }
+  ]
+}

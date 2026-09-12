@@ -1,0 +1,43 @@
+; Godot 4.6.3 — stationary, seated OpenXR meditation.
+config_version=5
+
+[application]
+config/name="Breathwork VR"
+config/icon="res://assets/icon.svg"
+run/main_scene="res://scenes/main.tscn"
+config/features=PackedStringArray("4.6", "Mobile")
+boot_splash/show_image=false
+boot_splash/bg_color=Color(0, 0, 0, 1)
+
+[display]
+window/size/viewport_width=1440
+window/size/viewport_height=900
+window/stretch/mode="canvas_items"
+window/vsync/vsync_mode=0
+
+[audio]
+buses/default_bus_layout="res://assets/audio/buses.tres"
+driver/mix_rate=48000
+
+[physics]
+common/physics_ticks_per_second=10
+
+[rendering]
+textures/vram_compression/import_etc2_astc=true
+renderer/rendering_method="mobile"
+renderer/rendering_method.mobile="mobile"
+rendering_device/driver="vulkan"
+rendering_device/driver.macos="vulkan"
+anti_aliasing/quality/msaa_3d=2
+scaling_3d/mode=0
+scaling_3d/scale=1.0
+textures/default_filters/use_nearest_mipmap_filter=false
+
+[xr]
+openxr/enabled=true
+openxr/extensions/hand_tracking=true
+openxr/extensions/hand_tracking_unobstructed_data_source=true
+openxr/extensions/hand_tracking_controller_data_source=true
+openxr/default_action_map="res://assets/actions.tres"
+openxr/reference_space=2
+shaders/enabled=true

@@ -1,0 +1,14 @@
+.godot/
+.tools/
+android/build/
+android/.build_version
+build/
+__pycache__/
+*.pyc
+*.keystore
+.env
+.env.*
+!.env.example
+.DS_Store
+verification/
+audio/masters/

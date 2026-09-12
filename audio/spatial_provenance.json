@@ -1,0 +1,221 @@
+{
+  "model": "lyria-3-clip-preview",
+  "catalog": [
+    {
+      "id": "water_0",
+      "status": "generated",
+      "master_bytes": 719532,
+      "delivery": {
+        "file": "water_lyria_0.wav",
+        "sha256": "1e77cf4b4013eea3a9406c84dc33cacb9d80f17d70597bbf4c33c21eac80b6f9",
+        "bytes": 2304044,
+        "seconds": 24,
+        "sample_rate": 48000,
+        "samples": 1152000,
+        "channels": 1,
+        "seam_delta": 34,
+        "loudness": {
+          "input_i": "-33.97",
+          "input_tp": "-17.08",
+          "input_lra": "11.00",
+          "input_thresh": "-44.38",
+          "output_i": "-30.45",
+          "output_tp": "-14.32",
+          "output_lra": "7.10",
+          "output_thresh": "-40.61",
+          "normalization_type": "dynamic",
+          "target_offset": "0.45"
+        }
+      }
+    },
+    {
+      "id": "water_1",
+      "status": "skipped",
+      "master_bytes": 732071,
+      "delivery": {
+        "file": "water_lyria_1.wav",
+        "sha256": "e127555a7085e935e6741adbbec62c958cff83d9dd1de643fdc3b30a7926cc5b",
+        "bytes": 2400044,
+        "seconds": 25,
+        "sample_rate": 48000,
+        "samples": 1200000,
+        "channels": 1,
+        "seam_delta": 42,
+        "loudness": {
+          "input_i": "-33.17",
+          "input_tp": "-17.08",
+          "input_lra": "5.10",
+          "input_thresh": "-43.17",
+          "output_i": "-29.22",
+          "output_tp": "-14.29",
+          "output_lra": "4.40",
+          "output_thresh": "-39.22",
+          "normalization_type": "dynamic",
+          "target_offset": "-0.78"
+        }
+      }
+    },
+    {
+      "id": "water_2",
+      "status": "skipped",
+      "master_bytes": 730817,
+      "delivery": {
+        "file": "water_lyria_2.wav",
+        "sha256": "ac652a45550a37135667c3e72d1321c4469d384799a426e2c06eaecc9d3e3bcd",
+        "bytes": 2496044,
+        "seconds": 26,
+        "sample_rate": 48000,
+        "samples": 1248000,
+        "channels": 1,
+        "seam_delta": 3,
+        "loudness": {
+          "input_i": "-31.44",
+          "input_tp": "-17.86",
+          "input_lra": "3.20",
+          "input_thresh": "-41.45",
+          "output_i": "-30.38",
+          "output_tp": "-16.92",
+          "output_lra": "2.60",
+          "output_thresh": "-40.38",
+          "normalization_type": "dynamic",
+          "target_offset": "0.38"
+        }
+      }
+    },
+    {
+      "id": "mote_0",
+      "status": "skipped",
+      "master_bytes": 742102,
+      "delivery": {
+        "file": "mote_voice_0.wav",
+        "sha256": "c45dc83eba2deb8da5c1f85405c6207a221900eb2125a2980ab71b9f365e30df",
+        "bytes": 460844,
+        "seconds": 4.8,
+        "sample_rate": 48000,
+        "samples": 230400,
+        "channels": 1,
+        "seam_delta": 0,
+        "loudness": {
+          "input_i": "-35.93",
+          "input_tp": "-21.41",
+          "input_lra": "1.00",
+          "input_thresh": "-47.20",
+          "output_i": "-29.41",
+          "output_tp": "-14.84",
+          "output_lra": "1.00",
+          "output_thresh": "-40.95",
+          "normalization_type": "dynamic",
+          "target_offset": "-0.59"
+        }
+      }
+    },
+    {
+      "id": "mote_1",
+      "status": "skipped",
+      "master_bytes": 729563,
+      "delivery": {
+        "file": "mote_voice_1.wav",
+        "sha256": "a83c89fa5d3d6994c60eb223d458097db9c2bcaf11c919a79d7093945e21689e",
+        "bytes": 460844,
+        "seconds": 4.8,
+        "sample_rate": 48000,
+        "samples": 230400,
+        "channels": 1,
+        "seam_delta": 0,
+        "loudness": {
+          "input_i": "-37.66",
+          "input_tp": "-21.41",
+          "input_lra": "1.40",
+          "input_thresh": "-48.72",
+          "output_i": "-29.89",
+          "output_tp": "-13.73",
+          "output_lra": "0.60",
+          "output_thresh": "-41.39",
+          "normalization_type": "dynamic",
+          "target_offset": "-0.11"
+        }
+      }
+    },
+    {
+      "id": "mote_2",
+      "status": "skipped",
+      "master_bytes": 617968,
+      "delivery": {
+        "file": "mote_voice_2.wav",
+        "sha256": "e3817aa643728d9047365f3d24b43c05f099e87ddda80b66872ea049334e2acc",
+        "bytes": 460844,
+        "seconds": 4.8,
+        "sample_rate": 48000,
+        "samples": 230400,
+        "channels": 1,
+        "seam_delta": 0,
+        "loudness": {
+          "input_i": "-35.72",
+          "input_tp": "-21.41",
+          "input_lra": "1.10",
+          "input_thresh": "-47.01",
+          "output_i": "-29.93",
+          "output_tp": "-15.53",
+          "output_lra": "0.40",
+          "output_thresh": "-41.56",
+          "normalization_type": "dynamic",
+          "target_offset": "-0.07"
+        }
+      }
+    },
+    {
+      "id": "mote_3",
+      "status": "skipped",
+      "master_bytes": 599787,
+      "delivery": {
+        "file": "mote_voice_3.wav",
+        "sha256": "e75bd51d4ac6153ead25ae03db6fd831397117c7c6c0eb80dd6b5087bde4b596",
+        "bytes": 460844,
+        "seconds": 4.8,
+        "sample_rate": 48000,
+        "samples": 230400,
+        "channels": 1,
+        "seam_delta": 0,
+        "loudness": {
+          "input_i": "-35.59",
+          "input_tp": "-21.41",
+          "input_lra": "0.90",
+          "input_thresh": "-46.94",
+          "output_i": "-30.14",
+          "output_tp": "-15.76",
+          "output_lra": "0.30",
+          "output_thresh": "-41.67",
+          "normalization_type": "dynamic",
+          "target_offset": "0.14"
+        }
+      }
+    },
+    {
+      "id": "mote_4",
+      "status": "skipped",
+      "master_bytes": 585367,
+      "delivery": {
+        "file": "mote_voice_4.wav",
+        "sha256": "66091a8cfb250b650019a01653fab5d93c97f55ff434cb6d3533a9330dff1eaf",
+        "bytes": 460844,
+        "seconds": 4.8,
+        "sample_rate": 48000,
+        "samples": 230400,
+        "channels": 1,
+        "seam_delta": 0,
+        "loudness": {
+          "input_i": "-34.99",
+          "input_tp": "-21.41",
+          "input_lra": "1.30",
+          "input_thresh": "-46.35",
+          "output_i": "-29.73",
+          "output_tp": "-16.03",
+          "output_lra": "0.60",
+          "output_thresh": "-41.35",
+          "normalization_type": "dynamic",
+          "target_offset": "-0.27"
+        }
+      }
+    }
+  ]
+}

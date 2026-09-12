@@ -1,0 +1,82 @@
+[
+  {
+    "id": "water_0",
+    "title": "Moonlit Ripples",
+    "artist": "Breathwork VR / Google Lyria",
+    "genre": "Ambient water sound design",
+    "kind": "water",
+    "seconds": 24,
+    "file": "water_lyria_0.wav",
+    "prompt": "A 30-second tranquil ambient instrumental soundscape for meditation: continuous soft lake-water swishes and slow lapping swells with delicate overlapping ripples, flowing liquid atmosphere. A faint warm sustained D-major-compatible synthesizer cushion far behind the water. Unmetered continuous sound with slow natural variations. No individual plopping drops or repeating drip pattern. No beat, no rhythmic clicks, no percussion, no chime strikes, no melody, no articulated piano notes, no vocals or voices. Quiet rounded textures only, no sharp attacks, no dramatic rise."
+  },
+  {
+    "id": "water_1",
+    "title": "Distant Lake Swell",
+    "artist": "Breathwork VR / Google Lyria",
+    "genre": "Ambient water sound design",
+    "kind": "water",
+    "seconds": 25,
+    "file": "water_lyria_1.wav",
+    "prompt": "Create a 30-second purely instrumental ambient sound-design texture for a tranquil VR meditation. No vocals, speech, beat, percussion, impacts, sharp attacks, dramatic changes, or loud passages. Extremely sparse and soft; no song structure. Broad, velvety water swishes and slow lapping swells, occasional tiny bubbles far away, airy and fluid, continuous evolving texture with no recognizable instruments or melody."
+  },
+  {
+    "id": "water_2",
+    "title": "Shoreline Eddies",
+    "artist": "Breathwork VR / Google Lyria",
+    "genre": "Ambient water sound design",
+    "kind": "water",
+    "seconds": 26,
+    "file": "water_lyria_2.wav",
+    "prompt": "Create a 30-second purely instrumental ambient sound-design texture for a tranquil VR meditation. No vocals, speech, beat, percussion, impacts, sharp attacks, dramatic changes, or loud passages. Extremely sparse and soft; no song structure. Small eddies and shimmering watery movement beside a still lake, irregular gentle gurgles with soft spreading ripples, peaceful detailed liquid atmosphere, no recognizable melody."
+  },
+  {
+    "id": "mote_0",
+    "title": "Jade Breathing Light",
+    "artist": "Breathwork VR / Google Lyria",
+    "genre": "Ambient spatial particle cue",
+    "kind": "mote",
+    "seconds": 4.8,
+    "file": "mote_voice_0.wav",
+    "prompt": "Create a 30-second purely instrumental ambient sound-design texture for a tranquil VR meditation. No vocals, speech, beat, percussion, impacts, sharp attacks, dramatic changes, or loud passages. Extremely sparse and soft; no song structure. A little cloud of airy bamboo-like resonance, soft granular wind and warm filtered noise. Very gentle tonal hint around D, no articulated flute melody. Leave open space and preserve a restrained D-major-compatible harmonic color."
+  },
+  {
+    "id": "mote_1",
+    "title": "Violet Veil",
+    "artist": "Breathwork VR / Google Lyria",
+    "genre": "Ambient spatial particle cue",
+    "kind": "mote",
+    "seconds": 4.8,
+    "file": "mote_voice_1.wav",
+    "prompt": "Create a 30-second purely instrumental ambient sound-design texture for a tranquil VR meditation. No vocals, speech, beat, percussion, impacts, sharp attacks, dramatic changes, or loud passages. Extremely sparse and soft; no song structure. A small floating cloud of velvety reversed glass resonance and low shimmering air. Slowly forming and dissolving, muted overtones, no bell strikes. Leave open space and preserve a restrained D-major-compatible harmonic color."
+  },
+  {
+    "id": "mote_2",
+    "title": "Rose Drift",
+    "artist": "Breathwork VR / Google Lyria",
+    "genre": "Ambient spatial particle cue",
+    "kind": "mote",
+    "seconds": 4.8,
+    "file": "mote_voice_2.wav",
+    "prompt": "Create a 30-second purely instrumental ambient sound-design texture for a tranquil VR meditation. No vocals, speech, beat, percussion, impacts, sharp attacks, dramatic changes, or loud passages. Extremely sparse and soft; no song structure. A tiny floating cloud of warm breathy bowed resonance, silk-like moving air and blurred harmonics, delicate and comforting, no articulated notes. Leave open space and preserve a restrained D-major-compatible harmonic color."
+  },
+  {
+    "id": "mote_3",
+    "title": "Amber Seed",
+    "artist": "Breathwork VR / Google Lyria",
+    "genre": "Ambient spatial particle cue",
+    "kind": "mote",
+    "seconds": 4.8,
+    "file": "mote_voice_3.wav",
+    "prompt": "Create a 30-second purely instrumental ambient sound-design texture for a tranquil VR meditation. No vocals, speech, beat, percussion, impacts, sharp attacks, dramatic changes, or loud passages. Extremely sparse and soft; no song structure. A small luminous cloud of warm granular wood resonance, honeyed low overtones and soft rustling air, gently swelling and dissolving, no rhythm. Leave open space and preserve a restrained D-major-compatible harmonic color."
+  },
+  {
+    "id": "mote_4",
+    "title": "Blue Ice Whisper",
+    "artist": "Breathwork VR / Google Lyria",
+    "genre": "Ambient spatial particle cue",
+    "kind": "mote",
+    "seconds": 4.8,
+    "file": "mote_voice_4.wav",
+    "prompt": "Create a 30-second purely instrumental ambient sound-design texture for a tranquil VR meditation. No vocals, speech, beat, percussion, impacts, sharp attacks, dramatic changes, or loud passages. Extremely sparse and soft; no song structure. A little floating cloud of cool soft crystalline air, distant rounded harmonics and smooth filtered wind, like light passing through ice, no piercing highs or chime attacks. Leave open space and preserve a restrained D-major-compatible harmonic color."
+  }
+]
