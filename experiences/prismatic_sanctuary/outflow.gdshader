@@ -10,31 +10,48 @@ uniform float phase_seconds;
 uniform float breath_fill;
 uniform float intensity = 1.0;
 varying float opacity;
+varying float halo;
+varying float progress;
 varying vec3 tint;
+float hash(float n) { return fract(sin(n*127.1)*43758.5453); }
+vec3 path(float t,float id) {
+    // Bounded random bends stay fixed through each exhalation and only change invisibly.
+    float cycle = floor(elapsed/16.0);
+    float seed = id+cycle*19.0;
+    float angle = id*6.283185/16.0+(hash(seed)-.5)*.17;
+    vec3 radial = head_right*cos(angle)+head_up*sin(angle);
+    vec3 tangent = -head_right*sin(angle)+head_up*cos(angle);
+    float reach = (4.5+hash(seed+6.0)*1.3)*(1.0-breath_fill*.40);
+    vec3 end = mouth_position+head_forward*(3.5+hash(seed+3.0)*1.8)+radial*reach;
+    vec3 c1 = mouth_position+head_forward*(1.1+hash(seed+7.0)*.4)+radial*.07;
+    vec3 c2 = mouth_position+head_forward*(3.8+hash(seed+9.0)) + radial*reach*.45 + tangent*(hash(seed+12.0)-.5)*1.7;
+    float q = 1.0-t;
+    return q*q*q*mouth_position+3.0*q*q*t*c1+3.0*q*t*t*c2+t*t*t*end;
+}
 void vertex() {
+    float t = VERTEX.x;
     float id = INSTANCE_CUSTOM.x;
-    float direction = mod(id,4.0);
-    float slot = floor(id/4.0);
-    // Every point has a fixed emission time, and advances at the same unhurried rate.
-    float birth = 8.0+slot/127.0*3.15;
-    float age = phase_seconds-birth;
-    float u = clamp(age/2.7,0.0,1.0);
-    vec3 side = direction<1.0 ? head_right : (direction<2.0 ? -head_right : (direction<3.0 ? head_up : -head_up));
-    vec3 forward = mouth_position+head_forward*(u*4.0);
-    float spread = smoothstep(.28,1.0,u);
-    vec3 center = forward+side*spread*(5.1*(1.0-breath_fill*.40));
-    float scatter = .012+sin(u*3.141593)*.08;
-    center += (head_right*sin(id*2.4+u*9.0)+head_up*cos(id*1.9+u*6.0))*scatter;
-    vec3 view = (VIEW_MATRIX*vec4(center,1)).xyz;
-    float size = .004+u*.027;
-    POSITION = PROJECTION_MATRIX*vec4(view+vec3(VERTEX.xy*size,0),1);
-    float emission = smoothstep(8.0,8.55,birth)*(1.0-smoothstep(10.45,11.2,birth));
-    opacity = emission*smoothstep(0.0,.12,age)*(1.0-smoothstep(2.05,2.7,age))*intensity;
-    opacity *= smoothstep(.08,.18,distance(center,head_position));
-    tint = mix(vec3(.055,.40,1.0),vec3(.13,.76,1.0),INSTANCE_CUSTOM.y);
+    halo = INSTANCE_CUSTOM.y;
+    vec3 center = path(t,id);
+    vec3 tangent = normalize(path(min(.9999,t+.002),id)-path(max(.0001,t-.002),id));
+    vec3 right = cross(tangent,head_up);
+    if (length(right)<.01) right = head_right;
+    right = normalize(right);
+    vec3 up = normalize(cross(right,tangent));
+    float radius = mix(.009,.030,halo)*mix(.2,1.0,smoothstep(.0,.40,t));
+    center += (right*VERTEX.y+up*VERTEX.z)*radius;
+    POSITION = PROJECTION_MATRIX*VIEW_MATRIX*vec4(center,1);
+    // A leading front travels outward; the tail clears before the next green lead-in.
+    float front = (phase_seconds-8.0)/1.65;
+    float gate = smoothstep(8.0,8.65,phase_seconds)*(1.0-smoothstep(11.1,12.6,phase_seconds));
+    opacity = gate*(1.0-smoothstep(front-.07,front+.07,t))*intensity;
+    opacity *= smoothstep(.10,.32,distance(center,head_position));
+    progress = t;
+    tint = .52+.48*cos(6.283185*(vec3(0,.333,.667)+id/16.0+t*.30));
 }
 void fragment() {
-    vec2 p = UV*2.0-1.0;
-    ALBEDO = tint;
-    ALPHA = exp(-dot(p,p)*3.5)*opacity*.60;
+    float wave = .5+.5*cos(progress*6.283185*3.0-elapsed*6.283185*.8);
+    float packet = .26+.74*pow(wave,3.0);
+    ALBEDO = mix(tint,tint*.65,halo);
+    ALPHA = opacity*packet*mix(.70,.055,halo);
 }

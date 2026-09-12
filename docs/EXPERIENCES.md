@@ -1,13 +1,34 @@
+# Version 2.4 — wordless themed worlds
+
+Experiences 3–8 now have different visual breath languages, full surrounding particle ecologies, and stronger overhead compositions. All are eight minutes, with their existing individual rhythms. Words remain only in the selector and deliberate exit confirmation.
+
+| World | Visual breath language | Surrounding scene |
+|---|---|---|
+| Fractal Garden | A six-fold particle iris opens on inhale and closes on exhale. | A sculpted kaleidoscope of evolving Mandelbrot fields |
+| Tidal Origami | A particle lotus lifts and opens liquid petals during inhale, then drains inward on release. | Suspended liquid loops and breathing water petals |
+| Cloud Atelier | A soft particle vortex expands and contracts with the breath. | Layered cloud islands with a breathing vortex |
+| Neural Constellation | A twelve-arm dendritic particle crown gathers and radiates breath signals. | A deeper living network of converging signals |
+| Circuit Garden | Seven nested particle capacitor plates charge and expand during inhale, releasing amber current on exhale. | Nested circuit assemblies with flowing charge |
+| Pilgrim Tides | A ring of twenty-four tiny particle figures gathers and raises its arms on inhale, then opens on release. | Braided processions and a gathering of lantern figures |
+
+Four mismatched scores have been replaced: recursive glass harmonics for Fractal Garden, airy harmonic swells for Cloud Atelier, responsive cellular tones for Neural Constellation, and warm oscillator sequences for Circuit Garden. The aquatic and humanist chamber scores remain. Each is one mastered arrangement, not an extra overlay.
+
+Prismatic Sanctuary adds sixteen curved rainbow outflow beams and directional traveling pulses on both flows. Fog is lighter and instruction labels are removed. The bright white destination core persists through every phase; its surrounding rays grow during the full hold and vanish during exhale over 500 ms.
+
+The review found and corrected a transparent-vault ordering bug that hid near fractal particles, excessive fine fractal contrast, and oversized near-face particles. All six reclining compositions now show their focal cue and multiple surrounding depth layers. Desktop evidence cannot establish subjective stereo comfort.
+
+## Previous release history
+
 # Eight worlds, one gentle breath
 
-Each world supports reclining, lasts exactly eight minutes, and renders tracked particle hands. Prismatic Sanctuary uses slow forward optic flow toward a distant star; the other seven worlds retain the shared particle orb, near-mouth breathing paths and delayed gaze following. Breathing sounds—not a separate visual metronome—provide the phase clock. The original Aurora Lake retains its approved outgoing particles and outbreath recording.
+Each world supports reclining, lasts exactly eight minutes, and renders tracked particle hands. Prismatic Sanctuary uses slow forward optic flow toward a distant star; Aurora Lake retains its golden orb, while experiences 3–8 now have distinct wordless particle sculptures and delayed gaze following. Breathing sounds—not a separate visual metronome—provide the phase clock. The original Aurora Lake retains its approved outgoing particles and outbreath recording.
 
 The new worlds were authored in seven separate implementation subsessions. Each owns a small procedural scene layer and consumes the same breath state. All were rendered in contrasting phases and reclining views before integration; review findings drove a second pass where necessary.
 
 | Experience | Creative direction | Seconds: in / full pause / out / empty pause | Cycles | Music direction |
 |---|---|---:|---:|---|
 | Aurora Lake | Close layered auroras above irregular breathing waves; a giving and recovering golden particle orb | 4 / 2 / 8 / 0 | 34 + 4s settling | Warm evolving ambient, positional water and particle voices |
-| Prismatic Sanctuary | A gaze-following geometric tunnel: sixteen shape families, green plasma inhale, four-way blue outflow and a bright white center | 4 / 4 / 4 / 4 | 30 | 90 BPM electronic trance: warm synth textures, rounded kick, bass and arpeggios |
+| Prismatic Sanctuary | A gaze-following geometric tunnel: sixteen shape families, green plasma inhale, sixteen rainbow outflow beams and a bright white center | 4 / 4 / 4 / 4 | 30 | 90 BPM electronic trance: warm synth textures, rounded kick, bass and arpeggios |
 | Fractal Garden | Actual Barnsley fern and tetrahedral IFS structures; seedpods gather, branch and dissolve | 6 / 0 / 6 / 0 | 40 | Organic woodland electroacoustic textures |
 | Tidal Origami | Water folds into impossible suspended arches and smaller floating liquid forms | 6 / 2 / 8 / 0 | 30 | Rounded resonant bowls, fluid glass and soft waterlike tones |
 | Cloud Atelier | Clouds sculpt a breathing vault; irregular stratus islands and nearby whorls part and gather | 5 / 0 / 5 / 0 | 48 | Airborne neoclassical ambient and soft suspended strings |

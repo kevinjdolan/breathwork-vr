@@ -50,6 +50,7 @@ var _review_recline: bool = false
 var _perf_elapsed: float = 0.0
 var _perf_frames: int = 0
 var _perf_worst: float = 0.0
+var _theme_breath: ThemeBreath
 var _spatial_audio: Array[AudioStreamPlayer3D] = []
 var _visual_materials: Array[ShaderMaterial] = []
 var _ripple_origin: Vector2 = Vector2.ZERO
@@ -411,6 +412,8 @@ func _push_visuals(_delta: float) -> void:
             player.volume_db = (-14.0 + release_wave * 2.0 + 1.5 * sin(elapsed * 0.11 + float(index) * 2.2)) + audio_fade
     if experience_layer != null and experience_layer.is_inside_tree():
         experience_layer.update_experience({"elapsed": elapsed, "phase_seconds": clock.seconds, "intensity": 1.0 - fade, "breath_fill": clock.breath_fill, "inhale_t": clock.inhale_t, "exhale_t": clock.exhale_t, "is_inhale": clock.is_inhale, "is_exhale": clock.is_exhale, "is_pause": clock.is_pause, "head_position": camera.global_position, "mouth_position": mouth.global_position, "orb_position": orb.global_position, "head_basis": camera.global_basis})
+    if _theme_breath != null and _theme_breath.is_inside_tree():
+        _theme_breath.update_experience({"elapsed":elapsed,"phase_seconds":clock.seconds,"intensity":1.0-fade,"breath_fill":clock.breath_fill,"head_position":camera.global_position,"mouth_position":mouth.global_position,"orb_position":orb.global_position,"head_basis":camera.global_basis})
     (fade_mesh.material_override as ShaderMaterial).set_shader_parameter("fade", fade)
 
 func _update_mote_audio(cluster: int, state: Dictionary) -> void:
@@ -583,6 +586,15 @@ func _configure_experience() -> void:
         exhale.hide()
         exhale.emitting = false
         breath.volume_db = -26.0
+    if experience_id in ThemeBreath.IDS:
+        orb.hide()
+        exhale.hide()
+        exhale.emitting = false
+        _theme_breath = ThemeBreath.new()
+        _theme_breath.theme = ThemeBreath.IDS.find(experience_id)
+        var r: Array = experience["rhythm"]
+        _theme_breath.rhythm = Vector4(r[0],r[1],r[2],r[3])
+        get_parent().add_child.call_deferred(_theme_breath)
     for path: String in ["Water", "NearAuroras", "FractalField", "AmbientMotes"]:
         var visual: Node3D = get_node("../" + path)
         visual.hide()

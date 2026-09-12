@@ -1,3 +1,36 @@
+# Version 2.4 verification
+
+The full `tools/verify.sh` run passed: engine import, original Quest 2/3 contracts, tracked hands, session completion, all eight experience rhythms, menu integration, palm wave, Prismatic source locking/travel, and 10 independent Python audio/asset tests (97.445 seconds). The suite additionally verifies distinct theme routing, hidden legacy cues, absence of world instruction labels, reclined head axes and mouth targets, and a bounded integrated mesh count. Python compilation and `git diff --check` passed; this repository has no configured code formatter.
+
+Twenty-four integrated Mobile Vulkan renders cover inhale, exhale, and an 80-degree reclining view. Additional Prismatic phase captures show both traveling flows, hold growth, and the persistent white core through exhale/empty pause. A second Mandelbrot passage at 250 seconds confirms visual variation. Real renderer logs contain no script or shader errors.
+
+Four replaced scores were measured at 480 seconds, stereo 48 kHz, approximately −20 LUFS, and true peaks below −1 dBTP after encoding. Original Aurora outbreath hashes still match. Automated full-score audits raised no harsh-attack, voice, startling-transition or ominous-tension flags. These audits are not reliable instrument identification and do not replace listening in the headset.
+
+Integrated static mesh totals (including shared scene geometry; GPU particle counts are separate):
+
+| World | Triangles |
+|---|---:|
+| Fractal Garden | 210,252 |
+| Tidal Origami | 137,500 |
+| Cloud Atelier | 88,816 |
+| Neural Constellation | 401,644 |
+| Circuit Garden | 240,532 |
+| Pilgrim Tides | 294,412 |
+
+Every revised world adds 16,896 instanced focal/flow/ecology particles. Tidal Origami also uses 7,200 GPU droplets. These counts are budgets, not timing measurements.
+
+The signature-verified ARM64 debug package is **2.4.0 / code 12**, package `com.kevin.breathworkvr`. Installation and cold launch on the physical Quest 3 succeeded. The package includes all four Mandelbrot fields and shared theme shaders/scripts.
+
+APK bytes: 147660131; SHA-256: `6c29da4321f5795835222060b6b3e44df8fcc9cdbe7d43649449121b2ef53f9f`.
+
+## Physical Quest 3 smoke checks
+
+All seven updated experiences (2–8) were cold-launched and entered successfully with clean script/shader logs. A live stereo capture also verifies the Mandelbrot environment, its particle iris, and nearby recursive crystals on the device. The final app state is the eight-experience selector.
+
+First ten-second process samples were 81.3, 82.3, 82.8, 84.1, 83.4, 82.3 and 82.6 FPS for experiences 2–8, respectively. Each included an initial 723–831 ms loading/compilation stall. Proximity sleep stopped the unworn headset after roughly twelve seconds, so these are startup smoke samples, **not sustained performance results**. Late screenshot attempts while asleep returned empty files and are not visual evidence. Full sessions, moving-head stereo comfort, and active hand tracking under peak load still require a worn-headset review.
+
+## Previous release records
+
 # v2.0 verification record
 
 The eight-experience suite was reviewed with Godot 4.6.3 using the Mobile Vulkan renderer on the development Mac. This is desktop rendering evidence, not a measurement of stereoscopic comfort or sustained Quest frame rate.

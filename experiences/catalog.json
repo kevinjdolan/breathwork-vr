@@ -39,7 +39,7 @@
   {
     "id": "fractal_garden",
     "title": "Fractal Garden",
-    "description": "Infinite branching ferns unfurl around you",
+    "description": "A sculpted kaleidoscope of evolving Mandelbrot fields",
     "rhythm": [
       6,
       0,
@@ -47,17 +47,17 @@
       0
     ],
     "rhythm_label": "Equal breathing",
-    "color": "94c998",
+    "color": "ac91e7",
     "duration": 480,
     "music": "assets/audio/fractal_garden.ogg",
-    "artist": "Breathwork VR / Google Lyria",
-    "genre": "Equal breathing ambient",
-    "music_direction": "Organic woodland electroacoustic ambient: breathy bass flute without breath hiss, felt piano isolated low notes, bowed wooden resonance and warm cello harmonics, slowly branching melodies in pentatonic harmony."
+    "artist": "Breathwork VR",
+    "genre": "Recursive harmonic ambient",
+    "music_direction": "Recursive glass harmonics in nested three- and six-note canons, beneath slowly unfolding harmonic fields."
   },
   {
     "id": "tidal_origami",
     "title": "Tidal Origami",
-    "description": "Liquid ribbons fold into impossible arches",
+    "description": "Suspended liquid loops and breathing water petals",
     "rhythm": [
       6,
       2,
@@ -75,7 +75,7 @@
   {
     "id": "cloud_atelier",
     "title": "Cloud Atelier",
-    "description": "Cloud rivers open into a weightless vault",
+    "description": "Layered cloud islands with a breathing vortex",
     "rhythm": [
       5,
       0,
@@ -86,14 +86,14 @@
     "color": "dacbbb",
     "duration": 480,
     "music": "assets/audio/cloud_atelier.ogg",
-    "artist": "Breathwork VR / Google Lyria",
-    "genre": "Balanced breathing ambient",
-    "music_direction": "Airborne neoclassical ambient: feather-soft muted strings, distant celeste with softened attacks, airy wordless synthesizer pads (strictly no human voices), suspended major ninth chords, slow drifting lightness."
+    "artist": "Breathwork VR",
+    "genre": "Airborne harmonic ambient",
+    "music_direction": "Weightless sustained string-like harmonics, airy vowel-free glass tones, long overlapping swells and no rhythmic percussion."
   },
   {
     "id": "neural_constellation",
     "title": "Neural Constellation",
-    "description": "Gentle signals travel through a living web",
+    "description": "A deeper living network of converging signals",
     "rhythm": [
       5,
       0,
@@ -104,14 +104,14 @@
     "color": "bd9add",
     "duration": 480,
     "music": "assets/audio/neural_constellation.ogg",
-    "artist": "Breathwork VR / Google Lyria",
-    "genre": "Extended exhale ambient",
-    "music_direction": "Intimate bioelectronic ambient: rounded warm sine plucks with very slow softened attacks, low velvet viola, tiny distant harmonic echoes that answer irregularly, rich cellular evolving pads. Organic connectedness and stillness."
+    "artist": "Breathwork VR",
+    "genre": "Cellular electronic ambient",
+    "music_direction": "Rounded cellular sine resonances answer across the stereo field over an evolving warm harmonic network."
   },
   {
     "id": "circuit_garden",
     "title": "Circuit Garden",
-    "description": "Soft currents wind through suspended circuits",
+    "description": "Nested circuit assemblies with flowing charge",
     "rhythm": [
       4,
       0,
@@ -122,14 +122,14 @@
     "color": "72ccb4",
     "duration": 480,
     "music": "assets/audio/circuit_garden.ogg",
-    "artist": "Breathwork VR / Google Lyria",
-    "genre": "Gentle release ambient",
-    "music_direction": "Warm analog electronic ambient: detuned vintage polysynth, soft electric piano, low rounded oscillator resonances, extremely sparse gentle filtered arpeggio fragments with no beat. Electricity as warmth, no buzz, no glitch, no sharp sparks."
+    "artist": "Breathwork VR",
+    "genre": "Warm analogue ambient",
+    "music_direction": "Warm analogue oscillator chords and softly charged, slowly sequenced electronic tones. No acoustic instruments or percussion."
   },
   {
     "id": "pilgrim_tides",
     "title": "Pilgrim Tides",
-    "description": "Small figures gather into flowing constellations",
+    "description": "Braided processions and a gathering of lantern figures",
     "rhythm": [
       6,
       2,

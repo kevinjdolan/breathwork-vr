@@ -9,7 +9,7 @@ varying vec3 person_color;
 varying float face_light;
 varying float distance_fade;
 void vertex() {
-    float group = floor(INSTANCE_CUSTOM.r * 8.0 + 0.01);
+    float group = floor(INSTANCE_CUSTOM.r * 16.0 + 0.01);
     float seed = INSTANCE_CUSTOM.g;
     float phase = seed + elapsed * (0.004 + 0.00017 * group);
     // Stable density waves gather the procession without changing walking speed abruptly.

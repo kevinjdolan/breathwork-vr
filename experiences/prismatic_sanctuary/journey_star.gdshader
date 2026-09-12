@@ -14,8 +14,8 @@ void vertex() {
     float a = INSTANCE_CUSTOM.y*6.283185;
     float r = pow(INSTANCE_CUSTOM.z,2.4)*.42;
     vec3 offset = vec3(cos(a)*r,sin(a)*r,0);
-    float size = .42;
-    opacity = .75;
+    float size = 1.15;
+    opacity = .85;
     if (i>63.0) {
         float side = floor((i-64.0)/64.0);
         float t = mod(i-64.0,64.0)/63.0;
@@ -26,10 +26,13 @@ void vertex() {
         size = .28*(1.0-t*.65);
         opacity = .65*(1.0-t);
     }
-    if (i<4.0) { offset = vec3(0); size = 3.8; opacity = .035; }
-    offset *= star_radius;
-    size *= star_radius;
-    opacity *= step(.001,star_radius);
+    if (i>63.0) {
+        offset *= star_radius;
+        size *= star_radius;
+        opacity *= step(.001,star_radius);
+    }
+    // The white destination core remains visible even when its breath halo contracts.
+    if (i<4.0) { offset = vec3(0); size = 6.0; opacity = .055; }
     vec3 world = star_position+mat3(journey_frame)*offset;
     vec3 view = (VIEW_MATRIX*vec4(world,1)).xyz;
     POSITION = PROJECTION_MATRIX*vec4(view+vec3(VERTEX.xy*size,0),1);

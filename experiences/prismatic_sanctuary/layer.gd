@@ -12,7 +12,6 @@ var _anchored: bool = false
 var _aim: Quaternion = Quaternion.IDENTITY
 var _last_time: float = -1.0
 var _focal: Vector3 = Vector3(0,1.4,-60)
-var _cue: Label3D
 var _counts: Array[int] = []
 var _source_index: int = -1
 var _source_cycle: int = -1
@@ -50,14 +49,6 @@ func _ready() -> void:
     _points("VaultFilaments",8192,"vault_filaments.gdshader")
     _points("DistantStar",320,"journey_star.gdshader")
     _build_plasma()
-    _points("BlueOutflow",512,"outflow.gdshader")
-    _outflow = get_node("BlueOutflow")
-    _cue = Label3D.new()
-    _cue.font_size = 64
-    _cue.pixel_size = .025
-    _cue.outline_size = 0
-    _cue.modulate = Color(.48,.68,.79)
-    add_child(_cue)
     print("VRMED PRISMATIC families=16 objects=128 vault_tiles=32768 filaments=8192 triangles=",_counts.reduce(func(a: int,b: int) -> int: return a+b,0)*8)
 
 func _material(path: String) -> ShaderMaterial:
@@ -151,11 +142,6 @@ func update_experience(state: Dictionary) -> void:
         material.set_shader_parameter("breath_fill",fill)
         material.set_shader_parameter("phase_seconds",phase)
         material.set_shader_parameter("intensity",visibility)
-    var stage: int = mini(3,int(phase/4.0))
-    _cue.text = ["Breathe in", "Hold gently", "Breathe out", "Rest"][stage]
-    _cue.global_transform = Transform3D(_journey.basis,_focal+_journey.basis.y*(-3.4)+_journey.basis.z*1.0)
-    var age: float = fposmod(phase,4.0)
-    _cue.modulate.a = smoothstep(0.0,.45,age)*(1.0-smoothstep(3.55,4.0,age))*visibility*.76
 
 static func star_radius(phase: float) -> float:
     if phase<4.0:
@@ -226,3 +212,17 @@ func _build_plasma() -> void:
     _beams.material_override = _material("plasma.gdshader")
     _beams.custom_aabb = AABB(Vector3(-120,-120,-120),Vector3(240,240,240))
     add_child(_beams)
+    var outgoing: MultiMesh = MultiMesh.new()
+    outgoing.transform_format = MultiMesh.TRANSFORM_3D
+    outgoing.use_custom_data = true
+    outgoing.mesh = instances.mesh
+    outgoing.instance_count = 32 # Sixteen paths, each with a core and soft halo.
+    for index: int in range(32):
+        outgoing.set_instance_transform(index,Transform3D.IDENTITY)
+        outgoing.set_instance_custom_data(index,Color(float(index%16),float(index/16),0,0))
+    _outflow = MultiMeshInstance3D.new()
+    _outflow.name = "RainbowOutflow"
+    _outflow.multimesh = outgoing
+    _outflow.material_override = _material("outflow.gdshader")
+    _outflow.custom_aabb = _beams.custom_aabb
+    add_child(_outflow)

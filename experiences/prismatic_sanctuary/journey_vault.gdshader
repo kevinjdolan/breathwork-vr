@@ -23,7 +23,7 @@ void vertex() {
     POSITION = PROJECTION_MATRIX*VIEW_MATRIX*journey_frame*vec4(center,1);
     surface_uv = vec2(a/VAULT_TAU*12.0,material_z*.25);
     relief = (radius/(1.0-breath_fill*.40)-4.75)/3.0;
-    opacity = (1.0-smoothstep(12.0,32.0,-depth))*smoothstep(-56.0,-47.0,depth)*(1.0-smoothstep(5.0,8.0,depth))*intensity;
+    opacity = (1.0-smoothstep(19.0,44.0,-depth))*smoothstep(-56.0,-47.0,depth)*(1.0-smoothstep(5.0,8.0,depth))*intensity;
 }
 void fragment() {
     if (opacity<.002) discard;

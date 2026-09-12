@@ -1,3 +1,9 @@
+# Version 2.4 revision
+
+Sixteen rainbow core-and-halo tubes leave the tracked mouth along bounded randomized cubic curves. A front travels outward over 1.65 seconds; broad pulses travel along both green inhale and rainbow exhale paths. Outflow fades before the next inhale lead-in. All instruction labels are removed. Directional haze opacity is reduced by 65%, and geometric fog fades farther away (19–44 m). A sightline fade clears distant objects around the permanent bright white destination core. Only its surrounding rays obey the previous 500 ms hold-growth/exhale-collapse envelope.
+
+## Previous implementation record
+
 # Prismatic Sanctuary — flowing geometric trance
 
 Eight minutes of slow forward optic flow through 128 floating chromatic objects and a 32,768-tile relief vault with 8,192 floating filament particles. The tracked camera remains physically correct: the environment moves backward at 0.55 meters/second after a five-second eased start. The initial head orientation defines the journey axis, including when lying down. Two cascaded 3.2-second quaternion filters then turn the complete tunnel toward the current gaze, with an eased onset and approximately 16 seconds to settle after a large turn. Forward optic flow always follows that axis; the tracked camera itself is never animated.

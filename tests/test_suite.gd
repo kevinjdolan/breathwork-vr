@@ -49,6 +49,24 @@ func run() -> void:
         director.fade = 0.0
         director._push_visuals(0.016)
         check(director.experience_layer != null or entry["id"] == "aurora_lake", "Layer instantiated")
+        if entry["id"] in ThemeBreath.IDS:
+            var cue: ThemeBreath = director._theme_breath
+            check(cue != null and cue.is_inside_tree(), "Theme cue is integrated")
+            check(cue.theme == ThemeBreath.IDS.find(entry["id"]), "Every world selects its own visual breath language")
+            check(not director.orb.visible and not director.exhale.visible, "Theme cue replaces the shared golden orb and blue outflow")
+            check(cue.find_children("*", "Label3D").is_empty() and director.experience_layer.find_children("*", "Label3D").is_empty(), "World and breathing cues contain no words")
+            director.camera.get_parent().position = Vector3(0.3,0.65,-0.2)
+            director.camera.rotation.x = deg_to_rad(85)
+            director._gaze_direction = -director.camera.global_basis.z
+            director._follow_orb(10.0)
+            director._push_visuals(.016)
+            var material: ShaderMaterial = cue.get_node("ThemedBreathFlow").material_override
+            check(material.get_shader_parameter("head_forward").distance_to(-director.camera.global_basis.z)<.001, "Breath paths use the reclined head basis")
+            check(material.get_shader_parameter("mouth_position").distance_to(director.mouth.global_position)<.001, "Breath reaches the tracked mouth")
+            check(material.get_shader_parameter("focus_position").distance_to(director.camera.global_position)>1.0, "Focal sculpture stays outside the face")
+            var triangle_count: int = count_triangles(scene)
+            check(triangle_count<900000, "Per-world geometry budget below 900k triangles")
+            print("THEME BUDGET ",entry["id"]," triangles=",triangle_count)
         if entry["id"] == "aurora_lake":
             check(scene.get_node("WorldEnvironment").environment.background_mode == Environment.BG_SKY, "Lake sky survives returning from variants")
         if entry["id"] == "prismatic_sanctuary":
@@ -71,7 +89,10 @@ func run() -> void:
     menu._anchor()
     check(menu.panel.global_position.distance_to(camera.global_position - camera.global_basis.z * 2.5) < 0.001, "Selector anchors in reclining gaze")
     current_scene = menu
-    menu._choose(5)
+    var key_event: InputEventKey = InputEventKey.new()
+    key_event.keycode = KEY_6
+    key_event.pressed = true
+    menu._unhandled_input(key_event)
     await create_timer(0.9).timeout
     var selected_scene: Node = current_scene
     check(selected_scene != null and selected_scene.has_node("Director"), "Selector loads the experience scene")
@@ -85,3 +106,13 @@ func run() -> void:
     await process_frame
     print("EXPERIENCE SUITE: ", "PASS" if failures == 0 else "FAIL")
     quit(failures)
+
+func count_triangles(node: Node) -> int:
+    var total: int = 0
+    if node is MultiMeshInstance3D and node.multimesh != null and node.multimesh.mesh != null:
+        total += node.multimesh.mesh.get_faces().size()/3 * node.multimesh.instance_count
+    elif node is MeshInstance3D and node.mesh != null:
+        total += node.mesh.get_faces().size()/3
+    for child: Node in node.get_children():
+        total += count_triangles(child)
+    return total

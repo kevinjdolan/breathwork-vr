@@ -31,17 +31,17 @@ func _build_people() -> void:
     multi.use_colors = true
     multi.use_custom_data = true
     multi.mesh = mesh
-    multi.instance_count = 640
+    multi.instance_count = 1920
     var rng := RandomNumberGenerator.new()
     rng.seed = 76213
     var palette := [Color(0.78, 0.83, 0.82), Color(0.61, 0.81, 0.76), Color(0.83, 0.69, 0.51), Color(0.65, 0.67, 0.85)]
-    for i in range(640):
-        var group := i / 80
+    for i in range(1920):
+        var group := i / 120
         multi.set_instance_transform(i, Transform3D.IDENTITY)
-        multi.set_instance_custom_data(i, Color(float(group) / 8.0, (float(i % 80) + rng.randf() * 0.5) / 80.0, rng.randf(), rng.randf()))
+        multi.set_instance_custom_data(i, Color(float(group) / 16.0, (float(i % 120) + rng.randf() * 0.5) / 120.0, rng.randf(), rng.randf()))
         multi.set_instance_color(i, palette[(i / 7 + group) % 4])
     var node := MultiMeshInstance3D.new()
-    node.name = "QuietProcessions640"
+    node.name = "QuietProcessions1920"
     node.multimesh = multi
     node.custom_aabb = AABB(Vector3(-15, -4, -18), Vector3(30, 20, 36))
     node.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
@@ -55,7 +55,7 @@ func _box(surface: SurfaceTool, center: Vector3, size: Vector3) -> void:
 func _build_ribbons() -> void:
     var surface := SurfaceTool.new()
     surface.begin(Mesh.PRIMITIVE_TRIANGLES)
-    for group in range(8):
+    for group in range(16):
         for step in range(192):
             for corner in [Vector2(0, 0), Vector2(1, 0), Vector2(1, 1), Vector2(0, 0), Vector2(1, 1), Vector2(0, 1)]:
                 surface.set_uv(Vector2((float(step) + corner.x) / 192.0, corner.y))

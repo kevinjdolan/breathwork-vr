@@ -15,9 +15,9 @@ const PALETTE = [Color(0.35, 0.63, 0.68), Color(0.63, 0.48, 0.73), Color(0.79, 0
 func _ready() -> void:
     _rng.seed = 85319
     # A canopy of actual volumes, with open breathing space directly at the face.
-    for i in range(27):
+    for i in range(48):
         var theta := float(i) * 2.39996
-        var elevation := lerpf(-0.23, 1.48, float(i) / 26.0)
+        var elevation := lerpf(-0.90, 1.48, float(i) / 47.0)
         var radius := _rng.randf_range(4.0, 8.9)
         if i == 7 or i == 14:
             radius = 3.3
@@ -36,20 +36,20 @@ func _ready() -> void:
         for j in range(i + 1, _centers.size()):
             if _centers[i].distance_to(_centers[j]) < 5.6:
                 neighbors.append(j)
-        for j in neighbors.slice(0, 3):
+        for j in neighbors.slice(0, 4):
             _axon(_centers[i], _centers[j], i, j)
     _build_instances()
 
 func _neuron(center: Vector3, index: int) -> void:
     var color: Color = PALETTE[1] if index == 7 else PALETTE[index % PALETTE.size()]
-    var grain_count := 180 if index in [4, 7, 14] else 99
+    var grain_count := 240 if index in [4, 7, 14] else 160
     for i in range(grain_count):
         var theta := float(i) * 2.39996
         var y := 1.0 - 2.0 * (float(i) + 0.5) / float(grain_count)
         var radius := _rng.randf_range(0.065, 0.19)
         var direction := Vector3(sqrt(1.0 - y*y) * cos(theta), y, sqrt(1.0-y*y) * sin(theta))
-        _point(center + direction * radius, _rng.randf_range(0.027, 0.049), color.lerp(Color(0.9, 0.81, 0.68), 0.24), Color(float(index) / 27.0, _rng.randf(), 0, 1))
-    for arm in range(6):
+        _point(center + direction * radius, _rng.randf_range(0.027, 0.049), color.lerp(Color(0.9, 0.81, 0.68), 0.24), Color(float(index) / 48.0, _rng.randf(), 0, 1))
+    for arm in range(8):
         var direction := Vector3(_rng.randf_range(-1, 1), _rng.randf_range(-1, 1), _rng.randf_range(-1, 1)).normalized()
         var length_value := _rng.randf_range(0.65, 1.2)
         var end := center + direction * length_value
@@ -59,16 +59,16 @@ func _neuron(center: Vector3, index: int) -> void:
             var fork := end + (direction + Vector3(side * 0.55, 0.27, side * 0.2)).normalized() * length_value * 0.48
             _curve(end, fork, bend * side * 0.5, 0.005, color, index, 6)
             for p in range(4):
-                _point(fork + Vector3(_rng.randf_range(-0.045, 0.045), _rng.randf_range(-0.045, 0.045), _rng.randf_range(-0.045, 0.045)), 0.014, color, Color(float(index)/27.0, _rng.randf(), 0.6, 1))
+                _point(fork + Vector3(_rng.randf_range(-0.045, 0.045), _rng.randf_range(-0.045, 0.045), _rng.randf_range(-0.045, 0.045)), 0.014, color, Color(float(index)/48.0, _rng.randf(), 0.6, 1))
 
 func _axon(start: Vector3, end: Vector3, i: int, j: int) -> void:
     var bend := (end - start).cross(Vector3.UP).normalized() * _rng.randf_range(-0.6, 0.6) + Vector3.UP * 0.3
     var color: Color = PALETTE[i % 4].lerp(PALETTE[j % 4], 0.5)
     _curve(start, end, bend, 0.011, color, i, 22)
-    for k in range(18):
-        var t := float(k) / 17.0
+    for k in range(36):
+        var t := float(k) / 35.0
         var p := start.lerp(end, t) + bend * sin(PI*t)
-        _point(p, 0.023, color.lerp(Color(0.8, 0.85, 0.81), 0.3), Color(float(i)/27.0, t, 1.0, 1))
+        _point(p, 0.023, color.lerp(Color(0.8, 0.85, 0.81), 0.3), Color(float(i)/48.0, t, 1.0, 1))
 
 func _curve(start: Vector3, end: Vector3, bend: Vector3, width: float, color: Color, index: int, steps: int) -> void:
     for i in range(steps):
@@ -83,7 +83,7 @@ func _curve(start: Vector3, end: Vector3, bend: Vector3, width: float, color: Co
         var basis := Basis(right, direction, right.cross(direction)).scaled_local(Vector3(width, p.distance_to(q), width))
         _segments.append(Transform3D(basis, (p+q)*0.5))
         _segment_colors.append(color)
-        _segment_data.append(Color(float(index)/27.0, (a+b)*0.5, _rng.randf(), 1))
+        _segment_data.append(Color(float(index)/48.0, (a+b)*0.5, _rng.randf(), 1))
 
 func _point(p: Vector3, size: float, color: Color, data: Color) -> void:
     _points.append(Transform3D(Basis.IDENTITY.scaled(Vector3.ONE * size), p))

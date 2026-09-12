@@ -1,3 +1,13 @@
+# Circuit Garden — version 2.4
+
+Seven nested particle capacitor plates charge and expand during inhale, releasing amber current on exhale. Thirty assemblies surround the head at several depths, including roofs and far spherical panels. Four or five routed traces per link, nested capacitors, 270 chips and 2,592 charge seeds enrich the circuitry. The music is a single warm oscillator arrangement with slow electronic sequences.
+
+All focal paths use tracked head up/right/forward vectors and the tracked mouth target. The focal sculpture inherits the slow gaze-following position; it works upright or reclined. Each world adds 3,072 focal particles, 1,536 directed breath particles and 12,288 surrounding particles in 48 compact clusters. Clusters gather, drift, unravel and relocate only while invisible, with staggered 24–30-second lifecycles. Foreground particles shrink gently near the face. No instructional text appears inside the world.
+
+The authored [4, 0, 6, 0] inhale/hold/exhale/rest pattern and exact 480-second duration remain unchanged. Near, middle and overhead desktop renders have been reviewed; these do not establish stereo comfort or sustained headset performance. The original Aurora Lake is unchanged.
+
+## Earlier design record (superseded where different)
+
 # Circuit Garden
 
 A suspended computer, quietly alive. Open copper, teal and blue circuit lattices curve around the viewer. Separate overhead boards turn the scene into a vaulted electronic garden when reclining. Tiny floating registers gather into concentrated clouds of square charge seeds, drift, and gently disperse.

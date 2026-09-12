@@ -1,3 +1,13 @@
+# Tidal Origami — version 2.4
+
+A particle lotus lifts and opens liquid petals during inhale, then drains inward on release. Fourteen rippling ribbons include twisted suspended loops and overhead crossings; six liquid lenses and 54 larger beads provide a second depth scale. 7,200 drifting droplets and curling droplet constellations surround the viewer. Existing positional water audio accompanies the aquatic score.
+
+All focal paths use tracked head up/right/forward vectors and the tracked mouth target. The focal sculpture inherits the slow gaze-following position; it works upright or reclined. Each world adds 3,072 focal particles, 1,536 directed breath particles and 12,288 surrounding particles in 48 compact clusters. Clusters gather, drift, unravel and relocate only while invisible, with staggered 24–30-second lifecycles. Foreground particles shrink gently near the face. No instructional text appears inside the world.
+
+The authored [6, 2, 8, 0] inhale/hold/exhale/rest pattern and exact 480-second duration remain unchanged. Near, middle and overhead desktop renders have been reviewed; these do not establish stereo comfort or sustained headset performance. The original Aurora Lake is unchanged.
+
+## Earlier design record (superseded where different)
+
 # Tidal Origami
 
 An eight-minute breath meditation inside an impossible water sculpture: seven suspended, twisting streams fold into liquid arches around the viewer. Five occupy different distances and two cross the zenith. The shared breathing orb remains the near focal point, framed by quiet open space.

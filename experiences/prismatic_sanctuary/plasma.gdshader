@@ -38,7 +38,9 @@ void vertex() {
     progress = t;
 }
 void fragment() {
-    float filament = .84+.16*sin(progress*95.0-elapsed*5.0);
+    // Broad packets move along source -> nose; the underlying plasma stays continuous.
+    float wave = .5+.5*cos(progress*6.283185*3.0-elapsed*6.283185*.8);
+    float filament = .28+.72*pow(wave,3.0);
     ALBEDO = mix(vec3(.18,1.0,.20),vec3(.025,.70,.065),halo);
     ALPHA = opacity*mix(.8,.075,halo)*filament;
 }

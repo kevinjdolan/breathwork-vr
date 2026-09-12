@@ -51,3 +51,14 @@ An ADB-daemon warning after a successful export does not itself prove the APK fa
 - Give each environment a bounded rendering contract and shared breath state. Inspect the integrated composition after independent layer reviews: a layer-only image cannot reveal overlap with the central orb or near-mouth stream.
 
 - Exercise native-only API calls in a headless regression test when possible. In Godot 4.6.3, query OpenXR lifecycle through `get_session_state()` and the `SESSION_STATE_*` constants; do not assume convenience methods such as `is_session_running()` exist. Desktop rendering can otherwise skip a broken XR-only branch.
+
+
+## Wordless suites and procedural depth
+
+Give each world a recognizable breathing shape and motion, not only a different hue on the same orb. Keep phase/audio transport shared while letting an iris, liquid petals, cloud vortex, dendritic crown, capacitor plates or small figures express that state differently. Pass headset-relative axes and the tracked mouth target to every path so the visual language survives reclining.
+
+For bounded stereo fractals, bake numeric escape-time and orbit-trap fields, then animate kaleidoscopic projection, palette, crossfades and real surface relief at runtime. Generate mipmaps and attenuate fine band contrast. An enclosing surface that assigns ALPHA can draw over every nearby transparent particle; use opaque depth with a color fade for a solid vault, then inspect the integrated foreground again.
+
+Increase richness through multiple scales, depth layers and particle lifecycles rather than only increasing counts. Relocate compact clusters while their reveal envelope is zero. Keep travel pulses separate from the gather/dissolve envelope so a pulse does not repeatedly explode the cluster. Shrink physical particle size near the face to retain mouth presence without oversized glowing discs.
+
+Treat a soundtrack as one arrangement. An added beat beneath an independently composed recording can sound like two simultaneous songs. If rebuilding a score, replace the delivered arrangement and preserve its master/provenance; do not add another runtime player. Automated instrumentation descriptions can be wrong even when their calmness assessment looks plausible.

@@ -1,5 +1,5 @@
 extends SceneTree
-## Render plasma, full-hold light growth, outflow and the extinguished light.
+## Render plasma, full-hold light growth, outflow and the persistent destination core.
 func _initialize() -> void:
     run.call_deferred()
 

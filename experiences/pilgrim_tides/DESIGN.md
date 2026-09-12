@@ -1,3 +1,13 @@
+# Pilgrim Tides — version 2.4
+
+A ring of twenty-four tiny particle figures gathers and raises its arms on inhale, then opens on release. 1,920 modeled walkers follow sixteen paths, including infinity loops, rounded squares and eight petaled promenades in inward-facing planes around the head. Lantern dust rises in staggered constellations. The existing tender piano/chamber score remains thematically appropriate.
+
+All focal paths use tracked head up/right/forward vectors and the tracked mouth target. The focal sculpture inherits the slow gaze-following position; it works upright or reclined. Each world adds 3,072 focal particles, 1,536 directed breath particles and 12,288 surrounding particles in 48 compact clusters. Clusters gather, drift, unravel and relocate only while invisible, with staggered 24–30-second lifecycles. Foreground particles shrink gently near the face. No instructional text appears inside the world.
+
+The authored [6, 2, 6, 2] inhale/hold/exhale/rest pattern and exact 480-second duration remain unchanged. Near, middle and overhead desktop renders have been reviewed; these do not establish stereo comfort or sustained headset performance. The original Aurora Lake is unchanged.
+
+## Earlier design record (superseded where different)
+
 # Pilgrim Tides
 
 Eight minutes of quiet companionship: 640 small ivory, sage, sand and lavender people walk on floating promenades around the viewer. The arrangement evokes the collective simplicity of Humanity without copying its assets, levels or challenges. There is no destination to reach and no crowd to manage.

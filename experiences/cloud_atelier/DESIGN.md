@@ -1,3 +1,13 @@
+# Cloud Atelier — version 2.4
+
+A soft particle vortex expands and contracts with the breath. 1,434 cloud puffs form curling rivers, stratus banks, close whorls and nine elevated helical islands. 2,520 condensation pearls and further condensing spiral clusters drift through the complete surrounding volume. Music uses sustained airy harmonic swells with rounded edges.
+
+All focal paths use tracked head up/right/forward vectors and the tracked mouth target. The focal sculpture inherits the slow gaze-following position; it works upright or reclined. Each world adds 3,072 focal particles, 1,536 directed breath particles and 12,288 surrounding particles in 48 compact clusters. Clusters gather, drift, unravel and relocate only while invisible, with staggered 24–30-second lifecycles. Foreground particles shrink gently near the face. No instructional text appears inside the world.
+
+The authored [5, 0, 5, 0] inhale/hold/exhale/rest pattern and exact 480-second duration remain unchanged. Near, middle and overhead desktop renders have been reviewed; these do not establish stereo comfort or sustained headset performance. The original Aurora Lake is unchanged.
+
+## Earlier design record (superseded where different)
+
 # Cloud Atelier
 
 A nocturnal conservatory made from clouds. Seven suspended cloud rivers curl into a vault around the viewer, while three irregular overlapping stratus islands make a floating horizon at different depths. Three smaller close cloud whorls sit off the breathing corridor. Small condensation pearls form slow, imperfect loops in the open air. The shared breath source stays in the central negative space.

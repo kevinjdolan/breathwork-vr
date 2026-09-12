@@ -4,7 +4,7 @@ uniform float elapsed = 0.0;
 uniform float breath_fill = 0.0;
 uniform float intensity = 1.0;
 uniform float cycle_angle = 0.0;
-uniform vec3 neuron_centers[27];
+uniform vec3 neuron_centers[48];
 uniform vec3 head_position = vec3(0.0, 1.4, 0.0);
 varying vec3 tint;
 varying float brightness;
@@ -14,7 +14,7 @@ void vertex() {
     float life = 0.5 + 0.5 * sin(elapsed * 0.16 + a.x * 37.0);
     float gathering = smoothstep(0.07, 0.60, life);
     if (a.z < 0.3) {
-        int index = clamp(int(round(a.x * 27.0)), 0, 26);
+        int index = clamp(int(round(a.x * 48.0)), 0, 47);
         vec3 center = neuron_centers[index];
         vec3 local = p - center;
         float angle = elapsed * 0.075 + a.x * 2.0;

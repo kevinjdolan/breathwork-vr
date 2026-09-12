@@ -159,9 +159,10 @@ func _unhandled_input(event: InputEvent) -> void:
     if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT and selected >= 0:
         _choose(selected)
     if event is InputEventKey and event.pressed and not event.echo:
-        if event.physical_keycode >= KEY_1 and event.physical_keycode <= KEY_8:
-            _choose(event.physical_keycode - KEY_1)
-        elif event.physical_keycode == KEY_R:
+        var key: int = event.physical_keycode if event.physical_keycode != 0 else event.keycode
+        if key >= KEY_1 and key <= KEY_8:
+            _choose(key - KEY_1)
+        elif key == KEY_R:
             _anchor()
 
 func _choose(index: int) -> void:

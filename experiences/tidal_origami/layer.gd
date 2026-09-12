@@ -5,7 +5,7 @@ var _materials: Array[ShaderMaterial] = []
 var _droplets: ShaderMaterial
 
 func _ready() -> void:
-    for index in range(7):
+    for index in range(14):
         var ribbon := MeshInstance3D.new()
         ribbon.name = "LiquidFold%d" % index
         ribbon.mesh = _ribbon_mesh()
@@ -15,7 +15,7 @@ func _ready() -> void:
         material.set_shader_parameter("angle", float(index) * 1.029 + 0.22)
         material.set_shader_parameter("radius", 5.3 + float(index % 3) * 2.7)
         material.set_shader_parameter("arch_height", 3.5 + float(index % 4) * 0.8)
-        material.set_shader_parameter("sheet_width", 0.44 + float(index % 3) * 0.15)
+        material.set_shader_parameter("sheet_width", 0.58 + float(index % 3) * 0.22)
         ribbon.material_override = material
         ribbon.custom_aabb = AABB(Vector3(-22, -2, -22), Vector3(44, 24, 44))
         ribbon.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
@@ -23,7 +23,7 @@ func _ready() -> void:
         _materials.append(material)
     var drops := GPUParticles3D.new()
     drops.name = "SuspendedDroplets"
-    drops.amount = 2800
+    drops.amount = 7200
     drops.lifetime = 600.0
     drops.explosiveness = 1.0
     drops.preprocess = 0.1

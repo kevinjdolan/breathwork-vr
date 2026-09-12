@@ -1,8 +1,8 @@
 # Breathwork VR
 
-Eight native Godot meditation worlds for Meta Quest, each eight minutes long. Choose a world from a spatial startup menu, then follow a gently drifting particle orb through breath-responsive geometry, fractals, water, clouds, neurons, circuits, or quiet crowds.
+Eight native Godot meditation worlds for Meta Quest, each eight minutes long. Choose a world from a spatial startup menu, then follow a gently drifting visual breath cue through breath-responsive geometry, fractals, water, clouds, neurons, circuits, or quiet crowds.
 
-The approved **Aurora Lake** experience remains available with its layered auroras, dynamic water, compact particle constellations, and positional sound. All worlds share tracked particle hands and reclining support. Prismatic Sanctuary features a slowly turning geometric tunnel, green plasma inhale paths, four-way blue outflow, and a white central light; the other seven worlds retain the drifting particle orb and near-mouth breathing streams. Each new world has its own breathing rhythm and score. Prismatic Sanctuary uses a cohesive authored electronic arrangement; the other scores use original Lyria music.
+The approved **Aurora Lake** remains available with its layered auroras, dynamic water, golden particle orb, and positional sound. All worlds share tracked particle hands and reclining support. Prismatic Sanctuary uses a slow geometric tunnel, pulsing green plasma inhale paths, sixteen rainbow outflow beams, and a permanently visible white destination core. Experiences 3–8 each have their own wordless focal sculpture and directed breath flows: a fractal iris, water lotus, cloud vortex, neural crown, capacitor plates, and a gathering of particle figures. Every world has its own rhythm and cohesive soundtrack.
 
 See [the experience catalog and review notes](docs/EXPERIENCES.md) for all eight directions, rhythms, and the critique/refinement process. The [verification record](docs/VERIFICATION.md) distinguishes desktop checks from headset validation.
 
@@ -49,12 +49,14 @@ Install the packages in `audio/requirements.txt`, FFmpeg/ffprobe, and `oggenc` (
 
 ## Audio and provenance
 
-Runtime audio is included under `assets/audio`. Seven soundtracks and the eight spatial water/mote textures use Google Lyria material mastered locally. Prismatic Sanctuary uses authored electronic synthesis to avoid competing backing music. Each Lyria score uses three authored movements with ten-second crossfades and an exact 480-second delivery. Authored prompts, generation code, and non-secret provenance are under `audio`. Regeneration requires `GEMINI_API_KEY` or `GOOGLE_API_KEY` in the environment. Untouched generation masters and large verification captures remain local and are excluded from Git and Android exports.
+Runtime audio is included under `assets/audio`. Aurora Lake, Tidal Origami, Pilgrim Tides, and the spatial water/mote textures use Google Lyria material mastered locally. Prismatic Sanctuary and the other four scores use authored electronic synthesis with distinct arrangements. Each score is one coherent 480-second delivery. The retained suite Lyria scores use three movements with ten-second crossfades. Authored prompts, generation code, and non-secret provenance are under `audio`. Regeneration requires `GEMINI_API_KEY` or `GOOGLE_API_KEY` in the environment. Untouched generation masters and large verification captures remain local and are excluded from Git and Android exports.
 
 The most recent refinement keeps the approved outbreath samples unchanged while softening the inhale. See the audio contract tests for the preserved sample hashes.
 
 
-Generate new-suite audio with `python -m audio.synth_suite_breath` and `python -m audio.generate_suite`. The music batch resumes validated masters and deliveries and uses two concurrent workers. `python -m audio.review_suite` performs an explicitly automated audio audit; it is separate from runtime playback and requires API access. The Quest application itself needs no internet connection.
+Regenerate the current four themed synthesized scores with `python -m audio.generate_theme_scores`, and Prismatic Sanctuary with `python -m audio.generate_prismatic_trance`. Bake the Mandelbrot fields with `python tools/generate_fractal_fields.py`.
+
+Generate the original suite Lyria audio with `python -m audio.synth_suite_breath` and `python -m audio.generate_suite`. The music batch resumes validated masters and deliveries and uses two concurrent workers. `python -m audio.review_suite` performs an explicitly automated audio audit; it is separate from runtime playback and requires API access. The Quest application itself needs no internet connection.
 
 ## Reusable development skill
 

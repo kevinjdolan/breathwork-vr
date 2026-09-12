@@ -1,3 +1,13 @@
+# Fractal Garden — version 2.4
+
+A six-fold particle iris opens on inhale and closes on exhale. Recursive crystal constellations float in front of a complete, sculpted spherical vault. Four actual 240-iteration Mandelbrot escape-time/orbit-trap fields crossfade over two-minute passages; the palette and geometry evolve continuously. The vault writes opaque depth so it cannot cover nearby transparent particles. Fine-detail contrast is derivative-filtered and the numeric textures have mipmaps.
+
+All focal paths use tracked head up/right/forward vectors and the tracked mouth target. The focal sculpture inherits the slow gaze-following position; it works upright or reclined. Each world adds 3,072 focal particles, 1,536 directed breath particles and 12,288 surrounding particles in 48 compact clusters. Clusters gather, drift, unravel and relocate only while invisible, with staggered 24–30-second lifecycles. Foreground particles shrink gently near the face. No instructional text appears inside the world.
+
+The authored [6, 0, 6, 0] inhale/hold/exhale/rest pattern and exact 480-second duration remain unchanged. Near, middle and overhead desktop renders have been reviewed; these do not establish stereo comfort or sustained headset performance. The original Aurora Lake is unchanged.
+
+## Earlier design record (superseded where different)
+
 # Fractal Garden
 
 An eight-minute conservatory of living mathematics: nine fern forms use the actual four-map Barnsley iterated function system, curled into three-dimensional laminae. Seven recursive binary trees form the understory. Sage, mint, amber, and pale chartreuse replace neon geometry. Dark forest background: linear Godot `Color(0.006, 0.018, 0.012)`.

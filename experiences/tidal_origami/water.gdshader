@@ -17,9 +17,17 @@ vec3 sheet(vec2 uv) {
     float reach = radius + cos(u*6.8 + seed + time*0.07)*0.45 + breath*0.35;
     float fold = u*6.9 + seed*1.7 + time*0.08 + breath*0.34;
     vec3 center = vec3(sin(theta)*reach, 0.7+sin(u*3.14159265)*(arch_height + breath*0.65)+sway, -cos(theta)*reach);
-    if (seed >= 5.0) {
+    if (seed >= 5.0 && seed < 9.0) {
         float along = (u-0.5)*17.0;
         center = vec3(cos(angle)*along, 6.0+sin(u*3.14159265)*(2.1+breath*0.6)+sway, sin(angle)*along+sin(u*3.14159265)*0.35);
+    }
+    if (seed >= 9.0) {
+        // Suspended twisted loops place deep liquid structures overhead and behind.
+        float turn = u * 6.283185;
+        float r = 2.0 + mod(seed, 3.0) * .45;
+        center = vec3(cos(turn) * r, 5.5 + sin(turn) * r * .6, sin(turn * 2.0) * .65);
+        center.xz += vec2(cos(angle), sin(angle)) * (3.3 + sin(time*.043+seed)*.4);
+        center.y += breath*.4 + sway*.3;
     }
     float taper = smoothstep(0.0,0.07,u)*(1.0-smoothstep(0.93,1.0,u));
     float width = sheet_width * (0.68+0.32*sin(u*3.14159265)) * taper;

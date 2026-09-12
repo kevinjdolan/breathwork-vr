@@ -24,6 +24,14 @@ func _ready() -> void:
         var origin := Vector3(sin(angle) * 2.6, 5.7 + float(i % 2), cos(angle) * 2.6)
         var basis := Basis(Vector3.UP, angle) * Basis(Vector3.RIGHT, PI * 0.5)
         _panel(origin, basis, i + 8, 0.9)
+    # Nested chip assemblies at three depths create parallax in every posture.
+    for i in range(18):
+        var y := 1.0 - 2.0 * (float(i) + 0.5) / 18.0
+        var angle := float(i) * 2.399963
+        var direction := Vector3(cos(angle)*sqrt(1.0-y*y), y, sin(angle)*sqrt(1.0-y*y))
+        var origin := Vector3(0,1.4,0) + direction * (8.5 + float(i%3)*1.4)
+        var basis := Basis.looking_at(-direction, Vector3.UP)
+        _panel(origin, basis, i+12, 0.75 + float(i%3)*0.12)
     var material := ShaderMaterial.new()
     material.shader = TRACE_SHADER
     _materials.append(material)
@@ -56,7 +64,7 @@ func _panel(origin: Vector3, basis: Basis, index: int, scale_factor: float) -> v
             if target >= 9 or (link == 1 and j % 3 == 2):
                 continue
             var end := centers[target]
-            for lane in range(2 + j % 2):
+            for lane in range(4 + j % 2):
                 var offset := (float(lane) - 0.5) * 0.10
                 var start_point := center + Vector2(0.0, offset)
                 var end_point := end + Vector2(0.0, offset)
@@ -65,7 +73,7 @@ func _panel(origin: Vector3, basis: Basis, index: int, scale_factor: float) -> v
                 _trace(points, origin, basis, scale_factor, color, 0.010)
         # Sparse concentric capacitors vary the silhouette of the connected network.
         if j % 3 == index % 3:
-            for ring_index in range(2):
+            for ring_index in range(3):
                 var ring: Array[Vector2] = []
                 for k in range(33):
                     var angle := TAU * float(k) / 32.0
@@ -144,16 +152,16 @@ func _build_charge_seeds() -> void:
     multi.use_colors = true
     multi.use_custom_data = true
     multi.mesh = mesh
-    multi.instance_count = 864
-    for i in range(864):
+    multi.instance_count = 2592
+    for i in range(2592):
         var cluster := i / 108
-        var angle := TAU * float(cluster) / 8.0 + 0.35
-        var elevation := 0.2 if cluster < 4 else 1.12
+        var angle := float(cluster)*2.399963
+        var elevation := asin(1.0 - 2.0*(float(cluster)+0.5)/24.0)
         var center := Vector3(sin(angle) * cos(elevation), sin(elevation), -cos(angle) * cos(elevation)) * (3.1 + float(cluster % 2) * 0.8) + Vector3(0, 1.4, 0)
         var offset := Vector3(_rng.randfn(0, 0.15), _rng.randfn(0, 0.15), _rng.randfn(0, 0.15))
         multi.set_instance_transform(i, Transform3D(Basis.IDENTITY, center + offset))
         multi.set_instance_color(i, Color(0.35, 0.75, 0.61) if cluster % 2 == 0 else Color(0.74, 0.54, 0.25))
-        multi.set_instance_custom_data(i, Color(float(cluster) / 8.0, _rng.randf(), _rng.randf(), 1))
+        multi.set_instance_custom_data(i, Color(float(cluster) / 24.0, _rng.randf(), _rng.randf(), 1))
     var node := MultiMeshInstance3D.new()
     node.name = "DriftingChargeRegisters"
     node.multimesh = multi

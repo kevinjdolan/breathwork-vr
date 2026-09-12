@@ -37,7 +37,9 @@ void vertex() {
     vec3 world = (journey_frame*vec4(center+p,1)).xyz;
     POSITION = PROJECTION_MATRIX*VIEW_MATRIX*vec4(world,1);
     visibility = smoothstep(-56.0,-48.0,depth)*(1.0-smoothstep(5.0,8.0,depth))*smoothstep(.42,.72,distance(world,head_position))*intensity;
-    visibility *= 1.0-smoothstep(12.0,32.0,-depth);
+    visibility *= 1.0-smoothstep(19.0,44.0,-depth);
+    float clear_angle = max(0.0,length(center.xy)-extent)/max(1.0,-depth);
+    visibility *= mix(1.0,smoothstep(.018,.045,clear_angle),smoothstep(5.0,12.0,-depth));
     float inner = .88+.10*sin(elapsed*.10+seed+VERTEX.y*2.0);
     float chosen = (abs(family-source_family)<.1 && abs(INSTANCE_CUSTOM.x-source_seed)<.001) ? beam_visibility : 0.0;
     tint = mix(COLOR.rgb,vec3(.16,1.0,.25),chosen*.65)*inner*(1.0+.035*sin(elapsed*9.42477796));

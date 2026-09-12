@@ -22,7 +22,7 @@ void vertex() {
     vec3 view = (VIEW_MATRIX*vec4(world,1)).xyz;
     POSITION = PROJECTION_MATRIX*vec4(view+vec3(VERTEX.xy*(.032+.018*INSTANCE_CUSTOM.z),0),1);
     tint = mix(vec3(.3,.72,.86),vault_palette(a/VAULT_TAU+band*.027,elapsed),.6);
-    opacity = (1.0-smoothstep(12.0,32.0,-depth))*smoothstep(-56.0,-47.0,depth)*(1.0-smoothstep(5.0,8.0,depth))*intensity*(.5+hold_glow*.2);
+    opacity = (1.0-smoothstep(19.0,44.0,-depth))*smoothstep(-56.0,-47.0,depth)*(1.0-smoothstep(5.0,8.0,depth))*intensity*(.5+hold_glow*.2);
 }
 void fragment() {
     vec2 p = UV*2.0-1.0;

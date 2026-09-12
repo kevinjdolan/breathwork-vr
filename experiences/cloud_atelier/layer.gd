@@ -23,7 +23,7 @@ func _build_clouds() -> void:
     multi.use_colors = true
     multi.use_custom_data = true
     multi.mesh = mesh
-    multi.instance_count = 894
+    multi.instance_count = 1434
     for river in range(7):
         var angle := TAU * float(river) / 7.0
         var basis := Basis(Vector3.UP, angle)
@@ -77,6 +77,19 @@ func _build_clouds() -> void:
             multi.set_instance_transform(index, Transform3D(Basis.IDENTITY.scaled(Vector3.ONE * size), center))
             multi.set_instance_color(index, Color(0.70, 0.55 + float(whorl) * 0.035, 0.63, 0.17))
             multi.set_instance_custom_data(index, Color(_rng.randf(), u, 0.8, _rng.randf()))
+    # Higher layered helical cloud islands fill the reclining dome with parallax.
+    for island in range(9):
+        var angle := float(island)*2.399963
+        var anchor := Vector3(cos(angle)*4.3, 5.0 + float(island%3)*1.4, sin(angle)*4.3)
+        for puff in range(60):
+            var u := float(puff)/59.0
+            var spin := u*TAU*1.4 + float(island)
+            var offset := Vector3(cos(spin), sin(spin)*.55, (u-.5)*2.4) * (.45+.5*u)
+            var size := _rng.randf_range(.35,.72)
+            var index := 894 + island*60+puff
+            multi.set_instance_transform(index,Transform3D(Basis.IDENTITY.scaled(Vector3.ONE*size),anchor+offset))
+            multi.set_instance_color(index,Color(.65,.62+float(island%3)*.04,.79,.14))
+            multi.set_instance_custom_data(index,Color(_rng.randf(),u,float(island)/9.0,_rng.randf()))
     _add_multi(multi, "SculptedCloudRivers")
 
 func _build_pearls() -> void:
@@ -91,11 +104,11 @@ func _build_pearls() -> void:
     multi.use_colors = true
     multi.use_custom_data = true
     multi.mesh = mesh
-    multi.instance_count = 840
-    for i in range(840):
+    multi.instance_count = 2520
+    for i in range(2520):
         var shoal := i / 70
         var angle := float(shoal) * 2.399
-        var elevation := 0.15 + float(shoal % 4) * 0.4
+        var elevation := asin(1.0 - 2.0*(float(shoal)+0.5)/36.0)
         var radius := 2.8 + float(shoal % 3) * 1.3
         var center := Vector3(sin(angle) * cos(elevation), sin(elevation), cos(angle) * cos(elevation)) * radius + Vector3(0, 1.4, 0)
         var t := float(i % 70) / 70.0 * TAU
@@ -103,7 +116,7 @@ func _build_pearls() -> void:
         var size := _rng.randf_range(0.009, 0.024)
         multi.set_instance_transform(i, Transform3D(Basis.IDENTITY.scaled(Vector3.ONE * size), center))
         multi.set_instance_color(i, Color(0.64, 0.76, 0.87, 0.5))
-        multi.set_instance_custom_data(i, Color(float(shoal) / 12.0, t / TAU, _rng.randf(), 1.0))
+        multi.set_instance_custom_data(i, Color(float(shoal) / 36.0, t / TAU, _rng.randf(), 1.0))
     _add_multi(multi, "CondensationPearls")
 
 func _add_multi(multi: MultiMesh, node_name: String) -> void:

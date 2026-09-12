@@ -1,3 +1,13 @@
+# Neural Constellation — version 2.4
+
+A twelve-arm dendritic particle crown gathers and radiates breath signals. Forty-eight somas carry eight branching arms each, denser nearest-neighbor axons and doubled path signals. A surrounding ecology of smaller dendritic clusters carries traveling light packets. Rounded electronic resonances answer across the stereo field.
+
+All focal paths use tracked head up/right/forward vectors and the tracked mouth target. The focal sculpture inherits the slow gaze-following position; it works upright or reclined. Each world adds 3,072 focal particles, 1,536 directed breath particles and 12,288 surrounding particles in 48 compact clusters. Clusters gather, drift, unravel and relocate only while invisible, with staggered 24–30-second lifecycles. Foreground particles shrink gently near the face. No instructional text appears inside the world.
+
+The authored [5, 0, 7, 0] inhale/hold/exhale/rest pattern and exact 480-second duration remain unchanged. Near, middle and overhead desktop renders have been reviewed; these do not establish stereo comfort or sustained headset performance. The original Aurora Lake is unchanged.
+
+## Earlier design record (superseded where different)
+
 # Neural Constellation
 
 Eight minutes inside a living canopy of neurons. Twenty-seven particle somas send curved dendrites into a softly connected web. The visual language is organic and intimate: slate indigo, muted teal, lavender, copper, and occasional warm synapse centers. The open space at the mouth belongs to the shared breathing particles.

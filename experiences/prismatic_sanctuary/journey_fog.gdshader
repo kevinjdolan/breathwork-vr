@@ -21,5 +21,5 @@ void fragment() {
     float cloud = noise(p*3.0+vec2(elapsed*.012,layer*3.0))+noise(p*7.0-vec2(elapsed*.008,0))*.35;
     float veil = exp(-dot(p,p)*3.5)*(0.62+cloud*.30);
     ALBEDO = mix(vec3(.013,.033,.048),vec3(.043,.017,.067),cloud*.65);
-    ALPHA = veil*intensity*.80;
+    ALPHA = veil*intensity*.28;
 }
