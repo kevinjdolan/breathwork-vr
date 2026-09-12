@@ -42,3 +42,10 @@ Use the engine's matching Android template and toolchain. The Godot Android Grad
 Verify the APK signature, package version, hand-tracking manifest and launcher alias. Launch the exported alias if the underlying Godot activity is not exported. Select one physical Quest explicitly; never let a connected emulator be selected accidentally. USB file access and USB debugging authorization are different.
 
 An ADB-daemon warning after a successful export does not itself prove the APK failed. Check the artifact and reconnect ADB. Conversely, installation success does not prove XR startup: inspect app logs and any controller-required launch dialog. Record real device frame timing separately from synthetic desktop FPS, including warmup and peak scene load.
+
+## Multi-experience sessions
+
+- Author rhythms as inhale, full pause, exhale, and empty pause. Use the same catalog to generate guide audio and configure the phase clock. Test each hold and the wrapped pre-cue boundary, not just the total loop duration.
+- Duplicate mutable Godot environment resources per visit. Re-enter the original scene after every variant in a test; cached resources can otherwise leave the original sky replaced by a variant's background.
+- A spatial selector needs actual gaze ray intersection with a stable panel. Anchoring the panel to the head every frame prevents gaze from moving between cards. Anchor after tracking is ready, support reclined orientation, show dwell progress, and ease scene transitions.
+- Give each environment a bounded rendering contract and shared breath state. Inspect the integrated composition after independent layer reviews: a layer-only image cannot reveal overlap with the central orb or near-mouth stream.

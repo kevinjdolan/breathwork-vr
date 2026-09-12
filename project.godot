@@ -4,7 +4,7 @@ config_version=5
 [application]
 config/name="Breathwork VR"
 config/icon="res://assets/icon.svg"
-run/main_scene="res://scenes/main.tscn"
+run/main_scene="res://scenes/startup.tscn"
 config/features=PackedStringArray("4.6", "Mobile")
 boot_splash/show_image=false
 boot_splash/bg_color=Color(0, 0, 0, 1)

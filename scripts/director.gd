@@ -15,6 +15,11 @@ extends Node
 @export var fade: float = 1.0
 @export var fractal_fold: float = 3.0
 
+var experience_id: String = "aurora_lake"
+var experience: Dictionary
+var experience_layer: Node3D
+var _return_to_menu: bool = false
+
 var elapsed: float = 0.0
 var breath_energy: float = 0.0
 var tier: Dictionary
@@ -75,8 +80,15 @@ var _mote_cues: Array[int] = [-1, -1, -1, -1, -1]
 @onready var arc: AnimationPlayer = $AnimationPlayer
 
 func _ready() -> void:
+    # Each visit owns background state; returning to the lake restores its sky.
+    var world: WorldEnvironment = get_node("../WorldEnvironment")
+    world.environment = world.environment.duplicate()
+    experience_id = str(get_tree().root.get_meta("experience_id", "aurora_lake"))
+    _return_to_menu = bool(get_tree().root.get_meta("from_menu", false))
     for arg: String in OS.get_cmdline_user_args():
-        if arg == "--test":
+        if arg.begins_with("--experience="):
+            experience_id = arg.get_slice("=", 1)
+        elif arg == "--test":
             _test_mode = true
         elif arg.begins_with("--capture="):
             _capture_time = float(arg.get_slice("=", 1))
@@ -123,6 +135,7 @@ func _ready() -> void:
     arc.play("arc")
     arc.pause()
     arc.seek(0.0, true)
+    _configure_experience()
     clock.configure(breath)
     if _test_mode:
         set_process(false)
@@ -130,6 +143,8 @@ func _ready() -> void:
     _xr = XRServer.find_interface("OpenXR") as OpenXRInterface
     if _xr != null and _xr.is_initialized():
         get_viewport().use_xr = true
+        if _xr.is_session_running():
+            _on_session_begun.call_deferred()
         _xr.session_begun.connect(_on_session_begun)
         _xr.session_focussed.connect(_on_focus)
         _xr.session_visible.connect(_on_unfocus)
@@ -177,8 +192,9 @@ func _start_session() -> void:
     else:
         music.play()
         breath.play()
-    for index: int in range(3):
-        (get_node("../Audio/Water" + str(index)) as AudioStreamPlayer3D).play(float(index) * 9.3)
+    if experience_id in ["aurora_lake", "tidal_origami"]:
+        for index: int in range(3):
+            (get_node("../Audio/Water" + str(index)) as AudioStreamPlayer3D).play(float(index) * 9.3)
 
 func _on_focus() -> void:
     music.stream_paused = false
@@ -264,11 +280,13 @@ func _process(delta: float) -> void:
     arc.seek(elapsed, true)
     if not _review_path.is_empty():
         clock.update_from_position(fmod(elapsed, clock.loop_seconds), elapsed)
-    elif elapsed >= (470.0 if clock.ratio_ramp else 476.0):
+    elif elapsed >= clock.settle_at():
         breath.stop()
         clock.update_from_position(clock.loop_seconds - 0.001, elapsed)
     else:
         clock.sample(breath, elapsed)
+    if experience_layer != null:
+        breath_particles_enabled = ExperienceMath.smooth_unit(elapsed / 3.0) * (1.0 - ExperienceMath.smooth_unit((elapsed - 476.0) / 4.0))
     _follow_orb(delta)
     breath_energy *= exp(-delta / 20.0)
     _sky_energy = move_toward(_sky_energy, breath_energy, delta * 0.18)
@@ -316,17 +334,17 @@ func _push_visuals(_delta: float) -> void:
     (inhale.process_material as ShaderMaterial).set_shader_parameter("mouth_target", mouth.global_position)
     (inhale.process_material as ShaderMaterial).set_shader_parameter("head_right", camera.global_basis.x.normalized())
     (inhale.process_material as ShaderMaterial).set_shader_parameter("head_up", camera.global_basis.y.normalized())
-    var incoming_visibility: float = ExperienceMath.inhale_visibility(clock.seconds, clock.loop_seconds) * breath_particles_enabled
-    if clock.is_exhale and elapsed >= (468.5 if clock.ratio_ramp else 474.5):
+    var incoming_visibility: float = clock.incoming_visibility() * breath_particles_enabled
+    if elapsed >= clock.settle_at() - 1.5:
         incoming_visibility = 0.0 # The final settle must not cue another breath.
     (inhale.process_material as ShaderMaterial).set_shader_parameter("inhale_active", incoming_visibility > 0.0)
     (inhale.process_material as ShaderMaterial).set_shader_parameter("inhale_visibility", incoming_visibility)
-    (inhale.process_material as ShaderMaterial).set_shader_parameter("inhale_front", ExperienceMath.inhale_front(clock.seconds, clock.loop_seconds))
+    (inhale.process_material as ShaderMaterial).set_shader_parameter("inhale_front", clock.incoming_front())
     (inhale.process_material as ShaderMaterial).set_shader_parameter("inhale_seconds", elapsed)
     (inhale.process_material as ShaderMaterial).set_shader_parameter("orb_position", orb.global_position)
     # Fade outgoing remnants completely before the next incoming breath starts.
-    var exhale_visibility: float = 0.0 if not clock.is_exhale else ExperienceMath.smooth_unit((clock.loop_seconds - clock.seconds - 0.65) / 1.35)
-    exhale.amount_ratio = ExperienceMath.exhale_gate(clock.seconds, clock.loop_seconds) * breath_particles_enabled * 0.32
+    var exhale_visibility: float = 0.0 if not clock.is_exhale else ExperienceMath.smooth_unit((clock.outgoing_end() - clock.seconds - 0.65) / 1.35)
+    exhale.amount_ratio = clock.outgoing_gate() * breath_particles_enabled * 0.32
     (exhale.process_material as ShaderMaterial).set_shader_parameter("exhale_active", clock.is_exhale)
     (exhale.process_material as ShaderMaterial).set_shader_parameter("exhale_visibility", exhale_visibility)
     (exhale.process_material as ShaderMaterial).set_shader_parameter("mouth_position", mouth.global_position)
@@ -361,7 +379,8 @@ func _push_visuals(_delta: float) -> void:
         lives.append(Vector2(state["age"], state["duration"]))
         var tint: Color = state["color"]
         colors.append(Vector3(tint.r, tint.g, tint.b))
-        _update_mote_audio(cluster, state)
+        if experience_layer == null:
+            _update_mote_audio(cluster, state)
     motes.set_shader_parameter("cluster_centers", centers)
     motes.set_shader_parameter("cluster_lives", lives)
     motes.set_shader_parameter("cluster_colors", colors)
@@ -376,6 +395,8 @@ func _push_visuals(_delta: float) -> void:
             var radius: float = 4.6 + 0.5 * sin(elapsed * 0.071 + float(index) * 2.1)
             player.global_position = Vector3(cos(angle) * radius, 0.15, sin(angle) * radius)
             player.volume_db = (-14.0 + release_wave * 2.0 + 1.5 * sin(elapsed * 0.11 + float(index) * 2.2)) + audio_fade
+    if experience_layer != null and experience_layer.is_inside_tree():
+        experience_layer.update_experience({"elapsed": elapsed, "intensity": 1.0 - fade, "breath_fill": clock.breath_fill, "inhale_t": clock.inhale_t, "exhale_t": clock.exhale_t, "is_inhale": clock.is_inhale, "is_exhale": clock.is_exhale, "is_pause": clock.is_pause, "head_position": camera.global_position, "mouth_position": mouth.global_position, "orb_position": orb.global_position, "head_basis": camera.global_basis})
     (fade_mesh.material_override as ShaderMaterial).set_shader_parameter("fade", fade)
 
 func _update_mote_audio(cluster: int, state: Dictionary) -> void:
@@ -420,7 +441,10 @@ func _finish_exit() -> void:
         player.stream = null
     # Allow the mixer to release its playback references before tree teardown.
     await get_tree().create_timer(0.25).timeout
-    get_tree().quit()
+    if _return_to_menu and _review_path.is_empty() and _capture_time < 0.0:
+        get_tree().change_scene_to_file("res://scenes/startup.tscn")
+    else:
+        get_tree().quit()
 
 func _on_tracker_removed(tracker_name: StringName, _type: int) -> void:
     for key: String in _held.keys():
@@ -523,3 +547,29 @@ func _record_performance(delta: float) -> void:
         _perf_elapsed = 0.0
         _perf_frames = 0
         _perf_worst = 0.0
+
+func _configure_experience() -> void:
+    experience = ExperienceCatalog.find(experience_id)
+    experience_id = experience["id"]
+    if experience_id == "aurora_lake":
+        return
+    clock.custom_pattern = true
+    clock.pattern = experience["rhythm"]
+    clock.custom_stream = load("res://assets/audio/breath_" + experience_id + ".wav") as AudioStreamWAV
+    clock.custom_stream.loop_mode = AudioStreamWAV.LOOP_FORWARD
+    clock.custom_stream.loop_begin = 0
+    clock.custom_stream.loop_end = int(clock.custom_stream.get_length() * clock.custom_stream.mix_rate)
+    music.stream = load("res://" + str(experience["music"])) as AudioStream
+    for path: String in ["Water", "NearAuroras", "FractalField", "AmbientMotes"]:
+        var visual: Node3D = get_node("../" + path)
+        visual.hide()
+        if visual is GPUParticles3D:
+            visual.emitting = false
+            visual.amount = 1
+    var environment: Environment = (get_node("../WorldEnvironment") as WorldEnvironment).environment
+    environment.background_mode = Environment.BG_COLOR
+    environment.background_color = ExperienceCatalog.background(experience_id)
+    environment.fog_enabled = false
+    experience_layer = load("res://experiences/" + experience_id + "/layer.gd").new()
+    get_parent().add_child.call_deferred(experience_layer)
+    print("VRMED EXPERIENCE ", experience_id, " rhythm=", clock.pattern)

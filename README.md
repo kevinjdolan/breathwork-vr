@@ -1,8 +1,18 @@
 # Breathwork VR
 
-An eight-minute, native Godot meditation for Meta Quest. A particle orb shares a slow breath with the viewer above a living aurora lake. The experience includes tracked particle hands, delayed gaze following, layered auroras, breath-responsive water, drifting particle constellations, and positional audio.
+Eight native Godot meditation worlds for Meta Quest, each eight minutes long. Choose a world from a spatial startup menu, then follow a gently drifting particle orb through breath-responsive geometry, fractals, water, clouds, neurons, circuits, or quiet crowds.
 
-The current rhythm is four seconds in, two seconds held, and eight seconds out. The session settles and fades after its final complete breath. The viewer can sit or recline; the headset's position and orientation drive the mouth target and orb placement.
+The approved **Aurora Lake** experience remains available with its layered auroras, dynamic water, compact particle constellations, and positional sound. All worlds share tracked particle hands, soft near-mouth inhale paths, distinct outgoing particles, and a reclining-aware orb. Each new world has its own breathing rhythm and original Lyria score.
+
+See [the experience catalog and review notes](docs/EXPERIENCES.md) for all eight directions, rhythms, and the critique/refinement process. The [verification record](docs/VERIFICATION.md) distinguishes desktop checks from headset validation.
+
+![Eight integrated desktop experience previews](docs/screenshots/experiences.jpg)
+
+## Choose an experience
+
+In Quest, look at a card for 2.5 seconds; its highlight and percentage show selection progress. The menu anchors to the current gaze, including while lying down. Looking well away for a few seconds brings the menu back in front of you. On desktop, click a card or press **1–8**. Press **R** to re-anchor the desktop menu.
+
+Sessions fade back to the selector when complete. Hold a controller button, or Escape/Space on desktop, for 1.5 seconds to return early. Follow the breathing comfortably; holds can be gentle pauses.
 
 ## Run
 
@@ -29,12 +39,19 @@ The headset needs developer mode and USB debugging authorization. The installer 
 
 ## Verify and develop
 
-Install the packages in `audio/requirements.txt` and FFmpeg. Set `PYTHON_BIN` and `GODOT_BIN` as needed, then run `tools/verify.sh`. It checks session timing, XR joint transforms, tracking loss, final audio transport, generated assets, and GPU address math. Godot can return success after a shader or script error; the verifier also examines its error output.
+Install the packages in `audio/requirements.txt`, FFmpeg/ffprobe, and `oggenc` (Vorbis tools). Set `PYTHON_BIN` and `GODOT_BIN` as needed, then run `tools/verify.sh`. It checks all eight rhythms and scores, silent holds, selector anchoring, session timing, XR joint transforms, tracking loss, final audio transport, generated assets, and GPU address math. Godot can return success after a shader or script error; the verifier also examines its error output.
 
 `scripts/build_scene.gd` regenerates the authored scene. Visual review commands can use `--review-path`, `--review-start`, `--review-duration`, and `--review-recline` after Godot's `--` argument separator. Desktop fixed-timestep review is not a headset frame-rate measurement.
 
 ## Audio and provenance
 
-Runtime audio is included under `assets/audio`. The soundtrack and eight spatial water/mote textures were generated with Google Lyria, then mastered locally. Authored prompts, generation code, and non-secret provenance are under `audio`. Regeneration requires `GEMINI_API_KEY` or `GOOGLE_API_KEY` in the environment. Untouched generation masters and large verification captures remain local and are excluded from Git and Android exports.
+Runtime audio is included under `assets/audio`. The eight soundtracks and eight spatial water/mote textures were generated with Google Lyria, then mastered locally. Each new score uses three authored movements with ten-second crossfades and an exact 480-second delivery. Authored prompts, generation code, and non-secret provenance are under `audio`. Regeneration requires `GEMINI_API_KEY` or `GOOGLE_API_KEY` in the environment. Untouched generation masters and large verification captures remain local and are excluded from Git and Android exports.
 
 The most recent refinement keeps the approved outbreath samples unchanged while softening the inhale. See the audio contract tests for the preserved sample hashes.
+
+
+Generate new-suite audio with `python -m audio.synth_suite_breath` and `python -m audio.generate_suite`. The music batch resumes validated masters and deliveries and uses two concurrent workers. `python -m audio.review_suite` performs an explicitly automated audio audit; it is separate from runtime playback and requires API access. The Quest application itself needs no internet connection.
+
+## Reusable development skill
+
+[godot-quest-breathwork](skills/godot-quest-breathwork/SKILL.md) documents the session's lessons: calm particle timing, mouth-relative presence, reclined composition, hand tracking, mobile rendering, audio mastering, and honest visual/device verification. Copy its folder into your Codex skills directory to reuse it. The companion [session lessons](skills/godot-quest-breathwork/references/session-lessons.md) include a practical review rubric.

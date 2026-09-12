@@ -1,0 +1,146 @@
+[
+  {
+    "id": "aurora_lake",
+    "title": "Aurora Lake",
+    "description": "A living lake beneath close aurora curtains",
+    "rhythm": [
+      4,
+      2,
+      8,
+      0
+    ],
+    "rhythm_label": "Unhurried release",
+    "color": "6dcabb",
+    "duration": 480,
+    "music": "assets/audio/music.ogg",
+    "artist": "Breathwork VR / Google Lyria",
+    "genre": "Unhurried release ambient",
+    "music_direction": ""
+  },
+  {
+    "id": "prismatic_sanctuary",
+    "title": "Prismatic Sanctuary",
+    "description": "Folded geometry and floating jewel lanterns",
+    "rhythm": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "rhythm_label": "Box breathing",
+    "color": "d995e9",
+    "duration": 480,
+    "music": "assets/audio/prismatic_sanctuary.ogg",
+    "artist": "Breathwork VR / Google Lyria",
+    "genre": "Box breathing ambient",
+    "music_direction": "Prismatic ambient chamber music: soft glass harmonica, slowly beating pure sine intervals, velvet analog sub-drone, rare rounded mallet tones. Luminous geometric clarity, warm consonant suspended harmony, spacious silence."
+  },
+  {
+    "id": "fractal_garden",
+    "title": "Fractal Garden",
+    "description": "Infinite branching ferns unfurl around you",
+    "rhythm": [
+      6,
+      0,
+      6,
+      0
+    ],
+    "rhythm_label": "Equal breathing",
+    "color": "94c998",
+    "duration": 480,
+    "music": "assets/audio/fractal_garden.ogg",
+    "artist": "Breathwork VR / Google Lyria",
+    "genre": "Equal breathing ambient",
+    "music_direction": "Organic woodland electroacoustic ambient: breathy bass flute without breath hiss, felt piano isolated low notes, bowed wooden resonance and warm cello harmonics, slowly branching melodies in pentatonic harmony."
+  },
+  {
+    "id": "tidal_origami",
+    "title": "Tidal Origami",
+    "description": "Liquid ribbons fold into impossible arches",
+    "rhythm": [
+      6,
+      2,
+      8,
+      0
+    ],
+    "rhythm_label": "Long release",
+    "color": "82cfe3",
+    "duration": 480,
+    "music": "assets/audio/tidal_origami.ogg",
+    "artist": "Breathwork VR / Google Lyria",
+    "genre": "Long release ambient",
+    "music_direction": "Aquatic ambient: low singing bowls, muted marimba droplets, fluid glass resonances and deep rounded waterlike synth chords. Wide rippling acoustic space, no splash transients, long warm suspended waves."
+  },
+  {
+    "id": "cloud_atelier",
+    "title": "Cloud Atelier",
+    "description": "Cloud rivers open into a weightless vault",
+    "rhythm": [
+      5,
+      0,
+      5,
+      0
+    ],
+    "rhythm_label": "Balanced breathing",
+    "color": "dacbbb",
+    "duration": 480,
+    "music": "assets/audio/cloud_atelier.ogg",
+    "artist": "Breathwork VR / Google Lyria",
+    "genre": "Balanced breathing ambient",
+    "music_direction": "Airborne neoclassical ambient: feather-soft muted strings, distant celeste with softened attacks, airy wordless synthesizer pads (strictly no human voices), suspended major ninth chords, slow drifting lightness."
+  },
+  {
+    "id": "neural_constellation",
+    "title": "Neural Constellation",
+    "description": "Gentle signals travel through a living web",
+    "rhythm": [
+      5,
+      0,
+      7,
+      0
+    ],
+    "rhythm_label": "Extended exhale",
+    "color": "bd9add",
+    "duration": 480,
+    "music": "assets/audio/neural_constellation.ogg",
+    "artist": "Breathwork VR / Google Lyria",
+    "genre": "Extended exhale ambient",
+    "music_direction": "Intimate bioelectronic ambient: rounded warm sine plucks with very slow softened attacks, low velvet viola, tiny distant harmonic echoes that answer irregularly, rich cellular evolving pads. Organic connectedness and stillness."
+  },
+  {
+    "id": "circuit_garden",
+    "title": "Circuit Garden",
+    "description": "Soft currents wind through suspended circuits",
+    "rhythm": [
+      4,
+      0,
+      6,
+      0
+    ],
+    "rhythm_label": "Gentle release",
+    "color": "72ccb4",
+    "duration": 480,
+    "music": "assets/audio/circuit_garden.ogg",
+    "artist": "Breathwork VR / Google Lyria",
+    "genre": "Gentle release ambient",
+    "music_direction": "Warm analog electronic ambient: detuned vintage polysynth, soft electric piano, low rounded oscillator resonances, extremely sparse gentle filtered arpeggio fragments with no beat. Electricity as warmth, no buzz, no glitch, no sharp sparks."
+  },
+  {
+    "id": "pilgrim_tides",
+    "title": "Pilgrim Tides",
+    "description": "Small figures gather into flowing constellations",
+    "rhythm": [
+      6,
+      2,
+      6,
+      2
+    ],
+    "rhythm_label": "Gentle four-phase",
+    "color": "e4c994",
+    "duration": 480,
+    "music": "assets/audio/pilgrim_tides.ogg",
+    "artist": "Breathwork VR / Google Lyria",
+    "genre": "Gentle four-phase ambient",
+    "music_direction": "Humanist minimalist ambient: delicate felt piano, distant warm chamber strings, soft low clarinet, irregular slow call-and-response motifs, patient communal motion, consonant tender harmony. No marching pulse, no percussion, no vocals."
+  }
+]
