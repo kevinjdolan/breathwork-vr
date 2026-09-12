@@ -27,16 +27,22 @@ func run() -> void:
     menu.available = true
     director.camera.get_parent().position.y = 1.4
     menu._process(0.01)
-    var forward: Basis = director.camera.global_basis
-    aim(director.camera, menu.pill.global_position)
-    menu._process(0.5)
-    check(not menu.is_open, "Brief glance does not open menu")
-    director.camera.global_basis = forward
-    menu._process(0.01)
-    check(is_zero_approx(menu.dwell), "Looking away resets progress")
-    aim(director.camera, menu.pill.global_position)
-    menu._process(1.3)
-    check(menu.is_open and director.music.stream_paused and director.breath.stream_paused, "Dwell opens menu and pauses both audio clocks")
+    check(not menu.dialog.visible and not menu.cursor.visible, "No persistent exit control distracts during meditation")
+    var tracker: XRHandTracker = XRHandTracker.new()
+    tracker.name = "/user/hand_tracker/left"
+    tracker.has_tracking_data = true
+    tracker.hand_tracking_source = XRHandTracker.HAND_TRACKING_SOURCE_UNOBSTRUCTED
+    XRServer.add_tracker(tracker)
+    tracker.set_hand_joint_flags(XRHandTracker.HAND_JOINT_PALM, XRHandTracker.HAND_JOINT_FLAG_POSITION_VALID | XRHandTracker.HAND_JOINT_FLAG_ORIENTATION_VALID)
+    for step: int in range(20):
+        var pose: Transform3D = Transform3D(Basis(Vector3.RIGHT, -PI/2.0), Vector3(-0.15 + step*0.016, 0, -0.45))
+        # Camera is a child of the tracking origin; convert into tracker space.
+        pose.origin.y = director.camera.position.y
+        tracker.set_hand_joint_transform(XRHandTracker.HAND_JOINT_PALM, pose)
+        menu._process(1.0/30.0)
+    check(menu.is_open and director.music.stream_paused and director.breath.stream_paused, "Tracked palm wave opens menu and pauses both audio clocks")
+    check(menu.cursor.visible, "Confirmation renders the gaze pointer")
+    XRServer.remove_tracker(tracker)
     check(is_zero_approx(float((director.inhale.process_material as ShaderMaterial).get_shader_parameter("inhale_visibility"))), "Pause hides incoming breath")
     director._on_focus()
     check(director.music.stream_paused, "Regaining headset focus does not dismiss pause")

@@ -179,6 +179,8 @@ func _on_session_begun() -> void:
 
 func _recenter() -> void:
     XRServer.center_on_hmd(XRServer.RESET_BUT_KEEP_TILT, true)
+    if experience_layer != null and experience_layer.has_method("reset_journey"):
+        experience_layer.reset_journey()
 
 func _start_session() -> void:
     if _started:
@@ -408,7 +410,7 @@ func _push_visuals(_delta: float) -> void:
             player.global_position = Vector3(cos(angle) * radius, 0.15, sin(angle) * radius)
             player.volume_db = (-14.0 + release_wave * 2.0 + 1.5 * sin(elapsed * 0.11 + float(index) * 2.2)) + audio_fade
     if experience_layer != null and experience_layer.is_inside_tree():
-        experience_layer.update_experience({"elapsed": elapsed, "intensity": 1.0 - fade, "breath_fill": clock.breath_fill, "inhale_t": clock.inhale_t, "exhale_t": clock.exhale_t, "is_inhale": clock.is_inhale, "is_exhale": clock.is_exhale, "is_pause": clock.is_pause, "head_position": camera.global_position, "mouth_position": mouth.global_position, "orb_position": orb.global_position, "head_basis": camera.global_basis})
+        experience_layer.update_experience({"elapsed": elapsed, "phase_seconds": clock.seconds, "intensity": 1.0 - fade, "breath_fill": clock.breath_fill, "inhale_t": clock.inhale_t, "exhale_t": clock.exhale_t, "is_inhale": clock.is_inhale, "is_exhale": clock.is_exhale, "is_pause": clock.is_pause, "head_position": camera.global_position, "mouth_position": mouth.global_position, "orb_position": orb.global_position, "head_basis": camera.global_basis})
     (fade_mesh.material_override as ShaderMaterial).set_shader_parameter("fade", fade)
 
 func _update_mote_audio(cluster: int, state: Dictionary) -> void:
@@ -511,11 +513,15 @@ func _advance_exit(delta: float) -> void:
             _exit_elapsed += delta
         fade = lerpf(_exit_initial_fade, 1.0, ExperienceMath.smooth_unit(_exit_elapsed / 2.0))
         music.volume_db = linear_to_db(maxf(0.0001, 1.0 - fade))
-        breath.volume_db = -18.0 + music.volume_db
+        breath.volume_db = (-26.0 if experience_id == "prismatic_sanctuary" else -18.0) + music.volume_db
         if _exit_elapsed >= 2.0:
             _finish_exit()
 
 func _follow_orb(delta: float) -> void:
+    if experience_id == "prismatic_sanctuary" and experience_layer != null and experience_layer.is_inside_tree():
+        orb.global_position = experience_layer.focal_position()
+        movement_trail.amount_ratio = 0.0
+        return
     # Two gentle response stages let the viewer see the orb travel after a turn.
     var forward: Vector3 = -camera.global_basis.z.normalized()
     if _gaze_direction.angle_to(forward) > deg_to_rad(3.0):
@@ -572,6 +578,11 @@ func _configure_experience() -> void:
     clock.custom_stream.loop_begin = 0
     clock.custom_stream.loop_end = int(clock.custom_stream.get_length() * clock.custom_stream.mix_rate)
     music.stream = load("res://" + str(experience["music"])) as AudioStream
+    if experience_id == "prismatic_sanctuary":
+        orb.hide()
+        exhale.hide()
+        exhale.emitting = false
+        breath.volume_db = -26.0
     for path: String in ["Water", "NearAuroras", "FractalField", "AmbientMotes"]:
         var visual: Node3D = get_node("../" + path)
         visual.hide()

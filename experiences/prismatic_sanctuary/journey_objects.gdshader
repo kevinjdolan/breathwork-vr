@@ -1,0 +1,49 @@
+shader_type spatial;
+render_mode unshaded, cull_disabled, depth_draw_always, fog_disabled;
+uniform mat4 journey_frame;
+uniform vec3 head_position;
+uniform float elapsed = 0.0;
+uniform float travel = 0.0;
+uniform float family = 0.0;
+uniform float intensity = 1.0;
+uniform float breath_fill = 0.0;
+uniform float source_family;
+uniform float source_seed;
+uniform float beam_visibility;
+varying float visibility;
+varying vec3 tint;
+void vertex() {
+    float seed = INSTANCE_CUSTOM.x*6.283185;
+    float depth = mod(INSTANCE_CUSTOM.y*64.0+travel,64.0)-56.0;
+    float near_lane = step(INSTANCE_CUSTOM.z,0.27);
+    float radius = mix(2.5+INSTANCE_CUSTOM.z*2.8,1.22+INSTANCE_CUSTOM.w*.40,near_lane);
+    float size = mix(.48+INSTANCE_CUSTOM.w*.56,.24+INSTANCE_CUSTOM.w*.14,near_lane);
+    size *= 1.0-breath_fill*.40;
+    float shell = 4.19*(1.0-breath_fill*.40);
+    float extent = size*1.17*(1.0+breath_fill*.075);
+    radius = max(mix(1.3,1.12,near_lane),radius*(1.0-breath_fill*.40));
+    radius = max(radius,abs(depth)*.035+size*1.1);
+    radius = min(radius,shell-extent-.16);
+    float angle = seed + .065*sin(elapsed*.071+family);
+    vec3 center = vec3(cos(angle)*radius,sin(angle)*radius,depth);
+    center.xy += vec2(sin(elapsed*.18+seed),cos(elapsed*.13+seed*2.0))*.10;
+    center.z += .13*sin(elapsed*.11+seed);
+    vec3 p = VERTEX*size;
+    float spin = elapsed*(.045+.025*INSTANCE_CUSTOM.z)+seed;
+    mat2 turn = mat2(vec2(cos(spin),sin(spin)),vec2(-sin(spin),cos(spin)));
+    p.xz = turn*p.xz;
+    p.xy = turn*p.xy;
+    p *= 1.0+breath_fill*.075;
+    vec3 world = (journey_frame*vec4(center+p,1)).xyz;
+    POSITION = PROJECTION_MATRIX*VIEW_MATRIX*vec4(world,1);
+    visibility = smoothstep(-56.0,-48.0,depth)*(1.0-smoothstep(5.0,8.0,depth))*smoothstep(.42,.72,distance(world,head_position))*intensity;
+    visibility *= 1.0-smoothstep(12.0,32.0,-depth);
+    float inner = .88+.10*sin(elapsed*.10+seed+VERTEX.y*2.0);
+    float chosen = (abs(family-source_family)<.1 && abs(INSTANCE_CUSTOM.x-source_seed)<.001) ? beam_visibility : 0.0;
+    tint = mix(COLOR.rgb,vec3(.16,1.0,.25),chosen*.65)*inner*(1.0+.035*sin(elapsed*9.42477796));
+}
+void fragment() {
+    if (visibility < .001) discard;
+    ALBEDO = tint;
+    ALPHA = visibility;
+}

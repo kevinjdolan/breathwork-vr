@@ -68,6 +68,9 @@ def movement(entry: dict, index: int, seconds: int) -> tuple[Path, dict]:
 
 def score(entry: dict) -> dict:
     """Assemble three musical movements and verify a sample-exact delivery."""
+    if entry.get('tempo_bpm') == 90 and entry['id'] == 'prismatic_sanctuary':
+        from audio.generate_prismatic_trance import score as trance_score
+        return trance_score(entry)
     report_path = MASTERS / f'{entry["id"]}_delivery.json'
     target = ROOT / entry['music']
     sources = [movement(entry, index, seconds) for index, seconds in enumerate([178,178,144])]

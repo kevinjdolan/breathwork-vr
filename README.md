@@ -2,17 +2,21 @@
 
 Eight native Godot meditation worlds for Meta Quest, each eight minutes long. Choose a world from a spatial startup menu, then follow a gently drifting particle orb through breath-responsive geometry, fractals, water, clouds, neurons, circuits, or quiet crowds.
 
-The approved **Aurora Lake** experience remains available with its layered auroras, dynamic water, compact particle constellations, and positional sound. All worlds share tracked particle hands, soft near-mouth inhale paths, distinct outgoing particles, and a reclining-aware orb. Each new world has its own breathing rhythm and original Lyria score.
+The approved **Aurora Lake** experience remains available with its layered auroras, dynamic water, compact particle constellations, and positional sound. All worlds share tracked particle hands and reclining support. Prismatic Sanctuary features a slowly turning geometric tunnel, green plasma inhale paths, four-way blue outflow, and a white central light; the other seven worlds retain the drifting particle orb and near-mouth breathing streams. Each new world has its own breathing rhythm and original Lyria score.
 
 See [the experience catalog and review notes](docs/EXPERIENCES.md) for all eight directions, rhythms, and the critique/refinement process. The [verification record](docs/VERIFICATION.md) distinguishes desktop checks from headset validation.
 
 ![Eight integrated desktop experience previews](docs/screenshots/experiences.jpg)
 
+Experience 2 now has a 90 BPM electronic trance score and a gaze-following particle tunnel:
+
+![Prismatic Sanctuary with the expanded white light during a breath hold](docs/screenshots/prismatic-trance.jpg)
+
 ## Choose an experience
 
 In Quest, look at a card for 2.5 seconds; its highlight and percentage show selection progress. The menu anchors to the current gaze, including while lying down. Looking well away for a few seconds brings the menu back in front of you. On desktop, click a card or press **1–8**. Press **R** to re-anchor the desktop menu.
 
-Sessions fade back to the selector when complete. To end early without controllers, look at the small **Menu** button beside the breathing view for 1.2 seconds. The session pauses; look at **End session** for 1.8 seconds to fade back to the selector, or choose **Continue** to resume. The control works while reclining and comes back into view after a large head turn. On desktop, press **M** or click Menu. Holding a controller button or Escape/Space for 1.5 seconds also returns early. Follow the breathing comfortably; holds can be gentle pauses.
+Sessions fade back to the selector when complete. To pause or end early, raise a hand in front of your face with your **palm toward you**, then sweep it sideways in either direction. A confirmation appears with a visible gaze pointer. Hold the pointer over **End session** or **Continue** for 1.8 seconds. Lower your hand before waving again. This works while reclining. Quest 2/3 use head-directed gaze; their hardware does not track the eyes. On desktop, press **M**, then gaze or click a choice. Holding a controller button or Escape/Space for 1.5 seconds also returns early. Follow the breathing comfortably; holds can be gentle pauses.
 
 ## Run
 

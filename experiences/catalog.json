@@ -20,7 +20,7 @@
   {
     "id": "prismatic_sanctuary",
     "title": "Prismatic Sanctuary",
-    "description": "Folded geometry and floating jewel lanterns",
+    "description": "A flowing jewel tunnel beneath a woven particle vault",
     "rhythm": [
       4,
       4,
@@ -32,8 +32,9 @@
     "duration": 480,
     "music": "assets/audio/prismatic_sanctuary.ogg",
     "artist": "Breathwork VR / Google Lyria",
-    "genre": "Box breathing ambient",
-    "music_direction": "Prismatic ambient chamber music: soft glass harmonica, slowly beating pure sine intervals, velvet analog sub-drone, rare rounded mallet tones. Luminous geometric clarity, warm consonant suspended harmony, spacious silence."
+    "genre": "90 BPM psybient trance",
+    "music_direction": "Warm electronic psybient trance with a constant rounded 90 BPM kick, soft offbeat bass, D-Dorian sequenced synth arpeggios, and original Lyria cosmic synthesizer textures. No acoustic piano, guitar or harp; no harsh drops or strobing energy.",
+    "tempo_bpm": 90
   },
   {
     "id": "fractal_garden",

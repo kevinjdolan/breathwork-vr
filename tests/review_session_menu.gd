@@ -25,7 +25,7 @@ func run() -> void:
         await process_frame
     director.session_menu.available = true
     await create_timer(0.1).timeout
-    capture("session_menu_pill")
+    capture("session_unobstructed")
     director.session_menu.open_menu()
     await create_timer(0.1).timeout
     capture("session_menu_confirmation")

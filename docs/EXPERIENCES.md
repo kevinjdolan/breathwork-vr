@@ -1,13 +1,13 @@
 # Eight worlds, one gentle breath
 
-Each world is stationary, supports reclining, lasts exactly eight minutes, and retains the shared particle orb, near-mouth breathing paths, delayed gaze following, and tracked particle hands. Breathing sounds—not a separate visual metronome—provide the phase clock. The original Aurora Lake retains its approved outgoing particles and outbreath recording.
+Each world supports reclining, lasts exactly eight minutes, and renders tracked particle hands. Prismatic Sanctuary uses slow forward optic flow toward a distant star; the other seven worlds retain the shared particle orb, near-mouth breathing paths and delayed gaze following. Breathing sounds—not a separate visual metronome—provide the phase clock. The original Aurora Lake retains its approved outgoing particles and outbreath recording.
 
 The new worlds were authored in seven separate implementation subsessions. Each owns a small procedural scene layer and consumes the same breath state. All were rendered in contrasting phases and reclining views before integration; review findings drove a second pass where necessary.
 
 | Experience | Creative direction | Seconds: in / full pause / out / empty pause | Cycles | Music direction |
 |---|---|---:|---:|---|
 | Aurora Lake | Close layered auroras above irregular breathing waves; a giving and recovering golden particle orb | 4 / 2 / 8 / 0 | 34 + 4s settling | Warm evolving ambient, positional water and particle voices |
-| Prismatic Sanctuary | High-contrast psychedelic geometry: folded rosettes, open jewel facets and nested crystals, with no strobing | 4 / 4 / 4 / 4 | 30 | Crystalline chamber ambient and warm suspended harmony |
+| Prismatic Sanctuary | A gaze-following geometric tunnel: sixteen shape families, green plasma inhale, four-way blue outflow and a bright white center | 4 / 4 / 4 / 4 | 30 | 90 BPM electronic trance: warm synth textures, rounded kick, bass and arpeggios |
 | Fractal Garden | Actual Barnsley fern and tetrahedral IFS structures; seedpods gather, branch and dissolve | 6 / 0 / 6 / 0 | 40 | Organic woodland electroacoustic textures |
 | Tidal Origami | Water folds into impossible suspended arches and smaller floating liquid forms | 6 / 2 / 8 / 0 | 30 | Rounded resonant bowls, fluid glass and soft waterlike tones |
 | Cloud Atelier | Clouds sculpt a breathing vault; irregular stratus islands and nearby whorls part and gather | 5 / 0 / 5 / 0 | 48 | Airborne neoclassical ambient and soft suspended strings |
@@ -19,7 +19,7 @@ These are gentle pacing invitations. The startup menu explicitly invites comfort
 
 ## Pause or return at any time
 
-A small Menu target sits beside the breathing view. Hold your gaze on it for 1.2 seconds to pause the soundtrack and breath guide. The confirmation appears in the current head orientation, including while reclining. Look at End session for 1.8 seconds to fade to the selector, or Continue to resume. Progress resets when looking away. Desktop supports M and mouse selection; the controller hold shortcut remains available.
+Raise a palm toward your face and sweep it sideways in either direction to pause and open the confirmation. No persistent control is displayed during the session. A visible gaze pointer and progress ring let you choose End session or Continue with a 1.8-second dwell. Lower your hand before the next wave. The gesture and confirmation follow the head orientation, including while reclining; Quest 2/3 use head-directed gaze because those headsets have no eye tracker. Tracking jumps, back-facing palms, distant hands, stationary poses and controller-synthesized hands are rejected. Desktop supports M and mouse selection; the controller hold shortcut remains available.
 
 ![Return confirmation](screenshots/session-menu.jpg)
 
@@ -49,3 +49,8 @@ A small Menu target sits beside the breathing view. Hold your gaze on it for 1.2
 **Pilgrim Tides:** The first paths were too similarly oval and figures too bright. The revision varies paths with an infinity loop and softer squared forms, reduces figure luminance, and introduces gentle hands-to-chest breathing motion. Independent renders show recognizable small figures in seated and overhead views.
 
 Each folder's `DESIGN.md` retains implementation details, its own critique, and the corresponding limitations. Large raw verification captures and untouched audio masters are intentionally excluded from the public runtime repository.
+
+
+### Prismatic refinement — version 2.2
+
+Prismatic Sanctuary now travels through a 16,384-point vault, follows gaze with approximately sixteen seconds of lag, contracts 40% with inhalation, pulses gently during the full hold, and expands on exhalation. Visible source objects feed two green plasma arcs to the nose; blue mouth particles branch toward the walls in four directions. Distant objects and walls dissolve into directional haze. The unfogged white center grows during the full hold and shrinks to zero at exhalation, using 500 ms transitions. The score is a distinct 90 BPM electronic trance composition with new Lyria stems. See the experience’s DESIGN.md for budgets and timing.
