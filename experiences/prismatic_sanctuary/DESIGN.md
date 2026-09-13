@@ -1,3 +1,15 @@
+# Version 2.5 — generated particle clouds
+
+The tile-like wall is replaced by 98,304 independently positioned billboard grains in three interleaved radial cloud strata. The strata have jittered angular/depth sampling, approximately one meter of local thickness, and several meters of larger folded relief. Raised rosettes, braided filigree, occasional eyes and geckos are expressed through particle color, density and displacement. Fine satellite flecks break up the initially featureless bokeh discs, while 32,768 detached filament points add another scale of detail. There is no enclosing opaque surface.
+
+Material-space ornament travels continuously with the tunnel. Slow curls and density eddies preserve a dense surrounding cloud without simultaneous disappearances. The particle size contracts with the tunnel to preserve density through inhalation. The innermost center radius is clamped to 4.55 m before the shared 40% contraction, preserving space for the geometric objects. Near/far recycling remains hidden by the existing fades. Hold pulses, lagged gaze, green plasma, rainbow outflow, white destination, fog and music retain their previous behavior.
+
+A cached, mipmapped grain texture replaces expensive per-fragment procedural stippling. Doubling angular spacing and increasing cloud-kernel size preserves coverage with half the original draft’s simulated grains. The tunnel requests native 72 Hz on Quest to match its measured rendering budget; other experiences keep their own refresh preference.
+
+The first desktop review found oversized soft bokeh; the revised cloud sprites contain smaller grains and fine filaments. Forward and side views were checked at 34, 112, 260 and 400 seconds, including eye/gecko passages. Prismatic and complete-suite integration tests pass. Desktop renders do not establish sustained standalone-headset performance.
+
+## Previous implementation record
+
 # Version 2.4 revision
 
 Sixteen rainbow core-and-halo tubes leave the tracked mouth along bounded randomized cubic curves. A front travels outward over 1.65 seconds; broad pulses travel along both green inhale and rainbow exhale paths. Outflow fades before the next inhale lead-in. All instruction labels are removed. Directional haze opacity is reduced by 65%, and geometric fog fades farther away (19–44 m). A sightline fade clears distant objects around the permanent bright white destination core. Only its surrounding rays obey the previous 500 ms hold-growth/exhale-collapse envelope.

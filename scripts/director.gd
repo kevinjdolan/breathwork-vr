@@ -563,7 +563,7 @@ func _record_performance(delta: float) -> void:
     _perf_elapsed += delta
     _perf_frames += 1
     _perf_worst = maxf(_perf_worst, delta)
-    if _perf_elapsed >= 10.0:
+    if _perf_elapsed >= (5.0 if experience_id == "prismatic_sanctuary" else 10.0):
         print("VRMED FRAME SAMPLE fps=", snappedf(float(_perf_frames) / _perf_elapsed, 0.1), " worst_ms=", snappedf(_perf_worst * 1000.0, 0.1), " head=", camera.global_position, " mouth_distance=", snappedf(camera.global_position.distance_to(mouth.global_position), 0.001))
         _perf_elapsed = 0.0
         _perf_frames = 0
@@ -582,6 +582,8 @@ func _configure_experience() -> void:
     clock.custom_stream.loop_end = int(clock.custom_stream.get_length() * clock.custom_stream.mix_rate)
     music.stream = load("res://" + str(experience["music"])) as AudioStream
     if experience_id == "prismatic_sanctuary":
+        # Match the cloud world to a sustainable native cadence on standalone Quest.
+        tier["refresh_rate"] = 72.0
         orb.hide()
         exhale.hide()
         exhale.emitting = false

@@ -2,7 +2,7 @@
 
 Eight native Godot meditation worlds for Meta Quest, each eight minutes long. Choose a world from a spatial startup menu, then follow a gently drifting visual breath cue through breath-responsive geometry, fractals, water, clouds, neurons, circuits, or quiet crowds.
 
-The approved **Aurora Lake** remains available with its layered auroras, dynamic water, golden particle orb, and positional sound. All worlds share tracked particle hands and reclining support. Prismatic Sanctuary uses a slow geometric tunnel, pulsing green plasma inhale paths, sixteen rainbow outflow beams, and a permanently visible white destination core. Experiences 3–8 each have their own wordless focal sculpture and directed breath flows: a fractal iris, water lotus, cloud vortex, neural crown, capacitor plates, and a gathering of particle figures. Every world has its own rhythm and cohesive soundtrack.
+The approved **Aurora Lake** remains available with its layered auroras, dynamic water, golden particle orb, and positional sound. All worlds share tracked particle hands and reclining support. Prismatic Sanctuary uses a slow geometric tunnel enclosed by dense, layered fractal particle clouds, pulsing green plasma inhale paths, sixteen rainbow outflow beams, and a permanently visible white destination core. Experiences 3–8 each have their own wordless focal sculpture and directed breath flows: a fractal iris, water lotus, cloud vortex, neural crown, capacitor plates, and a gathering of particle figures. Every world has its own rhythm and cohesive soundtrack.
 
 See [the experience catalog and review notes](docs/EXPERIENCES.md) for all eight directions, rhythms, and the critique/refinement process. The [verification record](docs/VERIFICATION.md) distinguishes desktop checks from headset validation.
 
@@ -61,3 +61,7 @@ Generate the original suite Lyria audio with `python -m audio.synth_suite_breath
 ## Reusable development skill
 
 [godot-quest-breathwork](skills/godot-quest-breathwork/SKILL.md) documents the session's lessons: calm particle timing, mouth-relative presence, reclined composition, hand tracking, mobile rendering, audio mastering, and honest visual/device verification. Copy its folder into your Codex skills directory to reuse it. The companion [session lessons](skills/godot-quest-breathwork/references/session-lessons.md) include a practical review rubric.
+
+## One-minute video previews
+
+`python tools/render_previews.py --output /path/to/previews` records all eight worlds with their runtime soundtrack and breath cues. Each MP4 is 60 seconds, 1440×900 at 30 FPS with stereo AAC audio; the view slowly tilts upward to show the reclining composition. The output includes a local `index.html` gallery and a validation manifest. Movie sources and delivered previews are local artifacts rather than Android resources. These are desktop previews, not stereo headset recordings.

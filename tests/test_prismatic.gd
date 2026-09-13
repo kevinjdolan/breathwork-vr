@@ -34,6 +34,12 @@ func run() -> void:
     root.add_child(layer)
     check(layer.get_node("RainbowOutflow").multimesh.instance_count == 32, "Sixteen distinct outflow beams each have a halo")
     check(layer.find_children("*", "Label3D").is_empty(), "No instructional text in the tunnel")
+    var cloud: MultiMeshInstance3D = layer.get_node("ParticleVault")
+    check(cloud.multimesh.instance_count == 98304, "Three dense cloud strata within the bounded particle budget")
+    check(layer.get_node("VaultFilaments").multimesh.instance_count == 32768, "Fine detached filaments provide a separate depth scale")
+    # The headless dummy backend does not retain MultiMesh instance buffers.
+    if RenderingServer.get_rendering_device() != null:
+        check(cloud.multimesh.get_instance_custom_data(32768).r == 32768.0 and cloud.multimesh.get_instance_custom_data(65536).r == 65536.0, "Particle addresses retain all three depth strata")
     var basis: Basis = Basis(Vector3.RIGHT,deg_to_rad(80))
     var head: Vector3 = Vector3(0,1.4,0)
     layer.update_experience({"head_position":head,"head_basis":basis,"elapsed":30})

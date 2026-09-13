@@ -1,5 +1,5 @@
 extends Node3D
-## Slow forward optic flow through sixteen jewel families and a woven particle vault.
+## Slow forward optic flow through sixteen jewel families and a volumetric fractal particle clouds.
 
 const ROOT: String = "res://experiences/prismatic_sanctuary/"
 const SHAPES = preload("res://experiences/prismatic_sanctuary/shapes.gd")
@@ -44,12 +44,13 @@ func _ready() -> void:
         add_child(node)
     _points("DistantHaze",3,"journey_fog.gdshader")
     (get_node("DistantHaze").material_override as ShaderMaterial).render_priority = -20
-    _points("ParticleVault",32768,"journey_vault.gdshader")
+    _points("ParticleVault",98304,"journey_vault.gdshader")
     (get_node("ParticleVault").material_override as ShaderMaterial).render_priority = -15
-    _points("VaultFilaments",8192,"vault_filaments.gdshader")
+    (get_node("ParticleVault").material_override as ShaderMaterial).set_shader_parameter("grain_texture",load(ROOT+"cloud_grain.png"))
+    _points("VaultFilaments",32768,"vault_filaments.gdshader")
     _points("DistantStar",320,"journey_star.gdshader")
     _build_plasma()
-    print("VRMED PRISMATIC families=16 objects=128 vault_tiles=32768 filaments=8192 triangles=",_counts.reduce(func(a: int,b: int) -> int: return a+b,0)*8)
+    print("VRMED PRISMATIC families=16 objects=128 cloud_grains=98304 filaments=32768 triangles=",_counts.reduce(func(a: int,b: int) -> int: return a+b,0)*8)
 
 func _material(path: String) -> ShaderMaterial:
     var material: ShaderMaterial = ShaderMaterial.new()

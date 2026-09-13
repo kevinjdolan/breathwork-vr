@@ -1,3 +1,11 @@
+# Version 2.5 — cloud tunnel and video previews
+
+Prismatic Sanctuary now encloses the viewer in 98,304 procedural cloud grains and 32,768 detached filaments. Three radial strata retain dense coverage while adding real thickness, curved drift, raised geometric ornament, and small satellite flecks. The previous tiled surface has been removed. The approved breath streams, persistent white destination, gaze lag, fog level and single trance score are retained.
+
+Eight one-minute desktop preview videos are generated with actual runtime music and breathing audio. Each smoothly looks from seated level toward an 80-degree upward view, with no instructional overlays.
+
+## Previous release records
+
 # Version 2.4 — wordless themed worlds
 
 Experiences 3–8 now have different visual breath languages, full surrounding particle ecologies, and stronger overhead compositions. All are eight minutes, with their existing individual rhythms. Words remain only in the selector and deliberate exit confirmation.

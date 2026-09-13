@@ -1,3 +1,17 @@
+# Version 2.5 verification
+
+The Prismatic wall is now 98,304 layered cloud grains plus 32,768 detached filaments. Forward and side GPU renders were inspected at 34, 112, 260 and 400 seconds. The final cloud uses a mipmapped cached grain sprite, retaining density while avoiding procedural per-fragment noise. The existing green/rainbow breath streams, star, music and other seven experiences remain intact.
+
+The complete `tools/verify.sh` run passed, including all engine contracts and 10 independent Python tests (131.974 seconds). Prismatic contracts also passed on the real Mobile Vulkan renderer, including custom-data addresses for all three cloud strata. The dummy headless backend does not retain instance buffers, so only that readback assertion requires the real renderer. Python compilation and `git diff --check` passed.
+
+The original 196,608-grain prototype measured only 54.6 FPS in its first ten-second Quest sample and was rejected. The optimized cloud preserves coverage with larger stippled kernels and half as many simulated grains. It requests native 72 Hz. A fresh physical Quest 3 run measured 53.1 FPS during initial loading (801.3 ms worst frame), then **72.6 FPS with a 14.3 ms worst frame** in the next five-second window. Device script/shader logs were clean, and a live stereo capture confirms the cloud tunnel. This is a brief warmed sample, not full-session, late-passage, or moving-head comfort validation. The headset was returned to the selector.
+
+The installed, signature-verified package is **2.5.0 / code 13**. APK bytes: 147669796; SHA-256: `3d044ef6a642c2cc5f8b6610decc7f2bf4d97137cf98544172f2a5c07eb56aef`.
+
+Eight final MP4 previews contain 1,800 frames each at 30 FPS, 1440×900, exactly 60 seconds, H.264 video and 48 kHz stereo AAC. Each uses the actual runtime score, breath guide and applicable spatial sounds. Audio mean/peak levels and complete-file hashes are recorded in [PREVIEW_MANIFEST.json](PREVIEW_MANIFEST.json). Frames at 5, 30 and 55 seconds were inspected across all eight clips to check motion, reclining coverage and legibility. The Prismatic preview was regenerated after optimization. All clips are wordless desktop recordings, not stereo headset video. Runtime music files were not modified for this release.
+
+## Previous release records
+
 # Version 2.4 verification
 
 The full `tools/verify.sh` run passed: engine import, original Quest 2/3 contracts, tracked hands, session completion, all eight experience rhythms, menu integration, palm wave, Prismatic source locking/travel, and 10 independent Python audio/asset tests (97.445 seconds). The suite additionally verifies distinct theme routing, hidden legacy cues, absence of world instruction labels, reclined head axes and mouth targets, and a bounded integrated mesh count. Python compilation and `git diff --check` passed; this repository has no configured code formatter.
