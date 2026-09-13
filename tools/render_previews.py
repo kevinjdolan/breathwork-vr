@@ -5,12 +5,13 @@ from concurrent.futures import ThreadPoolExecutor
 import hashlib
 import html
 import json
+import os
 from pathlib import Path
 import re
 import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
-GODOT = ROOT/'.tools/Godot.app/Contents/MacOS/Godot'
+GODOT = Path(os.environ.get('GODOT_BIN', ROOT/'.tools/Godot.app/Contents/MacOS/Godot'))
 WORK = ROOT/'verification/previews'
 
 
