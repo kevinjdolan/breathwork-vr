@@ -62,3 +62,10 @@ For bounded stereo fractals, bake numeric escape-time and orbit-trap fields, the
 Increase richness through multiple scales, depth layers and particle lifecycles rather than only increasing counts. Relocate compact clusters while their reveal envelope is zero. Keep travel pulses separate from the gather/dissolve envelope so a pulse does not repeatedly explode the cluster. Shrink physical particle size near the face to retain mouth presence without oversized glowing discs.
 
 Treat a soundtrack as one arrangement. An added beat beneath an independently composed recording can sound like two simultaneous songs. If rebuilding a score, replace the delivered arrangement and preserve its master/provenance; do not add another runtime player. Automated instrumentation descriptions can be wrong even when their calmness assessment looks plausible.
+
+
+## Painted tunnels and passage journeys
+
+For a stylized, painted tunnel, bake original ornament tiles offline (SDF drawing in NumPy is enough for eyes, petals, ring cells and arches) and store relief height in alpha. One connected tube that slides by a fixed segment and re-addresses its material coordinate keeps the surface continuous without wrap-around quads, while a vertex texture fetch at a coarse mip gives real sculpted relief. Two anisotropic mipmapped samples per pixel cost far less on a mobile GPU than procedural per-fragment ornament. Dissolve passages along the incoming tile's raised ornament instead of a flat crossfade, and choose a drifting object's motif from the passage that will be current when it reaches the viewer so the sprite never changes while visible. Review scale from inside the tube: ornament that looks right on the tile can be enormous at grazing angles.
+
+Clock a generated score to the breath cycle when the loop length allows it (60 BPM with sixteen-second cycles puts every chord change on an inhale). Measure per-passage spectral balance after mastering; loudness normalization hides a bass-dominated mix.

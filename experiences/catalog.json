@@ -143,5 +143,24 @@
     "artist": "Breathwork VR / Google Lyria",
     "genre": "Gentle four-phase ambient",
     "music_direction": "Humanist minimalist ambient: delicate felt piano, distant warm chamber strings, soft low clarinet, irregular slow call-and-response motifs, patient communal motion, consonant tender harmony. No marching pulse, no percussion, no vocals."
+  },
+  {
+    "id": "visionary_temple",
+    "title": "Visionary Temple",
+    "description": "A painted tunnel of eyes, flames and mandalas opening into a temple",
+    "rhythm": [
+      4,
+      4,
+      6,
+      2
+    ],
+    "rhythm_label": "Long-release box",
+    "color": "f2a55c",
+    "duration": 480,
+    "music": "assets/audio/visionary_temple.ogg",
+    "artist": "Breathwork VR",
+    "genre": "60 BPM transcendental psybient",
+    "music_direction": "A single deterministic 60 BPM psybient journey aligned to the sixteen-second breath: tanpura-like drone, sub-bass heartbeat, breath-shaped sixteenth-note plucked arpeggios, glass shimmer and wordless formant pads, moving through four harmonic passages that mirror the tunnel.",
+    "tempo_bpm": 60
   }
 ]

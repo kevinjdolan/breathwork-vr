@@ -17,7 +17,7 @@ func run() -> void:
     check(not ExperienceMath.xr_session_focused(interface), "Uninitialized XR session is not focused")
     check(not ExperienceMath.xr_session_running(interface), "Uninitialized XR session is not running")
     var entries: Array = ExperienceCatalog.all()
-    check(entries.size() == 8, "Eight authored experiences")
+    check(entries.size() == 9, "Nine authored experiences")
     # Revisit the lake after every variant to catch shared Environment mutation.
     entries.append(entries[0])
     for entry: Dictionary in entries:
@@ -69,13 +69,16 @@ func run() -> void:
             print("THEME BUDGET ",entry["id"]," triangles=",triangle_count)
         if entry["id"] == "aurora_lake":
             check(scene.get_node("WorldEnvironment").environment.background_mode == Environment.BG_SKY, "Lake sky survives returning from variants")
-        if entry["id"] == "prismatic_sanctuary":
+        if entry["id"] in MeditationDirector.JOURNEY_IDS:
             director._start_session()
             await process_frame
-            check(director.music.playing and director.breath.playing, "Prismatic starts its single score and breath guide")
-            check(director.music.stream.resource_path == "res://assets/audio/prismatic_sanctuary.ogg", "Only the selected score is routed to music playback")
+            check(director.music.playing and director.breath.playing, "Tunnel journeys start their single score and breath guide")
+            check(director.music.stream.resource_path == "res://" + str(entry["music"]), "Only the selected score is routed to music playback")
             for player: AudioStreamPlayer3D in director._spatial_audio:
-                check(not player.playing, "Lake and mote audio cannot overlay the prismatic score")
+                check(not player.playing, "Lake and mote audio cannot overlay a journey score")
+            check(not director.orb.visible and not director.exhale.visible, "Journeys replace the golden orb and blue outflow")
+            check(float(director.tier["refresh_rate"]) == 72.0, "Journeys request the 72 Hz cadence")
+            check(director.experience_layer.has_method("focal_position") and director.experience_layer.find_children("*", "Label3D").is_empty(), "Journey layers expose a wordless distant focal light")
         check(clock.settle_at() <= 480.0, "No partial final cycle")
         scene.queue_free()
         await process_frame
@@ -83,7 +86,7 @@ func run() -> void:
     var menu: Node = load("res://scenes/startup.tscn").instantiate()
     root.add_child(menu)
     await process_frame
-    check(menu.cards.size() == 8, "All experiences are selectable")
+    check(menu.cards.size() == 9, "All experiences are selectable")
     var camera: XRCamera3D = menu.camera
     camera.rotation.x = deg_to_rad(80)
     menu._anchor()

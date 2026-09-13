@@ -12,7 +12,7 @@ static func find(id: String) -> Dictionary:
     return all()[0]
 
 static func background(id: String) -> Color:
-    return {"prismatic_sanctuary": Color(0.0015, 0.0018, 0.007), "fractal_garden": Color(0.006, 0.018, 0.012), "tidal_origami": Color(0.003, 0.011, 0.021), "cloud_atelier": Color(0.060, 0.085, 0.135), "neural_constellation": Color(0.007, 0.009, 0.023), "circuit_garden": Color(0.006, 0.012, 0.018), "pilgrim_tides": Color(0.016, 0.019, 0.026)}.get(id, Color.BLACK)
+    return {"prismatic_sanctuary": Color(0.0015, 0.0018, 0.007), "fractal_garden": Color(0.006, 0.018, 0.012), "tidal_origami": Color(0.003, 0.011, 0.021), "cloud_atelier": Color(0.060, 0.085, 0.135), "neural_constellation": Color(0.007, 0.009, 0.023), "circuit_garden": Color(0.006, 0.012, 0.018), "pilgrim_tides": Color(0.016, 0.019, 0.026), "visionary_temple": Color(0.012, 0.004, 0.022)}.get(id, Color.BLACK)
 
 static func rhythm_text(entry: Dictionary) -> String:
     var r: Array = entry["rhythm"]

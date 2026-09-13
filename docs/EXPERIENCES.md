@@ -1,3 +1,11 @@
+# Version 2.6 — Visionary Temple
+
+A ninth world, **Visionary Temple**, joins the selector. It is a gaze-following painted tunnel in the manner of Prismatic Sanctuary, but its walls are an original visionary-art surface that paths through four two-minute passages: a lattice of staring eyes woven by golden geometry, a turning flame-and-feather mandala with dotted mushrooms, nested kaleidoscope ring cells in gold octagon frames, and a painted temple hall of fluted columns, starry pointed arches, a blue-green diamond floor and a rosette dome. Each passage dissolves into the next along its raised ornament over 24 seconds, and the tunnel cross-section eases into a flat-floored hall for the temple. Drifting painted sigils (eye, flame lotus, ring cell, rosette) carry the current passage's motif and serve as golden inhale sources; sixteen violet-to-cyan petals leave the mouth on the exhale; the white destination light keeps its 500 ms hold-growth and exhale-collapse rays.
+
+The rhythm is a long-release box (4 s in, 4 s hold, 6 s out, 2 s rest; thirty cycles). The score is a new deterministic 60 BPM transcendental psybient journey whose sixteen-beat bars coincide with the breath cycle: a tanpura-like drone, a sub heartbeat that rests in the empty pause, breath-shaped plucked sixteenth arpeggios, hold-time glass shimmer and slow pads that move through four harmonic passages with the visuals. The supplied reference clips informed original procedural ornament baked by `tools/bake_visionary_tiles.py`; no reference frames are bundled. See `experiences/visionary_temple/DESIGN.md` for the tile mapping, breath timings and budgets. Desktop captures establish composition only; headset comfort and sustained frame rate are unverified.
+
+## Previous release records
+
 # Version 2.5 — cloud tunnel and video previews
 
 Prismatic Sanctuary now encloses the viewer in 98,304 procedural cloud grains and 32,768 detached filaments. Three radial strata retain dense coverage while adding real thickness, curved drift, raised geometric ornament, and small satellite flecks. The previous tiled surface has been removed. The approved breath streams, persistent white destination, gaze lag, fog level and single trance score are retained.
@@ -43,6 +51,7 @@ The new worlds were authored in seven separate implementation subsessions. Each 
 | Neural Constellation | Organic dendrites connect particle somas; gentle signals propagate with the breath | 5 / 0 / 7 / 0 | 40 | Intimate bioelectronic harmonics and answering echoes |
 | Circuit Garden | Floating circuit lattices store charge and release a slow, soft current | 4 / 0 / 6 / 0 | 48 | Warm analog synths and sparse electric-piano-like tones |
 | Pilgrim Tides | Hundreds of simple humanoids walk floating promenades, gather, and bring their hands inward on inhalation | 6 / 2 / 6 / 2 | 30 | Patient humanist chamber minimalism |
+| Visionary Temple | A painted tunnel through four visionary passages: eye lattice, flame mandala, kaleidoscope rings and a temple hall; golden plasma inhale, violet petal outflow, white destination light | 4 / 4 / 6 / 2 | 30 | 60 BPM transcendental psybient clocked to the breath |
 
 These are gentle pacing invitations. The startup menu explicitly invites comfortable breathing and treating holds as gentle pauses. Nothing requires the user to perform a forced breath or keep pace to continue.
 

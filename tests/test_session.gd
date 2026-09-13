@@ -217,4 +217,8 @@ func run() -> void:
     print("SESSION CONTRACTS: ", "PASS" if failures == 0 else str(failures) + " FAILURES")
     scene.queue_free()
     await process_frame
+    # Let the mixer thread release stopped playbacks before exit; the dummy audio
+    # driver on a headless Linux runner otherwise reports the lake streams as leaked.
+    await create_timer(0.3).timeout
+    await process_frame
     quit(1 if failures else 0)

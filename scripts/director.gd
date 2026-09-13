@@ -15,6 +15,9 @@ extends Node
 @export var fade: float = 1.0
 @export var fractal_fold: float = 3.0
 
+## Tunnel journeys share the distant focal light, quieter guide and 72 Hz cadence.
+const JOURNEY_IDS: Array[String] = ["prismatic_sanctuary", "visionary_temple"]
+
 var session_menu: SessionMenu
 var experience_id: String = "aurora_lake"
 var experience: Dictionary
@@ -516,12 +519,12 @@ func _advance_exit(delta: float) -> void:
             _exit_elapsed += delta
         fade = lerpf(_exit_initial_fade, 1.0, ExperienceMath.smooth_unit(_exit_elapsed / 2.0))
         music.volume_db = linear_to_db(maxf(0.0001, 1.0 - fade))
-        breath.volume_db = (-26.0 if experience_id == "prismatic_sanctuary" else -18.0) + music.volume_db
+        breath.volume_db = (-26.0 if experience_id in JOURNEY_IDS else -18.0) + music.volume_db
         if _exit_elapsed >= 2.0:
             _finish_exit()
 
 func _follow_orb(delta: float) -> void:
-    if experience_id == "prismatic_sanctuary" and experience_layer != null and experience_layer.is_inside_tree():
+    if experience_layer != null and experience_layer.has_method("focal_position") and experience_layer.is_inside_tree():
         orb.global_position = experience_layer.focal_position()
         movement_trail.amount_ratio = 0.0
         return
@@ -581,8 +584,8 @@ func _configure_experience() -> void:
     clock.custom_stream.loop_begin = 0
     clock.custom_stream.loop_end = int(clock.custom_stream.get_length() * clock.custom_stream.mix_rate)
     music.stream = load("res://" + str(experience["music"])) as AudioStream
-    if experience_id == "prismatic_sanctuary":
-        # Match the cloud world to a sustainable native cadence on standalone Quest.
+    if experience_id in JOURNEY_IDS:
+        # Match the tunnel worlds to a sustainable native cadence on standalone Quest.
         tier["refresh_rate"] = 72.0
         orb.hide()
         exhale.hide()

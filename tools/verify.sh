@@ -26,4 +26,5 @@ run_engine --headless --xr-mode off --path "$project_dir" --script tests/test_su
 run_engine --headless --xr-mode off --path "$project_dir" --script tests/test_session_menu.gd -- --test
 run_engine --headless --xr-mode off --path "$project_dir" --script tests/test_palm_wave.gd -- --test
 run_engine --headless --xr-mode off --path "$project_dir" --script tests/test_prismatic.gd -- --test
+run_engine --headless --xr-mode off --path "$project_dir" --script tests/test_visionary.gd -- --test
 "$python_bin" -m unittest discover -s tests -p 'test_*.py' -v

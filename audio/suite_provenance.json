@@ -571,11 +571,40 @@
           ]
         }
       ]
+    },
+    {
+      "id": "visionary_temple",
+      "title": "Visionary Temple",
+      "artist": "Breathwork VR",
+      "model": "authored electronic synthesis",
+      "duration": 480,
+      "file": "assets/audio/visionary_temple.ogg",
+      "sha256": "7a2a2f0096805257931f0668664ce121ce1d374697172abf58225aaf1a8ebb34",
+      "delivery_bytes": 4995411,
+      "target_lufs": -20,
+      "tempo_bpm": 60,
+      "beat_frames": 48000,
+      "beat_count": 480,
+      "cycle_beats": 16,
+      "passages": [
+        "eye lattice",
+        "flame mandala",
+        "kaleidoscope rings",
+        "painted temple"
+      ],
+      "arrangement": "A single deterministic 60 BPM psybient journey aligned to the sixteen-second breath: tanpura-like drone, sub-bass heartbeat, breath-shaped sixteenth-note plucked arpeggios, glass shimmer and wordless formant pads, moving through four harmonic passages that mirror the tunnel.",
+      "sources": [
+        {
+          "file": "visionary_journey60_v26.wav",
+          "sha256": "a010f53487cb22ddf8af1a9d926df008b74ea17260f3b2a9459d9fc0cbef1f32",
+          "origin": "Authored deterministic synthesis, no sampled or generated backing recording"
+        }
+      ]
     }
   ],
-  "generated_tracks": 7,
+  "generated_tracks": 8,
   "master_count": 21,
   "failed": 0,
-  "master_bytes": 944694298,
-  "delivery_bytes": 30320720
+  "master_bytes": 184320058,
+  "delivery_bytes": 35316131
 }

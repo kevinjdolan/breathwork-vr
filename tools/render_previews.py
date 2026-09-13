@@ -1,4 +1,4 @@
-"""Render and validate one-minute movies with runtime audio for all eight worlds."""
+"""Render and validate one-minute movies with runtime audio for every catalog world."""
 
 import argparse
 from concurrent.futures import ThreadPoolExecutor
@@ -52,9 +52,9 @@ def render(item: tuple[int, dict], output: Path) -> dict:
 
 
 def gallery(output: Path, reports: list[dict]) -> None:
-    """Write a local, self-contained gallery linking the eight completed movies."""
+    """Write a local, self-contained gallery linking every completed movie."""
     cards=''.join(f'<article><h2>{i+1}. {html.escape(r["title"])}</h2><video controls preload="none" src="{html.escape(r["file"])}"></video><a href="{html.escape(r["file"])}" download>Download · 1 minute</a></article>' for i,r in enumerate(reports))
-    page='<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Breathwork VR previews</title><style>body{background:#0b101c;color:#e6edf6;font:16px system-ui;margin:32px auto;max-width:1200px;padding:0 20px}h1{font-weight:500}p{color:#b6c3d3}main{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:28px}article{background:#141e2e;padding:18px;border-radius:16px}h2{font-size:20px;font-weight:500}video{width:100%;border-radius:8px;background:#000}a{display:block;color:#95d8ef;margin-top:12px}</style><h1>Breathwork VR</h1><p>Eight one-minute previews with music and breath cues. Each view slowly looks upward to show the reclining composition. These are desktop captures, not stereoscopic recordings.</p><main>'+cards+'</main></html>'
+    page='<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Breathwork VR previews</title><style>body{background:#0b101c;color:#e6edf6;font:16px system-ui;margin:32px auto;max-width:1200px;padding:0 20px}h1{font-weight:500}p{color:#b6c3d3}main{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:28px}article{background:#141e2e;padding:18px;border-radius:16px}h2{font-size:20px;font-weight:500}video{width:100%;border-radius:8px;background:#000}a{display:block;color:#95d8ef;margin-top:12px}</style><h1>Breathwork VR</h1><p>'+str(len(reports))+' one-minute previews with music and breath cues. Each view slowly looks upward to show the reclining composition. These are desktop captures, not stereoscopic recordings.</p><main>'+cards+'</main></html>'
     (output/'index.html').write_text(page)
     (output/'manifest.json').write_text(json.dumps(reports,indent=2)+'\n')
 
