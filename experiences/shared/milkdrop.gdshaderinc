@@ -98,3 +98,28 @@ void md_trail(vec3 seed, float t, vec4 params, float scale, int index, out vec3 
 float md_echo_radius(float base, float ratio, float index) {
     return base * pow(ratio, index);
 }
+
+// Seeding a thin shell around the listener gives a surface to watch; seeding a slab of
+// space that streams past gives somewhere to be. The depth wraps so the corridor never
+// ends, and the returned fade hides that seam by reaching zero at the far plane, where
+// the strands are already faint.
+//
+// The warp is fed world position rather than a fixed shell coordinate, so the structure
+// is a property of the space: moving through it reveals new shapes instead of watching
+// one surface deform, which is what makes the motion read as travel.
+vec3 md_drift_seed(float line, float span, float height, float travel, out float fade) {
+    float a = fract(line * 0.7548776);
+    float b = fract(line * 0.6180339);
+    float c = fract(line * 0.4501381);
+    float z = mod(b * 2.0 * span - travel, 2.0 * span) - span;
+    vec3 seed = vec3((a - 0.5) * 2.0 * span, (c - 0.5) * 2.0 * height, z);
+    fade = 1.0 - smoothstep(span * 0.55, span * 0.96, length(seed.xz));
+    return seed;
+}
+
+// Aerial perspective: distant strands sit in more air and read as further away, which
+// is most of what sells depth once the field has real extent.
+float md_depth_fade(float distance_m, float near_m, float far_m) {
+    float near_fade = smoothstep(near_m, near_m * 2.4, distance_m);
+    return near_fade * (1.0 - 0.72 * smoothstep(near_m * 2.0, far_m, distance_m));
+}
