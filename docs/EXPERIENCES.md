@@ -1,3 +1,57 @@
+# Version 2.7 — warp-field and echo-shell worlds
+
+Eight worlds join the selector, built from MilkDrop's warp engine moved out of the screen
+plane and into the space around the listener. MilkDrop's feedback loop is a polar
+coordinate remap — a radial zoom that is exponential in `rad`, four slowly drifting
+sinusoids, and a rotation — applied to the previous frame. Reproducing it as a screen-space
+feedback pass in a headset would be head-locked and would diverge between the eyes, so the
+same math drives world-space geometry instead. `experiences/shared/milkdrop.gdshaderinc`
+carries the port. Two things had to change: `rad` is unbounded in a room, so the zoom
+exponent is clamped or every distant point collapses onto the origin within a few steps,
+and rotation is yaw-only, because sustained roll about the view axis reads as self-motion.
+
+Four worlds advect a still seed field through the map and draw each path as a continuous
+filament, so a point's whole history is visible at once and no frame-to-frame state is
+kept — the field renders identically wherever the session is seeked.
+
+| World | Rhythm | What it does |
+|---|---|---|
+| Spiral Aperture | 4·2·6 | Inhalation winds the filaments inward and tightens each turn; exhalation lets the spiral open. |
+| Mandala Drift | 5·2·7·2 | Seed azimuth folded into one wedge and mirrored into twelve copies, so the dome is exactly symmetric though the map is not. |
+| Standing Tide | 4·4·8 | The zoom's inward pull balanced against the warp's spread, so strands settle onto a membrane that swells with the breath. |
+| Pollen Weather | 5·8 | Warp-dominant with almost no zoom or yaw; a few segments behind an advancing head, leaving open air. |
+
+Four more make the video echo literal. `echo_zoom` redrew the previous frame slightly
+enlarged each frame, and the recursion read as an endless tunnel on a flat screen; nested
+shells at geometric radii, each showing the field one delay further into the past, give the
+tunnel real depth for the head to parallax against.
+
+| World | Rhythm | What it does |
+|---|---|---|
+| Rosette Corridor | 6·2·8 | Six shells of sparse rosettes, ten seconds of history receding outward. |
+| Echo Atrium | 4·2·8·2 | Azimuth is time: each ring is a strip chart of the breath at its own delay, stacked as balconies. |
+| Vellum Veils | 5·3·7·1 | Four large shells painting only the crests of crossing low frequencies, as translucent washes. |
+| Inversion Chapel | 4·8·2 | Alternating shells render the figure and its negative — the composite stage's invert used as architecture. |
+
+Coverage per shell is what decides whether the stack reads as depth: six additively blended
+spheres each painting more than half their surface make an opaque wall, so the motifs are
+sparse with real gaps. Holding motif world size constant across shells, which is what
+`echo_zoom` literally implies, explodes the outer shells into unreadable noise because a
+sphere's area grows as the square of its radius; a mild scale ramp keeps the recession
+legible instead.
+
+The selector lays out in three columns past ten worlds rather than running its cards off the
+panel. `tools/render_warp_previews.py` renders thirty-second previews of these worlds with
+their runtime music and breath guide.
+
+All of this is verified by desktop Mobile Vulkan renders under a software rasteriser. Those
+establish composition and breath response only. They do not establish stereo comfort, and
+they cannot establish a sustained standalone frame rate — which for the shell worlds, six
+full-coverage transparent spheres deep, is the obvious risk and still needs a device
+measurement.
+
+## Previous release records
+
 # Version 2.6 — Visionary Temple
 
 A ninth world, **Visionary Temple**, joins the selector. It is a gaze-following painted tunnel in the manner of Prismatic Sanctuary, but its walls are an original visionary-art surface that paths through four two-minute passages: a lattice of staring eyes woven by golden geometry, a turning flame-and-feather mandala with dotted mushrooms, nested kaleidoscope ring cells in gold octagon frames, and a painted temple hall of fluted columns, starry pointed arches, a blue-green diamond floor and a rosette dome. Each passage dissolves into the next along its raised ornament over 24 seconds, and the tunnel cross-section eases into a flat-floored hall for the temple. Drifting painted sigils (eye, flame lotus, ring cell, rosette) carry the current passage's motif and serve as golden inhale sources; sixteen violet-to-cyan petals leave the mouth on the exhale; the white destination light keeps its 500 ms hold-growth and exhale-collapse rays.
