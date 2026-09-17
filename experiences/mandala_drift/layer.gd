@@ -6,8 +6,11 @@ const MANDALA_SHADER = preload("res://experiences/mandala_drift/mandala.gdshader
 const STEPS: int = 24
 ## Six rotations times their mirrors; must match COPIES in the shader.
 const COPIES: int = 12
-const WEDGES: int = 52
-const LINES: int = COPIES * WEDGES
+## Gates along the corridor; must match the `tiles` uniform.
+const TILES: int = 6
+const GATE_SPACING: float = 7.2
+const WEDGES: int = 17
+const LINES: int = COPIES * TILES * WEDGES
 var _materials: Array[ShaderMaterial] = []
 
 func _ready() -> void:
@@ -17,6 +20,10 @@ func _build_field() -> void:
     var material := ShaderMaterial.new()
     material.shader = MANDALA_SHADER
     material.set_shader_parameter("wedges", float(WEDGES))
+    material.set_shader_parameter("tiles", float(TILES))
+    material.set_shader_parameter("gate_spacing", GATE_SPACING)
+    material.set_shader_parameter("travel_speed", 1.05)
+    material.set_shader_parameter("field_scale", 5.6)
     _materials.append(material)
     var mesh := QuadMesh.new()
     mesh.size = Vector2.ONE

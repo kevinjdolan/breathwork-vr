@@ -14,6 +14,10 @@ func _build_field() -> void:
     var material := ShaderMaterial.new()
     material.shader = MEMBRANE_SHADER
     material.set_shader_parameter("lines", float(LINES))
+    material.set_shader_parameter("travel_speed", 0.95)
+    material.set_shader_parameter("span", 22.0)
+    material.set_shader_parameter("height", 10.0)
+    material.set_shader_parameter("field_scale", 15.0)
     _materials.append(material)
     var mesh := QuadMesh.new()
     mesh.size = Vector2.ONE
