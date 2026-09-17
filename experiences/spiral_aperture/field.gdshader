@@ -14,6 +14,8 @@ uniform float travel_speed = 1.15;
 uniform float span = 26.0;
 uniform float height = 13.0;
 uniform float field_scale = 13.0;
+// Seconds for one full circuit of the four characters.
+uniform float movement_period = 168.0;
 
 varying vec3 tint;
 varying float base_alpha;
@@ -23,6 +25,8 @@ varying float offset_v;
 varying float half_width_v;
 varying float halo_strength;
 varying float facing;
+varying float span_v;
+varying float ahead;
 
 void vertex() {
     // Each instance is one segment of one streamline. MilkDrop's decay trail was earlier
@@ -38,13 +42,18 @@ void vertex() {
     float wrap_fade;
     vec3 seed_world = md_drift_seed(line, span, height, elapsed * travel_speed, wrap_fade);
 
-    // Inhale winds the spiral inward and tightens each turn; exhale lets it open.
+    // Four characters the spiral travels between: a wide slow drift, a tight fast wind,
+    // an opening release, and a near-still glide. Without this the warp holds one shape
+    // for the whole session and the motion reads as vibration rather than as gesture.
     float draw = breath_fill;
-    float zoom = 0.990 - 0.010 * draw;
-    float zoomexp = 1.20 + 0.28 * draw;
-    float warp = 8.0 + 5.0 * draw;
-    float yaw = 0.045 + 0.030 * draw;
-    vec4 params = vec4(zoom, zoomexp, warp, yaw);
+    vec4 params = md_movement(
+        vec4(0.993, 1.10, 5.0, 0.020),
+        vec4(0.986, 1.34, 11.0, 0.072),
+        vec4(0.997, 1.22, 9.0, 0.038),
+        vec4(0.991, 1.14, 6.5, 0.012),
+        elapsed, movement_period);
+    // Inhale winds the spiral inward and tightens each turn; exhale lets it open.
+    params += vec4(-0.010 * draw, 0.28 * draw, 5.0 * draw, 0.030 * draw);
 
     float t = elapsed * 0.30;
     vec3 a;
@@ -72,6 +81,12 @@ void vertex() {
     // while its width does not, and it reads as a flat rectangular sheet. Comparing the
     // projected length against the true one detects exactly that case.
     facing = length(dir)/max(distance(v_a, v_b), 0.00001);
+    // A step far longer than the usual one means the map jumped rather than flowed, and
+    // drawing that as a ribbon paints a metres-wide sheet across the view.
+    span_v = distance(pa, pb);
+    // A segment straddling the camera plane projects with a sign flip and paints a huge
+    // sheet across the edge of the view, so it is faded out before it reaches the plane.
+    ahead = max(v_a.z, v_b.z);
     // Wider than a hairline: a soft strand that thins as it ages reads as light in air
     // rather than as a drawn stroke.
     float core_width = (0.060 + 0.050 * thickness) * (1.0 - 0.40 * age);
@@ -103,9 +118,11 @@ void fragment() {
     // rather than as a stroke. The halo is still well above zero where the quad ends, so
     // it is tapered to nothing at the edge; without this every strand is outlined by the
     // rectangle that carries it.
-    float profile = md_glow(offset_v, half_width_v, halo_strength);
+    float profile = md_glow(offset_v, half_width_v, halo_strength, 1.5);
     profile *= 1.0 - smoothstep(0.28, 0.5, abs(across_v));
-    profile *= smoothstep(0.14, 0.44, facing);
+    profile *= smoothstep(0.26, 0.62, facing);
+    profile *= 1.0 - smoothstep(1.1, 1.9, span_v);
+    profile *= 1.0 - smoothstep(-1.10, -0.20, ahead);
     float trail = (1.0 - flow_age * 0.85) * smoothstep(0.0, 0.10, flow_age + 0.04);
     ALBEDO = tint;
     ALPHA = profile * trail * base_alpha;

@@ -130,11 +130,35 @@ float md_depth_fade(float distance_m, float near_m, float far_m) {
 // white is exactly the hard line this buys its way out of, so most of the presence comes
 // from the halo instead.
 //
-// `offset` is the distance from the strand's axis and `half_width` the core's radius,
-// both in the same units; the quad must be at least six half-widths wide or the halo is
-// clipped off at the edge and the effect is lost.
-float md_glow(float offset, float half_width, float halo_strength) {
+// `offset` is the distance from the strand's axis, `half_width` the core's radius, and
+// `halo_scale` the halo's falloff in units of that radius, all in the same units.
+//
+// The halo must decay to nothing well inside the quad that carries it. A halo as wide as
+// the quad does not read as a glow at all: it is a near-uniform wash that fills the
+// rectangle edge to edge, and every strand becomes a visible flat card. As a rule the
+// quad wants to be at least three times `halo_scale` wide.
+float md_glow(float offset, float half_width, float halo_strength, float halo_scale) {
     float core = 1.0 - smoothstep(half_width * 0.25, half_width, abs(offset));
-    float halo = exp(-abs(offset) / (half_width * 6.0));
+    float halo = exp(-abs(offset) / (half_width * halo_scale));
     return core * 0.78 + halo * halo_strength;
+}
+
+// A world whose warp parameters never change holds one character for the whole session,
+// and constant character with constant motion is what reads as vibration rather than as
+// gesture. MilkDrop answered this twice over: a preset's q variables let it evolve, and
+// the visualiser switched presets outright.
+//
+// This is the same idea in one function. A world authors four characters and circulates
+// through them, easing rather than ramping between, so the field gathers, opens and
+// settles instead of idling. The breath still modulates on top of whatever comes back.
+vec4 md_movement(vec4 first, vec4 second, vec4 third, vec4 fourth, float elapsed, float period) {
+    float t = fract(elapsed / max(period, 1.0)) * 4.0;
+    int index = int(t);
+    float blend = t - float(index);
+    // Eased at both ends, so a change of character arrives and departs rather than
+    // sliding at a constant rate, which would be one more thing moving steadily.
+    blend = blend * blend * (3.0 - 2.0 * blend);
+    vec4 from_set = index == 0 ? first : (index == 1 ? second : (index == 2 ? third : fourth));
+    vec4 to_set = index == 0 ? second : (index == 1 ? third : (index == 2 ? fourth : first));
+    return mix(from_set, to_set, blend);
 }
