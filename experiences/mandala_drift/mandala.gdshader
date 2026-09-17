@@ -23,7 +23,12 @@ varying vec3 tint;
 varying float base_alpha;
 varying float flow_age;
 varying float across_v;
-varying float softness;
+varying float offset_v;
+varying float half_width_v;
+varying float halo_strength;
+varying float facing;
+varying float span_v;
+varying float ahead;
 
 // Violet through magenta, kept low in saturation at the dim end so the dome reads as
 // architecture rather than neon.
@@ -103,37 +108,61 @@ void vertex() {
     vec3 pa = origin + a * field_scale;
     vec3 pb = origin + b * field_scale;
 
-    float along = UV.x * 1.12 - 0.06;
+    // Consecutive halos sum where segments overlap, and a generous overlap therefore
+    // prints a regular ladder of bright rungs along every strand. The core is continuous
+    // on its own, so the overlap only needs to cover the seam.
+    float along = UV.x * 1.04 - 0.02;
     float across = UV.y - 0.5;
     vec3 vpos = (VIEW_MATRIX * vec4(mix(pa, pb, along), 1.0)).xyz;
     vec3 v_a = (VIEW_MATRIX * vec4(pa, 1.0)).xyz;
     vec3 v_b = (VIEW_MATRIX * vec4(pb, 1.0)).xyz;
     vec2 dir = v_b.xy - v_a.xy;
     vec2 perp = length(dir) > 0.00001 ? normalize(vec2(-dir.y, dir.x)) : vec2(0.0, 1.0);
-    float width = (0.030 + 0.022 * thickness) * (1.0 - 0.35 * age);
+    // A ribbon has no meaningful width seen end-on: its length collapses in projection
+    // while its width does not, and it reads as a flat rectangular sheet. Comparing the
+    // projected length against the true one detects exactly that case.
+    facing = length(dir) / max(distance(v_a, v_b), 0.00001);
+    // A step far longer than the usual one means the map jumped rather than flowed, and
+    // drawing that as a ribbon paints a metres-wide sheet across the view.
+    span_v = distance(pa, pb);
+    // A segment straddling the camera plane projects with a sign flip and paints a huge
+    // sheet across the edge of the view, so it is faded out before it reaches the plane.
+    ahead = max(v_a.z, v_b.z);
+    float core_width = (0.036 + 0.026 * thickness) * (1.0 - 0.35 * age);
     // A fixed world width collapses to a one-pixel hairline once a gate is far down the
     // corridor, which is what makes the field read as drawn lines. Holding a minimum
     // angular width instead keeps the distant vaults as soft threads of light.
     float depth = max(0.35, -vpos.z);
-    width = max(width, depth * 0.0075);
-    vpos.xy += perp * across * width * 2.0;
+    core_width = max(core_width, depth * 0.0060);
+    // The quad carries the halo as well as the core, so it is several core widths wide;
+    // a quad fitted to the core clips the halo away and the tracery is a wire again.
+    half_width_v = core_width;
+    float quad_width = core_width * 4.8;
+    vpos.xy += perp * across * quad_width * 2.0;
+    offset_v = across * quad_width * 2.0;
     POSITION = PROJECTION_MATRIX * vec4(vpos, 1.0);
 
     across_v = across;
     flow_age = (walk + along) / float(MD_TRAIL_STEPS);
     tint = mandala_tint(clamp(0.08 + age * 0.55 + fract(wedge * 0.6180339) * 0.35, 0.0, 1.0));
     float distance_m = distance(pa, head_position);
-    // Distant gates are widened more than they are bright, so the far end of the
-    // corridor blurs into haze rather than sharpening into wires.
-    softness = mix(14.0, 4.5, clamp(distance_m / (corridor * 0.5), 0.0, 1.0));
+    // Distant gates lean further on the halo, so the far end of the corridor blurs into
+    // haze rather than sharpening into wires.
+    halo_strength = mix(0.30, 0.58, clamp(distance_m / (corridor * 0.5), 0.0, 1.0));
     base_alpha = visibility * wrap_fade * md_depth_fade(distance_m, 2.2, corridor * 0.5)
         * (0.32 + 0.22 * draw);
 }
 
 void fragment() {
-    // A smooth falloff across the strand instead of a clipped edge, so the filament
-    // glows rather than reading as a hard line.
-    float profile = exp(-across_v * across_v * softness);
+    // A narrow core inside a wide halo, so the tracery reads as light in a material
+    // rather than as a stroke. The halo is still well above zero where the quad ends, so
+    // it is tapered to nothing at the edge; without this every strand is outlined by the
+    // rectangle that carries it.
+    float profile = md_glow(offset_v, half_width_v, halo_strength, 1.5);
+    profile *= 1.0 - smoothstep(0.28, 0.5, abs(across_v));
+    profile *= smoothstep(0.26, 0.62, facing);
+    profile *= 1.0 - smoothstep(0.48, 0.82, span_v);
+    profile *= 1.0 - smoothstep(-1.10, -0.20, ahead);
     float trail = (1.0 - flow_age * 0.80) * smoothstep(0.0, 0.10, flow_age + 0.04);
     ALBEDO = tint;
     ALPHA = profile * trail * base_alpha;

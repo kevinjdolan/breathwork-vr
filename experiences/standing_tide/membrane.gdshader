@@ -19,7 +19,12 @@ varying float base_alpha;
 varying float flow_age;
 varying float across_v;
 varying float shell_v;
-varying float softness;
+varying float offset_v;
+varying float half_width_v;
+varying float halo_strength;
+varying float facing;
+varying float span_v;
+varying float ahead;
 
 // Deep sea blue to pale teal; the bright end stays slightly green so the membrane
 // reads as water rather than sky.
@@ -70,20 +75,40 @@ void vertex() {
     vec3 pa = origin + a * field_scale;
     vec3 pb = origin + b * field_scale;
 
-    float along = UV.x * 1.12 - 0.06;
+    // Consecutive halos sum where segments overlap, and a generous overlap therefore
+    // prints a regular ladder of bright rungs along every ribbon. The core is continuous
+    // on its own, so the overlap only needs to cover the seam.
+    float along = UV.x * 1.04 - 0.02;
     float across = UV.y - 0.5;
     vec3 vpos = (VIEW_MATRIX * vec4(mix(pa, pb, along), 1.0)).xyz;
     vec3 v_a = (VIEW_MATRIX * vec4(pa, 1.0)).xyz;
     vec3 v_b = (VIEW_MATRIX * vec4(pb, 1.0)).xyz;
     vec2 dir = v_b.xy - v_a.xy;
     vec2 perp = length(dir) > 0.00001 ? normalize(vec2(-dir.y, dir.x)) : vec2(0.0, 1.0);
-    float width = (0.078 + 0.055 * depth_rank) * (1.0 - 0.30 * age);
+    // A ribbon has no meaningful width seen end-on: its length collapses in projection
+    // while its width does not, and it reads as a flat rectangular sheet. Comparing the
+    // projected length against the true one detects exactly that case.
+    facing = length(dir) / max(distance(v_a, v_b), 0.00001);
+    // A step far longer than the usual one means the map jumped rather than flowed, and
+    // drawing that as a ribbon paints a metres-wide sheet across the view.
+    span_v = distance(pa, pb);
+    // A segment straddling the camera plane projects with a sign flip and paints a huge
+    // sheet across the edge of the view, so it is faded out before it reaches the plane.
+    ahead = max(v_a.z, v_b.z);
+    // The ribbon was one soft smear across its whole width; the visible body is now a
+    // defined core, and the rest of the old width becomes the halo carrying it.
+    float core_width = (0.050 + 0.036 * depth_rank) * (1.0 - 0.30 * age);
     // A fixed world width collapses to a one-pixel hairline at distance, which is what
     // makes the membrane read as drawn lines; a minimum angular width keeps the far
     // water as soft threads instead.
     float view_depth = max(0.35, -vpos.z);
-    width = max(width, view_depth * 0.0105);
-    vpos.xy += perp * across * width * 2.0;
+    core_width = max(core_width, view_depth * 0.0060);
+    // The quad carries the halo as well as the core, so it is several core widths wide;
+    // a quad fitted to the core clips the halo away and the ribbon is a wire again.
+    half_width_v = core_width;
+    float quad_width = core_width * 4.8;
+    vpos.xy += perp * across * quad_width * 2.0;
+    offset_v = across * quad_width * 2.0;
     POSITION = PROJECTION_MATRIX * vec4(vpos, 1.0);
 
     across_v = across;
@@ -94,17 +119,23 @@ void vertex() {
     shell_v = settled;
     tint = tide_tint(clamp(0.10 + settled * 0.55 + fract(line * 0.6180339) * 0.25, 0.0, 1.0));
     float distance_m = distance(pa, head_position);
-    // Distant water is widened more than it is bright, so it settles into haze rather
-    // than sharpening into wires.
-    softness = mix(11.0, 3.2, clamp(distance_m / span, 0.0, 1.0));
+    // Distant water leans further on the halo, so it settles into haze rather than
+    // sharpening into wires.
+    halo_strength = mix(0.28, 0.56, clamp(distance_m / span, 0.0, 1.0));
     base_alpha = visibility * wrap_fade * md_depth_fade(distance_m, 1.6, span)
         * (0.34 + 0.30 * draw) * (0.30 + 0.85 * settled);
 }
 
 void fragment() {
-    // A smooth falloff across the strand instead of a clipped edge, so the filament
-    // glows rather than reading as a hard line.
-    float profile = exp(-across_v * across_v * softness);
+    // A narrow core inside a wide halo, so the ribbon reads as lit water rather than as
+    // a soft smear. The halo is still well above zero where the quad ends, so it is
+    // tapered to nothing at the edge; without this every ribbon is outlined by the
+    // rectangle that carries it.
+    float profile = md_glow(offset_v, half_width_v, halo_strength, 1.5);
+    profile *= 1.0 - smoothstep(0.28, 0.5, abs(across_v));
+    profile *= smoothstep(0.26, 0.62, facing);
+    profile *= 1.0 - smoothstep(1.28, 2.20, span_v);
+    profile *= 1.0 - smoothstep(-1.10, -0.20, ahead);
     float trail = (1.0 - flow_age * 0.65) * smoothstep(0.0, 0.10, flow_age + 0.04);
     ALBEDO = tint;
     ALPHA = profile * trail * base_alpha;
