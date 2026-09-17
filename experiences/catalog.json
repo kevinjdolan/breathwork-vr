@@ -162,5 +162,149 @@
     "genre": "60 BPM transcendental psybient",
     "music_direction": "A single deterministic 60 BPM psybient journey aligned to the sixteen-second breath: tanpura-like drone, sub-bass heartbeat, breath-shaped sixteenth-note plucked arpeggios, glass shimmer and wordless formant pads, moving through four harmonic passages that mirror the tunnel.",
     "tempo_bpm": 60
+  },
+  {
+    "id": "spiral_aperture",
+    "title": "Spiral Aperture",
+    "description": "A still field wound into a slow spiral by an advecting warp",
+    "rhythm": [
+      4,
+      2,
+      6,
+      0
+    ],
+    "rhythm_label": "Unwinding release",
+    "color": "7fd4c8",
+    "duration": 480,
+    "music": "assets/audio/prismatic_sanctuary.ogg",
+    "artist": "Breathwork VR",
+    "genre": "Psybient trance",
+    "music_direction": ""
+  },
+  {
+    "id": "rosette_corridor",
+    "title": "Rosette Corridor",
+    "description": "Nested rosette shells receding as the breath's own echo",
+    "rhythm": [
+      6,
+      2,
+      8,
+      0
+    ],
+    "rhythm_label": "Receding corridor",
+    "color": "e2a7d8",
+    "duration": 480,
+    "music": "assets/audio/visionary_temple.ogg",
+    "artist": "Breathwork VR",
+    "genre": "Transcendental psybient",
+    "music_direction": ""
+  },
+  {
+    "id": "mandala_drift",
+    "title": "Mandala Drift",
+    "description": "A sixfold kaleidoscopic fold turning slowly overhead",
+    "rhythm": [
+      5,
+      2,
+      7,
+      2
+    ],
+    "rhythm_label": "Fourfold mandala",
+    "color": "c4a2f0",
+    "duration": 480,
+    "music": "assets/audio/visionary_temple.ogg",
+    "artist": "Breathwork VR",
+    "genre": "Transcendental psybient",
+    "music_direction": ""
+  },
+  {
+    "id": "standing_tide",
+    "title": "Standing Tide",
+    "description": "A breathing membrane where inward and outward drift cancel",
+    "rhythm": [
+      4,
+      4,
+      8,
+      0
+    ],
+    "rhythm_label": "Suspended tide",
+    "color": "7cc3e8",
+    "duration": 480,
+    "music": "assets/audio/tidal_origami.ogg",
+    "artist": "Breathwork VR",
+    "genre": "Aquatic ambient",
+    "music_direction": ""
+  },
+  {
+    "id": "pollen_weather",
+    "title": "Pollen Weather",
+    "description": "Soft turbulence carrying drifting motes through open air",
+    "rhythm": [
+      5,
+      0,
+      8,
+      0
+    ],
+    "rhythm_label": "Drifting release",
+    "color": "e0cfa6",
+    "duration": 480,
+    "music": "assets/audio/cloud_atelier.ogg",
+    "artist": "Breathwork VR",
+    "genre": "Airborne harmonic ambient",
+    "music_direction": ""
+  },
+  {
+    "id": "echo_atrium",
+    "title": "Echo Atrium",
+    "description": "Rings of the last several breaths standing at their own distances",
+    "rhythm": [
+      4,
+      2,
+      8,
+      2
+    ],
+    "rhythm_label": "Echoing breath",
+    "color": "9fd8c6",
+    "duration": 480,
+    "music": "assets/audio/neural_constellation.ogg",
+    "artist": "Breathwork VR",
+    "genre": "Cellular electronic ambient",
+    "music_direction": ""
+  },
+  {
+    "id": "vellum_veils",
+    "title": "Vellum Veils",
+    "description": "Translucent painted veils folding through one another",
+    "rhythm": [
+      5,
+      3,
+      7,
+      1
+    ],
+    "rhythm_label": "Veiled cadence",
+    "color": "dcb9a4",
+    "duration": 480,
+    "music": "assets/audio/fractal_garden.ogg",
+    "artist": "Breathwork VR",
+    "genre": "Recursive harmonic ambient",
+    "music_direction": ""
+  },
+  {
+    "id": "inversion_chapel",
+    "title": "Inversion Chapel",
+    "description": "Alternating shells of light and its negative",
+    "rhythm": [
+      4,
+      0,
+      8,
+      2
+    ],
+    "rhythm_label": "Inverted release",
+    "color": "a8b6e6",
+    "duration": 480,
+    "music": "assets/audio/circuit_garden.ogg",
+    "artist": "Breathwork VR",
+    "genre": "Warm analogue ambient",
+    "music_direction": ""
   }
 ]

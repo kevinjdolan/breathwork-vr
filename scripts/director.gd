@@ -18,6 +18,10 @@ extends Node
 ## Tunnel journeys share the distant focal light, quieter guide and 72 Hz cadence.
 const JOURNEY_IDS: Array[String] = ["prismatic_sanctuary", "visionary_temple"]
 
+## Warp-field worlds carry their own focal structure, so the shared orb and the
+## mouth streams would only compete with it.
+const FIELD_IDS: Array[String] = ["spiral_aperture", "mandala_drift", "standing_tide", "pollen_weather", "rosette_corridor", "echo_atrium", "vellum_veils", "inversion_chapel"]
+
 var session_menu: SessionMenu
 var experience_id: String = "aurora_lake"
 var experience: Dictionary
@@ -591,6 +595,14 @@ func _configure_experience() -> void:
         exhale.hide()
         exhale.emitting = false
         breath.volume_db = -26.0
+    if experience_id in FIELD_IDS:
+        tier["refresh_rate"] = 72.0
+        orb.hide()
+        exhale.hide()
+        exhale.emitting = false
+        inhale.hide()
+        inhale.emitting = false
+        breath.volume_db = -24.0
     if experience_id in ThemeBreath.IDS:
         orb.hide()
         exhale.hide()

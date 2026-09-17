@@ -54,15 +54,26 @@ func _ready() -> void:
     panel.visible = false
     add_child(panel)
     _label("B R E A T H W O R K", Vector3(0, 1.05, 0), 56, Color(0.91, 0.88, 0.77))
-    _label("Nine worlds. Eight minutes. Your own pace.", Vector3(0, 0.93, 0), 25, Color(0.60, 0.69, 0.74))
+    _label("%d worlds. Eight minutes. Your own pace." % entries.size(), Vector3(0, 0.93, 0), 25, Color(0.60, 0.69, 0.74))
+    # Two roomy columns read best, but they only fit about ten worlds between the title
+    # and the footer. Past that the grid narrows rather than running off the panel.
+    var columns: int = 2 if entries.size() <= 10 else 3
+    var rows: int = int(ceil(float(entries.size()) / float(columns)))
+    var row_pitch: float = minf(0.33, 1.52 / float(rows))
+    var card_size: Vector2 = Vector2(1.08, 0.29) if columns == 2 else Vector2(0.72, row_pitch - 0.035)
+    var column_pitch: float = 1.14 if columns == 2 else 0.76
+    var text_scale: float = 1.0 if columns == 2 else 0.78
     for index: int in range(entries.size()):
         var entry: Dictionary = entries[index]
-        # Two columns of cards; an odd final card sits centered on its own row.
-        var last_alone: bool = index == entries.size() - 1 and entries.size() % 2 == 1
-        var center: Vector3 = Vector3(0.0 if last_alone else (-0.57 if index % 2 == 0 else 0.57), 0.66 - float(index / 2) * 0.33, 0)
+        var row: int = index / columns
+        var column: int = index % columns
+        # A short final row is centred rather than left-aligned.
+        var in_row: int = mini(columns, entries.size() - row * columns)
+        var offset: float = (float(column) - (float(in_row) - 1.0) * 0.5) * column_pitch
+        var center: Vector3 = Vector3(offset, 0.66 - float(row) * row_pitch, 0)
         var card: MeshInstance3D = MeshInstance3D.new()
         var mesh: QuadMesh = QuadMesh.new()
-        mesh.size = Vector2(1.08, 0.29)
+        mesh.size = card_size
         card.mesh = mesh
         var material: StandardMaterial3D = StandardMaterial3D.new()
         material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
@@ -72,9 +83,10 @@ func _ready() -> void:
         panel.add_child(card)
         cards.append(card)
         var tint: Color = Color.from_string(entry["color"], Color.WHITE)
-        _label(str(index + 1) + "  " + str(entry["title"]), center + Vector3(0, 0.068, 0.006), 32, tint)
-        _label(str(entry["rhythm_label"]) + "   ·   8 min", center + Vector3(0, 0.006, 0.006), 21, Color(0.73, 0.78, 0.80))
-        _label(ExperienceCatalog.rhythm_text(entry), center + Vector3(0, -0.056, 0.006), 19, Color(0.53, 0.61, 0.66))
+        var line_gap: float = 0.062 * text_scale
+        _label(str(index + 1) + "  " + str(entry["title"]), center + Vector3(0, line_gap, 0.006), int(32.0 * text_scale), tint)
+        _label(str(entry["rhythm_label"]) + "   ·   8 min", center + Vector3(0, 0.006, 0.006), int(21.0 * text_scale), Color(0.73, 0.78, 0.80))
+        _label(ExperienceCatalog.rhythm_text(entry), center + Vector3(0, -line_gap * 0.9, 0.006), int(19.0 * text_scale), Color(0.53, 0.61, 0.66))
     status = _label("Look at a world for 2.5 seconds to begin", Vector3(0, -0.92, 0), 26, Color(0.75, 0.80, 0.84))
     _label("Breathe comfortably; let any hold become a gentle pause.", Vector3(0, -1.01, 0), 21, Color(0.48, 0.57, 0.63))
     _label("Pause/end: wave a hand sideways, palm facing you. Desktop: M.", Vector3(0, -1.09, 0), 19, Color(0.48, 0.57, 0.63))
