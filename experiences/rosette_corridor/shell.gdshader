@@ -11,8 +11,12 @@ uniform vec3 head_position;
 uniform float shell_index = 0.0;
 uniform float shell_count = 6.0;
 uniform float shell_delay = 1.6;
-// Radius ratio of this shell to the innermost one.
-uniform float shell_scale = 1.0;
+// Where this shell stands on its journey out: 0 newly born at the centre, 1 about to
+// leave the outer limit. The layer advances it every frame.
+uniform float shell_s = 0.0;
+// Fixed offset of this shell in the cycle, used only to keep the shells from sharing
+// one seed when they all pass through the same value of shell_s.
+uniform float shell_phase = 0.0;
 
 varying vec3 local_dir;
 
@@ -22,12 +26,12 @@ void vertex() {
 }
 
 void fragment() {
+    float s = shell_s;
     // MilkDrop's video echo redrew the previous frame slightly larger every frame,
-    // which is what produced the endless tunnel. Here that recursion is literal: this
-    // shell sits further out and shows the field as it stood shell_index delays ago,
-    // so the receding scales the original faked are real distance the head can parallax
-    // against.
-    float t = elapsed - shell_index * shell_delay;
+    // which is what produced the endless tunnel. Here that recursion is literal and it
+    // moves: the shell climbs outward through the stack, showing a field that is older
+    // the further out it has travelled, and is reborn at the centre when it leaves.
+    float t = elapsed - s * shell_count * shell_delay;
     float draw = breath_fill;
 
     vec4 params = vec4(0.985 - 0.010 * draw, 1.22 + 0.24 * draw, 6.0 + 4.0 * draw, 0.030);
@@ -38,14 +42,13 @@ void fragment() {
     // Sixfold symmetry is the angular fold most presets applied before using `ang`.
     float fold = md_fold(polar.y, 6.0);
 
-    // A shell that paints everywhere hides every shell behind it, and the stack reads
-    // as one smeared surface. Discrete rosettes with real gaps between them keep each
-    // shell mostly open, so the depth the echo now occupies is actually visible.
-    // Holding the motif's world size constant across shells is echo_zoom itself: the
-    // same figure redrawn larger each step. A further shell therefore shows more, finer
-    // rosettes, and the stack recedes instead of sitting at one flat scale.
-    float cell_a = fold * 5.0 * shell_scale;
-    float cell_e = (polar.z + 1.5708) * 3.2 * shell_scale;
+    // echo_zoom itself: the same figure redrawn larger every step. A shell is seeded
+    // with a fine lattice and that lattice opens out as the shell travels, so rosettes
+    // grow and sweep past instead of standing at one fixed size. The ramp is mild —
+    // a full radius-ratio ramp would shatter the far shells into noise.
+    float k = mix(2.55, 1.00, s);
+    float cell_a = fold * 5.0 * k;
+    float cell_e = (polar.z + 1.5708 + shell_phase * 0.7) * 3.2 * k;
     vec2 cell = vec2(fract(cell_a) - 0.5, fract(cell_e) - 0.5);
     float seed = floor(cell_a) * 17.0 + floor(cell_e) * 5.0;
     float reach = length(cell) * 2.0;
@@ -57,10 +60,15 @@ void fragment() {
     float rosette = body * (0.35 + 0.65 * petals) * (0.6 + 0.4 * sin(reach * 9.0 - t * 0.5 + seed));
     rosette = max(0.0, rosette);
 
-    // Each shell further out is an older, fainter copy, exactly as echo_alpha decayed.
-    float echo = pow(0.90, shell_index) * mix(0.45, 1.0, shell_index / max(shell_count - 1.0, 1.0));
-    float alpha = rosette * echo * visibility * (0.34 + 0.26 * draw);
+    // The fade is what makes the recycling invisible: a shell arrives out of nothing at
+    // the centre and thins away at the outer limit, so nothing ever pops. The slow
+    // birth also keeps the nearest shell from washing out everything behind it.
+    float birth = smoothstep(0.0, 0.26, s);
+    float death = 1.0 - smoothstep(0.80, 1.0, s);
+    // Each step out is an older, fainter copy, exactly as echo_alpha decayed.
+    float echo = pow(0.88, s * (shell_count - 1.0)) * birth * death;
+    float alpha = rosette * echo * visibility * (0.40 + 0.30 * draw);
 
-    ALBEDO = meditation_palette(clamp(0.08 + shell_index / shell_count * 0.62 + petals * 0.18, 0.0, 1.0));
-    ALPHA = alpha;
+    ALBEDO = meditation_palette(clamp(0.08 + s * 0.62 + petals * 0.18, 0.0, 1.0));
+    ALPHA = clamp(alpha, 0.0, 1.0);
 }

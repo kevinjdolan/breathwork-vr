@@ -9,7 +9,8 @@ uniform vec3 head_position;
 uniform float shell_index = 0.0;
 uniform float shell_count = 4.0;
 uniform float shell_delay = 2.6;
-uniform float shell_scale = 1.0;
+// 0 newly born at the centre, 1 leaving the outer limit; advanced every frame.
+uniform float shell_s = 0.0;
 
 varying vec3 local_dir;
 
@@ -18,7 +19,10 @@ void vertex() {
 }
 
 void fragment() {
-    float t = elapsed - shell_index * shell_delay;
+    float s = shell_s;
+    // Further out is further back: the delay follows the veil's place in the stack, so
+    // the echo still reads as history even though nothing stands still.
+    float t = elapsed - s * shell_count * shell_delay;
     float draw = breath_fill;
 
     // A stronger warp than the rosettes: these veils are meant to be pulled and
@@ -28,9 +32,11 @@ void fragment() {
     p = md_step(p, t * 0.16, params, 3.6);
 
     vec3 polar = md_polar(p);
-    // Only a mild ramp with distance: matching the world size of a wash would shatter
-    // the far veils into noise, and the whole point is that they stay broad.
-    float k = 1.0 + 0.26 * shell_index;
+    // A veil is seeded as close crossing folds and broadens as it travels, so the wash
+    // opens out and passes the listener. Only a mild ramp: matching a wash's world size
+    // to the radius would shatter the far veils into noise, and the point is that they
+    // stay broad.
+    float k = mix(2.85, 1.25, s);
 
     // Three crossing low frequencies, each shell turned to its own orientation, is the
     // cheapest thing that reads as a painted wash rather than a gradient.
@@ -49,18 +55,22 @@ void fragment() {
     float core = smoothstep(0.62, 0.98, wash);
 
     // Brush grain: streaks that follow the wash's own gradient, their spacing wobbled
-    // by a slower sine so they read as bristle marks and not as a woven plaid.
+    // by a slower sine so they read as bristle marks and not as a woven plaid. They
+    // coarsen with the wash, which is most of what makes a veil read as approaching.
     float streak = sin((a * 23.0 + e * 7.5) * k + sin(e * 2.7 + t * 0.03) * 2.4);
     veil *= 0.58 + 0.44 * (streak * 0.5 + 0.5);
     // A ragged edge where the veil thins out, as vellum takes ink unevenly.
     veil *= 0.80 + 0.20 * sin(e * 9.0 * k - a * 3.0 + t * 0.02);
 
-    float echo = pow(0.86, shell_index);
-    // Four veils at this alpha peak near 0.55 summed, which stays well clear of white.
-    float alpha = (veil + core * 0.55) * echo * visibility * (0.34 + 0.14 * draw);
+    // The wash arrives out of nothing and thins away at the far limit; the slow birth
+    // is also what keeps the nearest veil from hazing over everything behind it.
+    float birth = smoothstep(0.0, 0.28, s);
+    float death = 1.0 - smoothstep(0.76, 1.0, s);
+    float echo = pow(0.80, s * (shell_count - 1.0)) * birth * death;
+    float alpha = (veil + core * 0.55) * echo * visibility * (0.38 + 0.16 * draw);
 
     // Parchment through ochre to rose; the far veils sit at the warmer end.
-    float hue = clamp(0.04 + shell_index / max(shell_count - 1.0, 1.0) * 0.40 + core * 0.45, 0.0, 1.0);
+    float hue = clamp(0.04 + s * 0.40 + core * 0.45, 0.0, 1.0);
     vec3 parchment = vec3(1.00, 0.88, 0.60);
     vec3 ochre = vec3(1.00, 0.60, 0.20);
     vec3 rose = vec3(1.00, 0.42, 0.40);

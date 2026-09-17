@@ -9,7 +9,8 @@ uniform vec3 head_position;
 uniform float shell_index = 0.0;
 uniform float shell_count = 6.0;
 uniform float shell_delay = 1.8;
-uniform float shell_scale = 1.0;
+// 0 newly born at the centre, 1 leaving the outer limit; advanced every frame.
+uniform float shell_s = 0.0;
 // 0 on even shells, 1 on odd: the composite stage's invert, applied every other shell.
 uniform float inverted = 0.0;
 
@@ -20,7 +21,10 @@ void vertex() {
 }
 
 void fragment() {
-    float t = elapsed - shell_index * shell_delay;
+    float s = shell_s;
+    // Older the further it has travelled: the arcade in front is this second, the one
+    // beyond it a few seconds back, exactly as the static stack was.
+    float t = elapsed - s * shell_count * shell_delay;
     float draw = breath_fill;
 
     // Barely any warp and no yaw worth the name: a chapel has to stand still, so the
@@ -30,10 +34,13 @@ void fragment() {
     p = md_step(p, t * 0.12, params, 4.0);
 
     vec3 polar = md_polar(p);
-    float k = 1.0 + 0.30 * shell_index;
+    // A bay is seeded narrow and short far down the nave and opens as it advances, so
+    // the arcade rises over the listener and passes: the same figure redrawn larger,
+    // which is echo_zoom. The ramp is mild, so no shell dissolves into stone noise.
+    float grow = mix(0.62, 1.60, s);
 
-    // Ten bays around the listener. The fold is MilkDrop's angular symmetry; here it is
-    // simply the plan of an arcade.
+    // Fourteen bays around the listener. The fold is MilkDrop's angular symmetry; here
+    // it is simply the plan of an arcade.
     float sides = 14.0;
     float seg = 6.2831853 / sides;
     float x = md_fold(polar.y, sides) / (seg * 0.5);
@@ -42,14 +49,17 @@ void fragment() {
     // A bay is a tall opening: narrow in azimuth, bounded in elevation, with a rounded
     // head. Everything outside it stays unpainted, which is what keeps five shells of
     // this behind one another still legible.
-    float head = 0.46 - 0.30 * x * x;
-    float window = (1.0 - smoothstep(0.26, 0.42, x))
-                 * (1.0 - smoothstep(head - 0.06, head, v))
-                 * smoothstep(-0.56, -0.48, v);
+    float wide = 0.30 * grow;
+    float head = (0.40 - 0.26 * x * x) * grow;
+    float sill = -0.46 * grow;
+    float window = (1.0 - smoothstep(wide * 0.62, wide, x))
+                 * (1.0 - smoothstep(head - 0.06 * grow, head, v))
+                 * smoothstep(sill - 0.08 * grow, sill, v);
 
-    // The figure inside the bay: stone courses crossed by a mullion.
-    float courses = smoothstep(0.30, 0.86, 0.5 + 0.5 * cos(v * 15.0 * k - t * 0.05));
-    float mullion = 1.0 - smoothstep(0.05, 0.16, x);
+    // The figure inside the bay: stone courses crossed by a mullion, both opening out
+    // with the bay so the masonry grows rather than densifying.
+    float courses = smoothstep(0.30, 0.86, 0.5 + 0.5 * cos(v * 19.0 / grow - t * 0.05));
+    float mullion = 1.0 - smoothstep(0.05 * grow, 0.16 * grow, x);
     float figure = clamp(courses * 0.85 + mullion * 0.45, 0.0, 1.0);
 
     // MilkDrop's composite stage again: even shells come through brightened, odd ones
@@ -64,8 +74,13 @@ void fragment() {
     float solar = 1.0 - abs(2.0 * figure - (0.35 + 0.55 * draw));
     value *= 0.68 + 0.42 * clamp(solar, 0.0, 1.0);
 
-    float echo = pow(0.90, shell_index);
-    float alpha = value * echo * visibility * (0.26 + 0.14 * draw);
+    // The bay fades up out of the centre and thins away past the outer limit, so the
+    // recycling never shows; and the nearest bay, which is the widest thing in view,
+    // is still faint enough to see the arcade through.
+    float birth = smoothstep(0.0, 0.24, s);
+    float death = 1.0 - smoothstep(0.80, 1.0, s);
+    float echo = pow(0.88, s * (shell_count - 1.0)) * birth * death;
+    float alpha = value * echo * visibility * (0.34 + 0.18 * draw);
 
     // Cool blue-grey stone; the inverted shells return in its warm complement.
     vec3 cool = mix(vec3(0.42, 0.55, 0.72), vec3(0.66, 0.78, 0.92), figure);
