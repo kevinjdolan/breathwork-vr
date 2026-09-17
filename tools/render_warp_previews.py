@@ -14,8 +14,25 @@ WORK = ROOT/'verification/warp_previews'
 SECONDS = 30
 
 WORLDS = [
-    'spiral_aperture', 'mandala_drift', 'standing_tide', 'pollen_weather',
-    'rosette_corridor', 'echo_atrium', 'vellum_veils', 'inversion_chapel',
+    # The warp worlds first: they are the ones under active review.
+    'spiral_aperture',
+    'mandala_drift',
+    'standing_tide',
+    'pollen_weather',
+    'rosette_corridor',
+    'echo_atrium',
+    'vellum_veils',
+    'inversion_chapel',
+    # The rest of the selector, so a music pass can cover every experience.
+    'aurora_lake',
+    'prismatic_sanctuary',
+    'fractal_garden',
+    'tidal_origami',
+    'cloud_atelier',
+    'neural_constellation',
+    'circuit_garden',
+    'pilgrim_tides',
+    'visionary_temple',
 ]
 
 
