@@ -4,7 +4,7 @@ extends Node3D
 const MOTES_SHADER = preload("res://experiences/pollen_weather/motes.gdshader")
 ## Must equal MD_TRAIL_STEPS in milkdrop.gdshaderinc.
 const STEPS: int = 24
-const LINES: int = 1150
+const LINES: int = 1450
 var _materials: Array[ShaderMaterial] = []
 
 func _ready() -> void:

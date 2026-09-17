@@ -98,7 +98,10 @@ void vertex() {
     // The quad carries the halo as well as the core, so it is several core widths wide;
     // a quad fitted to the core clips the halo away and the strand is a wire again.
     half_width_v = core_width;
-    float quad_width = core_width * 4.8;
+    // A segment killed outright by the end-on fade leaves its neighbour's end cut
+    // square. Narrowing it to a point as it turns instead lets the strand taper.
+    float taper = mix(0.22, 1.0, smoothstep(0.12, 0.70, facing));
+    float quad_width = core_width * 4.8 * taper;
     vpos.xy += perp * across * quad_width * 2.0;
     offset_v = across * quad_width * 2.0;
     POSITION = PROJECTION_MATRIX * vec4(vpos, 1.0);
@@ -120,7 +123,7 @@ void fragment() {
     // rectangle that carries it.
     float profile = md_glow(offset_v, half_width_v, halo_strength, 1.5);
     profile *= 1.0 - smoothstep(0.28, 0.5, abs(across_v));
-    profile *= smoothstep(0.26, 0.62, facing);
+    profile *= smoothstep(0.10, 0.40, facing);
     profile *= 1.0 - smoothstep(1.1, 1.9, span_v);
     profile *= 1.0 - smoothstep(-1.10, -0.20, ahead);
     float trail = (1.0 - flow_age * 0.85) * smoothstep(0.0, 0.10, flow_age + 0.04);

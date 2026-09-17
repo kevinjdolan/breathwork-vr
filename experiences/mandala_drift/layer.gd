@@ -9,7 +9,7 @@ const COPIES: int = 12
 ## Gates along the corridor; must match the `tiles` uniform.
 const TILES: int = 6
 const GATE_SPACING: float = 7.2
-const WEDGES: int = 17
+const WEDGES: int = 16
 const LINES: int = COPIES * TILES * WEDGES
 var _materials: Array[ShaderMaterial] = []
 

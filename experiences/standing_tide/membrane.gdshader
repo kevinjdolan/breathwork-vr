@@ -75,11 +75,14 @@ void vertex() {
     vec3 pa = origin + a * field_scale;
     vec3 pb = origin + b * field_scale;
 
-    // Consecutive halos sum where segments overlap, and a generous overlap therefore
-    // prints a regular ladder of bright rungs along every ribbon. The core is continuous
-    // on its own, so the overlap only needs to cover the seam.
-    float along = UV.x * 1.04 - 0.02;
+    // Consecutive halos sum where segments overlap, and any overlap at all therefore
+    // prints a regular ladder of bright rungs along every ribbon. The segments already
+    // share their endpoints, so they are butted rather than lapped.
+    float along = UV.x;
     float across = UV.y - 0.5;
+    // Taken before the width, so the taper is continuous across a seam: an age held
+    // constant over a whole segment steps at every join and prints a faint ladder.
+    flow_age = (walk + along) / float(MD_TRAIL_STEPS);
     vec3 vpos = (VIEW_MATRIX * vec4(mix(pa, pb, along), 1.0)).xyz;
     vec3 v_a = (VIEW_MATRIX * vec4(pa, 1.0)).xyz;
     vec3 v_b = (VIEW_MATRIX * vec4(pb, 1.0)).xyz;
@@ -97,7 +100,7 @@ void vertex() {
     ahead = max(v_a.z, v_b.z);
     // The ribbon was one soft smear across its whole width; the visible body is now a
     // defined core, and the rest of the old width becomes the halo carrying it.
-    float core_width = (0.050 + 0.036 * depth_rank) * (1.0 - 0.30 * age);
+    float core_width = (0.050 + 0.036 * depth_rank) * (1.0 - 0.30 * flow_age);
     // A fixed world width collapses to a one-pixel hairline at distance, which is what
     // makes the membrane read as drawn lines; a minimum angular width keeps the far
     // water as soft threads instead.
@@ -106,19 +109,24 @@ void vertex() {
     // The quad carries the halo as well as the core, so it is several core widths wide;
     // a quad fitted to the core clips the halo away and the ribbon is a wire again.
     half_width_v = core_width;
-    float quad_width = core_width * 4.8;
+    // A segment killed outright by the end-on fade leaves its neighbour's end cut
+    // square. Narrowing it to a point as it turns instead lets the strand taper.
+    float taper = mix(0.22, 1.0, smoothstep(0.12, 0.70, facing));
+    float quad_width = core_width * 4.8 * taper;
     vpos.xy += perp * across * quad_width * 2.0;
     offset_v = across * quad_width * 2.0;
     POSITION = PROJECTION_MATRIX * vec4(vpos, 1.0);
 
     across_v = across;
-    flow_age = (walk + along) / float(MD_TRAIL_STEPS);
     // Strands that have settled onto the surface are lit; the ones still travelling
     // toward it stay dim, which makes the membrane itself the bright object.
-    float settled = 1.0 - smoothstep(0.06, 0.42, abs(length(a) - 0.95));
+    // Sampled at this fragment's own place along the ribbon rather than at the segment's
+    // start: a shade held constant over a whole segment steps at every join, which prints
+    // a faint ladder of rungs down the ribbon.
+    float settled = 1.0 - smoothstep(0.06, 0.42, abs(length(mix(a, b, along)) - 0.95));
     shell_v = settled;
     tint = tide_tint(clamp(0.10 + settled * 0.55 + fract(line * 0.6180339) * 0.25, 0.0, 1.0));
-    float distance_m = distance(pa, head_position);
+    float distance_m = distance(mix(pa, pb, along), head_position);
     // Distant water leans further on the halo, so it settles into haze rather than
     // sharpening into wires.
     halo_strength = mix(0.28, 0.56, clamp(distance_m / span, 0.0, 1.0));
@@ -133,7 +141,9 @@ void fragment() {
     // rectangle that carries it.
     float profile = md_glow(offset_v, half_width_v, halo_strength, 1.5);
     profile *= 1.0 - smoothstep(0.28, 0.5, abs(across_v));
-    profile *= smoothstep(0.26, 0.62, facing);
+    // A gentle knee rather than a sharp one: `facing` is constant over a segment, so a
+    // steep fade steps between neighbours and is itself a ladder.
+    profile *= smoothstep(0.12, 0.70, facing);
     profile *= 1.0 - smoothstep(1.28, 2.20, span_v);
     profile *= 1.0 - smoothstep(-1.10, -0.20, ahead);
     float trail = (1.0 - flow_age * 0.65) * smoothstep(0.0, 0.10, flow_age + 0.04);

@@ -108,11 +108,14 @@ void vertex() {
     vec3 pa = origin + a * field_scale;
     vec3 pb = origin + b * field_scale;
 
-    // Consecutive halos sum where segments overlap, and a generous overlap therefore
-    // prints a regular ladder of bright rungs along every strand. The core is continuous
-    // on its own, so the overlap only needs to cover the seam.
-    float along = UV.x * 1.04 - 0.02;
+    // Consecutive halos sum where segments overlap, and any overlap at all therefore
+    // prints a regular ladder of bright rungs along every strand. The segments already
+    // share their endpoints, so they are butted rather than lapped.
+    float along = UV.x;
     float across = UV.y - 0.5;
+    // Taken before the width, so the taper is continuous across a seam: an age held
+    // constant over a whole segment steps at every join and prints a faint ladder.
+    flow_age = (walk + along) / float(MD_TRAIL_STEPS);
     vec3 vpos = (VIEW_MATRIX * vec4(mix(pa, pb, along), 1.0)).xyz;
     vec3 v_a = (VIEW_MATRIX * vec4(pa, 1.0)).xyz;
     vec3 v_b = (VIEW_MATRIX * vec4(pb, 1.0)).xyz;
@@ -128,7 +131,7 @@ void vertex() {
     // A segment straddling the camera plane projects with a sign flip and paints a huge
     // sheet across the edge of the view, so it is faded out before it reaches the plane.
     ahead = max(v_a.z, v_b.z);
-    float core_width = (0.036 + 0.026 * thickness) * (1.0 - 0.35 * age);
+    float core_width = (0.036 + 0.026 * thickness) * (1.0 - 0.35 * flow_age);
     // A fixed world width collapses to a one-pixel hairline once a gate is far down the
     // corridor, which is what makes the field read as drawn lines. Holding a minimum
     // angular width instead keeps the distant vaults as soft threads of light.
@@ -143,9 +146,11 @@ void vertex() {
     POSITION = PROJECTION_MATRIX * vec4(vpos, 1.0);
 
     across_v = across;
-    flow_age = (walk + along) / float(MD_TRAIL_STEPS);
     tint = mandala_tint(clamp(0.08 + age * 0.55 + fract(wedge * 0.6180339) * 0.35, 0.0, 1.0));
-    float distance_m = distance(pa, head_position);
+    // Sampled at this fragment's own place along the strand rather than at the segment's
+    // start: a shade held constant over a whole segment steps at every join, which prints
+    // a faint ladder of rungs down the strand.
+    float distance_m = distance(mix(pa, pb, along), head_position);
     // Distant gates lean further on the halo, so the far end of the corridor blurs into
     // haze rather than sharpening into wires.
     halo_strength = mix(0.30, 0.58, clamp(distance_m / (corridor * 0.5), 0.0, 1.0));
@@ -160,7 +165,9 @@ void fragment() {
     // rectangle that carries it.
     float profile = md_glow(offset_v, half_width_v, halo_strength, 1.5);
     profile *= 1.0 - smoothstep(0.28, 0.5, abs(across_v));
-    profile *= smoothstep(0.26, 0.62, facing);
+    // A gentle knee rather than a sharp one: `facing` is constant over a segment, so a
+    // steep fade steps between neighbours and is itself a ladder.
+    profile *= smoothstep(0.12, 0.70, facing);
     profile *= 1.0 - smoothstep(0.48, 0.82, span_v);
     profile *= 1.0 - smoothstep(-1.10, -0.20, ahead);
     float trail = (1.0 - flow_age * 0.80) * smoothstep(0.0, 0.10, flow_age + 0.04);

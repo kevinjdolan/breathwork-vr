@@ -67,6 +67,13 @@ void vertex() {
     vec3 pa = origin + a * field_scale;
     vec3 pb = origin + b * field_scale;
 
+    // Only a few segments behind a slowly advancing head are drawn, so each streamline
+    // shows as a short comet of motes rather than the whole dotted curve at once.
+    float head = fract(fract(line * 0.4501) + elapsed * 0.028) * float(MD_TRAIL_STEPS);
+    float rel = head - walk;
+    rel += rel < 0.0 ? float(MD_TRAIL_STEPS) : 0.0;
+    float mote_life = exp(-rel * 0.58) * step(rel, 5.0);
+
     // A mote is a point on the streamline, not a length of it: the quad is built around
     // one sample and squared up in view space, so the ember keeps its shape however the
     // segment happens to be foreshortened. A dash cut out of the segment instead grows
@@ -81,7 +88,9 @@ void vertex() {
     // The quad is sized for the halo, not for the ember: the visible grain is the small
     // bright core inside it, and a quad fitted to that core would clip the halo away and
     // leave the mote a flat dash again.
-    float width = (0.150 + 0.105 * grain) * (1.0 - 0.30 * age);
+    // The tail shrinks as well as dims. A comet of equal-sized motes is a row of beads
+    // threaded on the streamline; one that tapers reads as a single grain being carried.
+    float width = (0.150 + 0.105 * grain) * (1.0 - 0.30 * age) * (0.62 + 0.38 * mote_life);
     // Far motes would otherwise shrink below a pixel and sparkle; a floor on the angular
     // size holds them as faint specks of pollen instead.
     float view_depth = max(0.35, -vpos.z);
@@ -93,12 +102,6 @@ void vertex() {
 
     across_v = across;
     along_v = UV.x;
-    // Only a few segments behind a slowly advancing head are drawn, so each streamline
-    // shows as a short comet of motes rather than the whole dotted curve at once.
-    float head = fract(fract(line * 0.4501) + elapsed * 0.028) * float(MD_TRAIL_STEPS);
-    float rel = head - walk;
-    rel += rel < 0.0 ? float(MD_TRAIL_STEPS) : 0.0;
-    float mote_life = exp(-rel * 0.58) * step(rel, 5.0);
     flow_age = age;
     tint = pollen_tint(clamp(0.45 + grain * 0.35 + fract(line * 0.6180339) * 0.25, 0.0, 1.0));
     float distance_m = distance(pa, head_position);
@@ -115,13 +118,16 @@ void vertex() {
     // A third of the motes carry most of the light; the rest sit near the threshold, so
     // the field never fills in the way the filament worlds do.
     float sparse = mix(0.46, 1.0, pow(fract(line * 0.2360679), 1.4));
+    // Evenly lit motes at even spacing read as beads threaded on the streamline. Giving
+    // each grain its own weight breaks the necklace without breaking the drift.
+    float grit = mix(0.55, 1.0, fract(sin(walk * 12.9898 + line * 4.1414) * 43758.5453));
     // The peak is held near one: a core that clips to flat white is the hard dash this
     // buys its way out of, and most of the added presence comes from the halo instead.
     // Capped rather than merely scaled: the field wants many bright motes, and without a
     // ceiling the handful of near ones would clip to flat white while the far air stayed
     // dim. The cap sits below the point where the warmest tint loses its colour.
     base_alpha = min(visibility * wrap_fade * aerial * sparse * mote_life
-        * (2.30 + 0.80 * draw), 0.70);
+        * (2.60 + 0.90 * draw), 0.70);
 }
 
 void fragment() {
