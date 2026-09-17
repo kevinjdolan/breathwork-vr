@@ -123,3 +123,18 @@ float md_depth_fade(float distance_m, float near_m, float far_m) {
     float near_fade = smoothstep(near_m, near_m * 2.4, distance_m);
     return near_fade * (1.0 - 0.72 * smoothstep(near_m * 2.0, far_m, distance_m));
 }
+
+// A single hard profile reads as a drawn stroke. A narrow core sitting inside a much
+// wider halo reads as light in a material, which is the difference between a wire and a
+// filament. The core is deliberately held below full strength: a core that clips to
+// white is exactly the hard line this buys its way out of, so most of the presence comes
+// from the halo instead.
+//
+// `offset` is the distance from the strand's axis and `half_width` the core's radius,
+// both in the same units; the quad must be at least six half-widths wide or the halo is
+// clipped off at the edge and the effect is lost.
+float md_glow(float offset, float half_width, float halo_strength) {
+    float core = 1.0 - smoothstep(half_width * 0.25, half_width, abs(offset));
+    float halo = exp(-abs(offset) / (half_width * 6.0));
+    return core * 0.78 + halo * halo_strength;
+}
