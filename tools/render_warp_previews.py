@@ -25,18 +25,26 @@ def run(args: list[str], log: Path) -> None:
         subprocess.run(args, cwd=ROOT, stdout=output, stderr=subprocess.STDOUT, check=True)
 
 
-def render(item: tuple[int, str], output: Path, width: int, height: int) -> dict:
-    """Capture a runtime half minute with its music and breath guide, then encode it."""
+def render(item: tuple[int, str], output: Path, width: int, height: int,
+           music: dict | None = None) -> dict:
+    """Capture a runtime half minute with its audio, then encode it.
+
+    With `music`, the world is driven by a baked loudness table instead of the breath
+    clock, and the supplied track plays in place of the world's own score.
+    """
     number, identifier = item
     raw = WORK/f'{identifier}.avi'
     log = WORK/f'{identifier}_render.log'
     target = output/f'{number:02d}-{identifier}.mp4'
     # Movie Maker always captures at the project viewport, so the delivery size is set
     # when encoding rather than by asking the engine for a smaller window.
+    script = 'tests/render_music_preview.gd' if music else 'tests/render_preview.gd'
+    extra = [f'--music-start={music["start"]}'] if music else []
     run(['xvfb-run', '-a', str(GODOT), '--xr-mode', 'off', '--path', str(ROOT),
          '--fixed-fps', '30', '--disable-vsync',
-         '--write-movie', str(raw), '--script', 'tests/render_preview.gd', '--',
-         '--test', f'--experience={identifier}', f'--preview-duration={SECONDS + 2}'], log)
+         '--write-movie', str(raw), '--script', script, '--',
+         '--test', f'--experience={identifier}',
+         f'--preview-duration={SECONDS + 2}'] + extra, log)
     text = log.read_text()
     if re.search(r'^(SCRIPT ERROR:|SHADER ERROR:|ERROR:)', text, re.MULTILINE):
         raise RuntimeError(f'{identifier}: Godot reported an error; see {log}')
@@ -71,13 +79,17 @@ def main() -> None:
     parser.add_argument('--height', type=int, default=800)
     parser.add_argument('--only', nargs='*', help='Render just these identifiers')
     parser.add_argument('--workers', type=int, default=2)
+    parser.add_argument('--music-start', type=float,
+                        help='Drive the worlds from the baked music table, from this second')
     arguments = parser.parse_args()
     arguments.output.mkdir(parents=True, exist_ok=True)
     WORK.mkdir(parents=True, exist_ok=True)
     chosen = [w for w in WORLDS if not arguments.only or w in arguments.only]
+    music = dict(start=arguments.music_start) if arguments.music_start is not None else None
     with ThreadPoolExecutor(max_workers=arguments.workers) as pool:
         reports = list(pool.map(
-            lambda item: render(item, arguments.output, arguments.width, arguments.height),
+            lambda item: render(item, arguments.output, arguments.width,
+                                arguments.height, music),
             [(WORLDS.index(w) + 1, w) for w in chosen]))
     (arguments.output/'manifest.json').write_text(json.dumps(reports, indent=2) + '\n')
     print(f'{len(reports)} previews in {arguments.output}')
