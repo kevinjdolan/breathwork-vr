@@ -32,7 +32,7 @@ func setup() -> void:
     material.albedo_color = Color.RED
     marker.material_override = material
     scene.add_child(marker)
-    marker.global_position = director.mouth.global_position
+    marker.global_position = director.breath_center.global_position
 
 func _process(delta: float) -> bool:
     if director == null:

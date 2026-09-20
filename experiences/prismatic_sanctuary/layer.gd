@@ -6,6 +6,8 @@ const SHAPES = preload("res://experiences/prismatic_sanctuary/shapes.gd")
 const SPEED: float = 0.55
 const SPAN: float = 64.0
 const STAR_DISTANCE: float = 60.0
+const INHALE_OFFSET: Vector3 = Vector3(0,-.14,-.12)
+const EXHALE_OFFSET: Vector3 = Vector3.ZERO
 var _materials: Array[ShaderMaterial] = []
 var _journey: Transform3D = Transform3D.IDENTITY
 var _anchored: bool = false
@@ -18,8 +20,10 @@ var _source_cycle: int = -1
 var _source: Vector3
 var _beams: MultiMeshInstance3D
 var _outflow: MultiMeshInstance3D
+var _tempo_bpm: float = 60.0
 
 func _ready() -> void:
+    _tempo_bpm = float(ExperienceCatalog.find("prismatic_sanctuary")["tempo_bpm"])
     for kind: int in range(16):
         var mesh: ArrayMesh = SHAPES.build(kind)
         _counts.append(mesh.get_faces().size()/3)
@@ -55,6 +59,7 @@ func _ready() -> void:
 func _material(path: String) -> ShaderMaterial:
     var material: ShaderMaterial = ShaderMaterial.new()
     material.shader = load(ROOT+path)
+    material.set_shader_parameter("tempo_bpm",_tempo_bpm)
     _materials.append(material)
     return material
 
@@ -114,7 +119,10 @@ func update_experience(state: Dictionary) -> void:
         _source_cycle = cycle
     if _source_index >= 0:
         _source = _journey*object_center(_source_index,time,fill)
-    var nose: Vector3 = head+basis*Vector3(0,-.035,-.085)
+    # Preserve the lower inhale as an explicit offset from the shared neck center.
+    var center: Vector3 = BreathGeometry.from_state(state)
+    var inhale_target: Vector3 = BreathGeometry.offset(center,basis,INHALE_OFFSET)
+    var exhale_origin: Vector3 = BreathGeometry.offset(center,basis,EXHALE_OFFSET)
     var lead: float = phase-16.0 if phase>=14.5 else phase
     var beam: float = smoothstep(-1.5,.35,lead)*(1.0-smoothstep(3.35,4.75,lead)) if lead<4.75 else 0.0
     if time>=478.5 or _source_index<0:
@@ -125,8 +133,8 @@ func update_experience(state: Dictionary) -> void:
         material.set_shader_parameter("source_position",_source)
         material.set_shader_parameter("source_family",float(_source_index/8))
         material.set_shader_parameter("source_seed",fposmod(float(_source_index)*.6180339,1.0))
-        material.set_shader_parameter("nose_position",nose)
-        material.set_shader_parameter("mouth_position",state.get("mouth_position",head+basis*Vector3(0,-.08,-.06)))
+        material.set_shader_parameter("inhale_target",inhale_target)
+        material.set_shader_parameter("exhale_origin",exhale_origin)
         material.set_shader_parameter("head_right",basis.x)
         material.set_shader_parameter("head_up",basis.y)
         material.set_shader_parameter("head_forward",-basis.z)

@@ -1,0 +1,232 @@
+{
+  "atlas": "experiences/visionary_temple/tiles/matcaps.png",
+  "atlas_sha256": "3a27ea91abafc3350246fe14e5d2b5412c945119e645a86a084681fd8630880a",
+  "cell": 256,
+  "layout": "4 x 4 in MATERIALS order",
+  "materials": {
+    "gold": {
+      "index": 0,
+      "model": "gemini-3-pro-image",
+      "prompt": "A matcap (material capture) reference image: exactly one perfect smooth sphere of polished warm 24-karat gold, centered, filling the square frame almost edge to edge, on a pure black background. Lit by a large soft key light from the upper left, a gentle fill from the right and a faint rim light, with a crisp specular highlight and subtle environment reflections suited to the material. Straight-on orthographic view, no perspective distortion. No other objects, no ground, no shadow, no text, no border.",
+      "master_sha256": "6b19b6fab5a9279748d9a9264f522f237b7e6a095cd9a4cdd127d9036b989f59",
+      "created": "2026-09-16T12:30:05+00:00",
+      "bounds": [
+        0,
+        0,
+        1023,
+        1023
+      ],
+      "aspect": 1.0
+    },
+    "rose_gold": {
+      "index": 1,
+      "model": "gemini-3-pro-image",
+      "prompt": "A matcap (material capture) reference image: exactly one perfect smooth sphere of polished rose gold, centered, filling the square frame almost edge to edge, on a pure black background. Lit by a large soft key light from the upper left, a gentle fill from the right and a faint rim light, with a crisp specular highlight and subtle environment reflections suited to the material. Straight-on orthographic view, no perspective distortion. No other objects, no ground, no shadow, no text, no border.",
+      "master_sha256": "389f8412d64a751dbfbaccba608a15fa5eca21b737b507a34d151dd8439730aa",
+      "created": "2026-09-16T12:30:01+00:00",
+      "bounds": [
+        56,
+        75,
+        966,
+        982
+      ],
+      "aspect": 1.003
+    },
+    "pearl": {
+      "index": 2,
+      "model": "gemini-3-pro-image",
+      "prompt": "A matcap (material capture) reference image: exactly one perfect smooth sphere of lustrous white pearl with soft pink and blue iridescent sheen, centered, filling the square frame almost edge to edge, on a pure black background. Lit by a large soft key light from the upper left, a gentle fill from the right and a faint rim light, with a crisp specular highlight and subtle environment reflections suited to the material. Straight-on orthographic view, no perspective distortion. No other objects, no ground, no shadow, no text, no border.",
+      "master_sha256": "98e985f5970c22c2881e51b10afda15113ea772471dd2dba7ef157aef0435666",
+      "created": "2026-09-16T12:30:01+00:00",
+      "bounds": [
+        33,
+        33,
+        990,
+        989
+      ],
+      "aspect": 1.001
+    },
+    "ruby": {
+      "index": 3,
+      "model": "gemini-3-pro-image",
+      "prompt": "A matcap (material capture) reference image: exactly one perfect smooth sphere of deep glowing ruby gemstone, glossy, with warm light glowing through its red interior; the sphere edge stays dark red with no white rim or outline, centered, filling the square frame almost edge to edge, on a pure black background. Lit by a large soft key light from the upper left, a gentle fill from the right and a faint rim light, with a crisp specular highlight and subtle environment reflections suited to the material. Straight-on orthographic view, no perspective distortion. No other objects, no ground, no shadow, no text, no border.",
+      "master_sha256": "5e96dd63b45f9fce13dd21676fccee126bb7f4976e53a95ed5b3f4faac54e32e",
+      "created": "2026-09-16T12:35:32+00:00",
+      "bounds": [
+        72,
+        73,
+        951,
+        950
+      ],
+      "aspect": 1.002
+    },
+    "sapphire": {
+      "index": 4,
+      "model": "gemini-3-pro-image",
+      "prompt": "A matcap (material capture) reference image: exactly one perfect smooth sphere of deep royal-blue sapphire gemstone, glossy, with light glowing through its interior, centered, filling the square frame almost edge to edge, on a pure black background. Lit by a large soft key light from the upper left, a gentle fill from the right and a faint rim light, with a crisp specular highlight and subtle environment reflections suited to the material. Straight-on orthographic view, no perspective distortion. No other objects, no ground, no shadow, no text, no border.",
+      "master_sha256": "8e0362ae450237d6ee5a86d42b28e176b5fee9ab4e1bd2cf7b8fedf206f49e9d",
+      "created": "2026-09-16T12:30:16+00:00",
+      "bounds": [
+        51,
+        46,
+        972,
+        986
+      ],
+      "aspect": 0.98
+    },
+    "emerald": {
+      "index": 5,
+      "model": "gemini-3-pro-image",
+      "prompt": "A matcap (material capture) reference image: exactly one perfect smooth sphere of vivid emerald-green gemstone, glossy, with light glowing through its interior, centered, filling the square frame almost edge to edge, on a pure black background. Lit by a large soft key light from the upper left, a gentle fill from the right and a faint rim light, with a crisp specular highlight and subtle environment reflections suited to the material. Straight-on orthographic view, no perspective distortion. No other objects, no ground, no shadow, no text, no border.",
+      "master_sha256": "e7696421ddec296470e9cf121b869ee2c7b671c5da227007833ec4b9e4bf4e37",
+      "created": "2026-09-16T12:30:18+00:00",
+      "bounds": [
+        101,
+        99,
+        922,
+        921
+      ],
+      "aspect": 0.999
+    },
+    "amethyst": {
+      "index": 6,
+      "model": "gemini-3-pro-image",
+      "prompt": "A matcap (material capture) reference image: exactly one perfect smooth sphere of violet amethyst crystal, glossy and translucent-looking, centered, filling the square frame almost edge to edge, on a pure black background. Lit by a large soft key light from the upper left, a gentle fill from the right and a faint rim light, with a crisp specular highlight and subtle environment reflections suited to the material. Straight-on orthographic view, no perspective distortion. No other objects, no ground, no shadow, no text, no border.",
+      "master_sha256": "4a745e7ad03efdb25fcff176a16b3028d417b1771cf35d7ea62fe64e2d3b1943",
+      "created": "2026-09-16T12:30:19+00:00",
+      "bounds": [
+        86,
+        86,
+        936,
+        937
+      ],
+      "aspect": 0.999
+    },
+    "citrine": {
+      "index": 7,
+      "model": "gemini-3-pro-image",
+      "prompt": "A matcap (material capture) reference image: exactly one perfect smooth sphere of golden-orange citrine crystal, glossy and luminous, with no white rim or outline around the sphere, centered, filling the square frame almost edge to edge, on a pure black background. Lit by a large soft key light from the upper left, a gentle fill from the right and a faint rim light, with a crisp specular highlight and subtle environment reflections suited to the material. Straight-on orthographic view, no perspective distortion. No other objects, no ground, no shadow, no text, no border.",
+      "master_sha256": "dcef11d32aa47dbd21ee32e088729e929ad736194a9dcb7e47b3686aa97e957b",
+      "created": "2026-09-16T12:35:31+00:00",
+      "bounds": [
+        51,
+        45,
+        972,
+        977
+      ],
+      "aspect": 0.988
+    },
+    "moonstone": {
+      "index": 8,
+      "model": "gemini-3-pro-image",
+      "prompt": "A matcap (material capture) reference image: exactly one perfect smooth sphere of milky moonstone with a floating blue adularescent glow, centered, filling the square frame almost edge to edge, on a pure black background. Lit by a large soft key light from the upper left, a gentle fill from the right and a faint rim light, with a crisp specular highlight and subtle environment reflections suited to the material. Straight-on orthographic view, no perspective distortion. No other objects, no ground, no shadow, no text, no border.",
+      "master_sha256": "c0ef38809d277cd82ee33f7a063000900c00853aa24ee67b5fcd465c05f66e6c",
+      "created": "2026-09-16T12:30:32+00:00",
+      "bounds": [
+        6,
+        7,
+        1017,
+        1017
+      ],
+      "aspect": 1.001
+    },
+    "opal": {
+      "index": 9,
+      "model": "gemini-3-pro-image",
+      "prompt": "A matcap (material capture) reference image: exactly one perfect smooth sphere of polished fire opal with rainbow play-of-color flashes, centered, filling the square frame almost edge to edge, on a pure black background. Lit by a large soft key light from the upper left, a gentle fill from the right and a faint rim light, with a crisp specular highlight and subtle environment reflections suited to the material. Straight-on orthographic view, no perspective distortion. No other objects, no ground, no shadow, no text, no border.",
+      "master_sha256": "e083543906f9bb089679213f122fd633baaf2de471b5c9de6aae7d5418a532d3",
+      "created": "2026-09-16T12:30:34+00:00",
+      "bounds": [
+        84,
+        78,
+        939,
+        929
+      ],
+      "aspect": 1.005
+    },
+    "jade": {
+      "index": 10,
+      "model": "gemini-3-pro-image",
+      "prompt": "A matcap (material capture) reference image: exactly one perfect smooth sphere of polished imperial green jade with soft translucent depth, centered, filling the square frame almost edge to edge, on a pure black background. Lit by a large soft key light from the upper left, a gentle fill from the right and a faint rim light, with a crisp specular highlight and subtle environment reflections suited to the material. Straight-on orthographic view, no perspective distortion. No other objects, no ground, no shadow, no text, no border.",
+      "master_sha256": "c2376c221d9c972fcdb3a87aa40a197106bc1a156f2df388d036936f3ae5c77b",
+      "created": "2026-09-16T12:30:36+00:00",
+      "bounds": [
+        0,
+        0,
+        1023,
+        1023
+      ],
+      "aspect": 1.0
+    },
+    "turquoise": {
+      "index": 11,
+      "model": "gemini-3-pro-image",
+      "prompt": "A matcap (material capture) reference image: exactly one perfect smooth sphere of polished robin-egg turquoise with faint golden veins, centered, filling the square frame almost edge to edge, on a pure black background. Lit by a large soft key light from the upper left, a gentle fill from the right and a faint rim light, with a crisp specular highlight and subtle environment reflections suited to the material. Straight-on orthographic view, no perspective distortion. No other objects, no ground, no shadow, no text, no border.",
+      "master_sha256": "1a470658ae170e7cdb174f655231b454c1124401b2083b4d08138c932790f8ad",
+      "created": "2026-09-16T12:30:36+00:00",
+      "bounds": [
+        134,
+        137,
+        889,
+        892
+      ],
+      "aspect": 1.0
+    },
+    "lapis": {
+      "index": 12,
+      "model": "gemini-3-pro-image",
+      "prompt": "A matcap (material capture) reference image: exactly one perfect smooth sphere of polished lapis lazuli: deep ultramarine blue with tiny gold flecks, centered, filling the square frame almost edge to edge, on a pure black background. Lit by a large soft key light from the upper left, a gentle fill from the right and a faint rim light, with a crisp specular highlight and subtle environment reflections suited to the material. Straight-on orthographic view, no perspective distortion. No other objects, no ground, no shadow, no text, no border.",
+      "master_sha256": "d8718ae0ada87ecdcb1a58061e8c31775cfd42038717e14e17727eeb04f5df3a",
+      "created": "2026-09-16T12:30:48+00:00",
+      "bounds": [
+        36,
+        35,
+        986,
+        1002
+      ],
+      "aspect": 0.982
+    },
+    "obsidian": {
+      "index": 13,
+      "model": "gemini-3-pro-image",
+      "prompt": "A matcap (material capture) reference image: exactly one perfect smooth sphere of polished rainbow obsidian: glossy black with violet and green iridescent sheen, centered, filling the square frame almost edge to edge, on a pure black background. Lit by a large soft key light from the upper left, a gentle fill from the right and a faint rim light, with a crisp specular highlight and subtle environment reflections suited to the material. Straight-on orthographic view, no perspective distortion. No other objects, no ground, no shadow, no text, no border.",
+      "master_sha256": "77b497aaf6a74d01925bcbb9e56a1fccd6d1bbb8897c015c34c1f7ced5c45146",
+      "created": "2026-09-16T12:30:52+00:00",
+      "bounds": [
+        71,
+        74,
+        952,
+        929
+      ],
+      "aspect": 1.03
+    },
+    "rose_quartz": {
+      "index": 14,
+      "model": "gemini-3-pro-image",
+      "prompt": "A matcap (material capture) reference image: exactly one perfect smooth sphere of polished pale pink rose quartz, soft and translucent-looking, centered, filling the square frame almost edge to edge, on a pure black background. Lit by a large soft key light from the upper left, a gentle fill from the right and a faint rim light, with a crisp specular highlight and subtle environment reflections suited to the material. Straight-on orthographic view, no perspective distortion. No other objects, no ground, no shadow, no text, no border.",
+      "master_sha256": "8fa9456fe11b00dac09cad3b4782176df6994cd3a0283e074ec1a98758bf27dd",
+      "created": "2026-09-16T12:30:53+00:00",
+      "bounds": [
+        38,
+        38,
+        985,
+        984
+      ],
+      "aspect": 1.001
+    },
+    "crystal": {
+      "index": 15,
+      "model": "gemini-3-pro-image",
+      "prompt": "A matcap (material capture) reference image: exactly one perfect smooth sphere of clear rock crystal quartz refracting a bright soft studio environment of white and pale lilac light, so the whole sphere looks luminous and glassy rather than dark, with faint rainbow edges, centered, filling the square frame almost edge to edge, on a pure black background. Lit by a large soft key light from the upper left, a gentle fill from the right and a faint rim light, with a crisp specular highlight and subtle environment reflections suited to the material. Straight-on orthographic view, no perspective distortion. No other objects, no ground, no shadow, no text, no border.",
+      "master_sha256": "08a92541f841b24537e910e09524850dbe88bd965088e07967da65aef7e7bdbe",
+      "created": "2026-09-16T12:35:30+00:00",
+      "bounds": [
+        51,
+        46,
+        973,
+        979
+      ],
+      "aspect": 0.988
+    }
+  }
+}

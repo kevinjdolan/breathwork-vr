@@ -17,8 +17,34 @@ from audio.generate_music import probe
 ROOT = Path(__file__).resolve().parents[1]
 BEAT_FRAMES = RATE            # 60 BPM: one beat per second, 480 beats in eight minutes.
 CYCLE_BEATS = 16              # 4 s in, 4 s hold, 6 s out, 2 s rest.
-PASSAGE_SECONDS = 120
-DIRECTION = 'A single deterministic 60 BPM psybient journey aligned to the sixteen-second breath: tanpura-like drone, sub-bass heartbeat, breath-shaped sixteenth-note plucked arpeggios, glass shimmer and wordless formant pads, moving through four harmonic passages that mirror the tunnel.'
+PASSAGE_SECONDS = 60
+TRANSITION_SECONDS = 30       # Each passage dissolves into the next over the final half of its minute, like the tunnel.
+PASSAGES = ['eye lattice', "Indra's net", 'flame mandala', 'peacock vault', 'kaleidoscope rings', 'lotus garden', 'crystal geode', 'painted temple']
+DIRECTION = "A single deterministic 60 BPM psybient journey aligned to the sixteen-second breath: tanpura-like drone, a sub-bass heartbeat on every tick, breath-shaped sixteenth-note plucked arpeggios, glass shimmer and wordless formant pads, moving through eight harmonic passages that dissolve with the tunnel."
+# D Aeolian → Dorian → major colours → D major resolution, one colour per visual passage.
+SCALES = [[62, 65, 69, 72, 74, 77, 81], [62, 64, 65, 69, 72, 74, 77], [62, 65, 69, 72, 76, 77, 81], [62, 65, 67, 69, 71, 74, 77],
+          [62, 66, 69, 71, 74, 78, 81], [62, 64, 66, 69, 71, 74, 78], [62, 66, 69, 73, 76, 78, 81], [62, 66, 69, 74, 78, 81, 86]]
+PATTERNS = [[0, 2, 4, 6, 4, 2], [0, 4, 2, 5, 3, 6], [0, 3, 5, 6, 5, 3, 1], [0, 2, 4, 5, 4, 2, 1],
+            [0, 1, 3, 5, 6, 5, 3], [0, 3, 1, 4, 2, 5], [0, 2, 4, 6, 5, 3], [0, 2, 3, 5, 6, 5]]
+PROGRESSIONS = [
+    [(50, 57, 62, 65), (46, 53, 62, 65), (48, 55, 60, 64), (45, 52, 60, 64)],
+    [(50, 57, 62, 65), (48, 55, 62, 64), (46, 53, 60, 65), (45, 52, 57, 64)],
+    [(50, 57, 60, 65), (53, 57, 60, 65), (48, 55, 60, 64), (50, 57, 62, 64)],
+    [(50, 57, 60, 64), (55, 59, 62, 64), (53, 57, 60, 64), (50, 57, 62, 64)],
+    [(50, 57, 62, 66), (52, 57, 62, 66), (55, 59, 62, 66), (50, 57, 62, 64)],
+    [(50, 57, 62, 66), (47, 54, 59, 62), (55, 59, 62, 66), (52, 57, 61, 66)],
+    [(50, 57, 61, 66), (55, 59, 62, 66), (47, 54, 59, 62), (49, 57, 61, 64)],
+    [(50, 57, 62, 66), (43, 55, 59, 62), (45, 57, 62, 64), (50, 57, 62, 69)],
+]
+HEARTBEAT = [.7, .85, 1.0, .95, .95, .9, .85, .75]
+ARPEGGIO_DENSITY = [.45, .65, 1.0, .9, .95, .8, .65, .5]
+DRONE_BRIGHTNESS = [.8, .85, .9, .95, 1.15, 1.05, .95, .65]
+SHIMMER = [.5, .6, .8, .85, 1.0, .9, .8, .7]
+FORMANT = [.015, .02, .05, .05, .05, .05, .05, .05]
+
+
+def passage_index(second: float) -> int:
+    return min(int(second // PASSAGE_SECONDS), len(PASSAGES) - 1)
 
 
 def hz(note: float) -> float:
@@ -32,17 +58,21 @@ def envelope(t: np.ndarray, attack: float, release: float, duration: float) -> n
 
 
 def passage_weights(seconds: np.ndarray) -> np.ndarray:
-    """Four overlapping movement weights with the same 24-second dissolves as the tunnel."""
-    progress = seconds / PASSAGE_SECONDS
-    index = np.clip(np.floor(progress), 0, 3)
-    frac = progress - index
-    t = np.clip((frac - .8) / .2, 0, 1)
-    mix = np.where(index < 3, t * t * (3 - 2 * t), 0.0)
-    weights = np.zeros((len(seconds), 4))
-    for k in range(4):
+    """Eight overlapping passage weights that dissolve over the final thirty seconds of each minute, like the tunnel."""
+    count = len(PASSAGES)
+    index = np.clip(np.floor(seconds / PASSAGE_SECONDS), 0, count - 1)
+    local = seconds - index * PASSAGE_SECONDS
+    t = np.clip((local - (PASSAGE_SECONDS - TRANSITION_SECONDS)) / TRANSITION_SECONDS, 0, 1)
+    mix = np.where(index < count - 1, t * t * (3 - 2 * t), 0.0)
+    weights = np.zeros((len(seconds), count))
+    for k in range(count):
         weights[:, k] += np.where(index == k, 1 - mix, 0.0)
-        weights[:, k] += np.where(np.minimum(index + 1, 3) == k, mix, 0.0) * (index < 3)
+        weights[:, k] += np.where(np.minimum(index + 1, count - 1) == k, mix, 0.0) * (index < count - 1)
     return weights
+
+
+def transition_midpoints() -> list[float]:
+    return [float(k * PASSAGE_SECONDS - TRANSITION_SECONDS / 2) for k in range(1, len(PASSAGES))]
 
 
 def breath_shape(seconds: np.ndarray) -> np.ndarray:
@@ -67,14 +97,14 @@ def drone() -> np.ndarray:
             for harmonic in range(1, 9):
                 jawari = .6 + .4 * np.sin(t * (.043 + harmonic * .017) + harmonic * 1.3 + channel)
                 tone += np.sin(phase * harmonic + .08 * np.sin(t * .21 * harmonic)) * jawari * (.45 if harmonic == 1 else 1.0) / harmonic ** 1.05
-            # The rings passage brightens the drone; the temple deepens it.
-            brightness = .8 + .35 * weights[:, 2] - .15 * weights[:, 3]
+            # The rings and lotus passages brighten the drone; the temple deepens it.
+            brightness = weights @ np.array(DRONE_BRIGHTNESS)
             out[:, channel] += (tone * gain * .011 * brightness * (.9 + .1 * np.sin(t * .11 + note))).astype(np.float32)
     return out
 
 
 def heartbeat() -> np.ndarray:
-    """A soft sub kick each second, present in the middle passages and resting at the ends."""
+    """A soft sub kick on every whole second, so the pulse lands with the breath ticks in every passage."""
     frames = 480 * RATE
     out = np.zeros((frames, 2), dtype=np.float32)
     kick_t = np.arange(int(.40 * RATE)) / RATE
@@ -82,12 +112,12 @@ def heartbeat() -> np.ndarray:
     kick *= (1 - np.exp(-kick_t / .010)) * np.exp(-kick_t / .13)
     seconds = np.arange(480)
     weights = passage_weights(seconds.astype(float))
-    presence = .25 * weights[:, 0] + 1.0 * weights[:, 1] + .85 * weights[:, 2] + .40 * weights[:, 3]
+    presence = weights @ np.array(HEARTBEAT)
     for beat in range(480):
         phase = beat % CYCLE_BEATS
-        # The heartbeat rests during the empty pause and softens through the hold.
-        gate = 0.0 if phase >= 14 else (.55 if 4 <= phase < 8 else 1.0)
-        add_note(out, beat * BEAT_FRAMES, kick * .15 * presence[beat] * gate)
+        # The heartbeat keeps every tick, softening through the hold and the empty pause.
+        gate = .35 if phase >= 14 else (.55 if 4 <= phase < 8 else 1.0)
+        add_note(out, beat * BEAT_FRAMES, kick * .19 * presence[beat] * gate)
     return out
 
 
@@ -96,24 +126,21 @@ def arpeggio() -> np.ndarray:
     frames = 480 * RATE
     out = np.zeros((frames, 2), dtype=np.float32)
     rng = np.random.default_rng(1108)
-    # D Aeolian → D Dorian brightening → D major resolution across the passages.
-    scales = [[62, 65, 69, 72, 74, 77, 81], [62, 65, 69, 72, 76, 77, 81], [62, 66, 69, 71, 74, 78, 81], [62, 66, 69, 74, 78, 81, 86]]
-    patterns = [[0, 2, 4, 6, 4, 2], [0, 3, 5, 6, 5, 3, 1], [0, 1, 3, 5, 6, 5, 3], [0, 2, 3, 5, 6, 5]]
     steps = 480 * 4
     for step in range(steps):
         second = step / 4.0
         cycle_phase = second % 16.0
-        passage = min(int(second // PASSAGE_SECONDS), 3)
+        passage = passage_index(second)
         blend = passage_weights(np.array([second]))[0]
         # Density: sparse bells in the first passage, full sixteenths in the middle, thinning at the end.
-        density = .35 * blend[0] + 1.0 * blend[1] + .95 * blend[2] + .5 * blend[3]
+        density = float(blend @ np.array(ARPEGGIO_DENSITY))
         if rng.random() > density:
             continue
         fill = breath_shape(np.array([second]))[0]
         if cycle_phase >= 14.0 and rng.random() < .8:
             continue
-        pattern = patterns[passage]
-        scale = scales[passage]
+        pattern = PATTERNS[passage]
+        scale = SCALES[passage]
         degree = pattern[step % len(pattern)]
         # The inhale climbs the scale; the exhale lets the line settle downward.
         octave = 12 if (cycle_phase < 8.0 and step % 8 in (3, 7)) else 0
@@ -126,7 +153,8 @@ def arpeggio() -> np.ndarray:
         pluck = np.sin(2 * np.pi * f * tt + 1.6 * np.exp(-tt * 9) * np.sin(2 * np.pi * f * 2.01 * tt))
         pluck += .18 * np.sin(2 * np.pi * f * 3 * tt) * np.exp(-tt * 6)
         pluck *= np.sin(np.clip(tt / .012, 0, 1) * np.pi / 2) ** 2 * np.exp(-tt / (.16 + .45 * (1 - fill)))
-        gain = .048 * (.55 + .45 * fill) * (.75 if octave else 1.0)
+        # Plucks on the beat carry the accent, so the pulse stays with the breath ticks through the busiest passages.
+        gain = .048 * (.55 + .45 * fill) * (.75 if octave else 1.0) * (1.0 if step % 4 == 0 else .7)
         pan = np.sin(step * .37) * .5
         add_note(out, int(second * RATE), (pluck * gain).astype(np.float32), pan)
     return out
@@ -136,18 +164,12 @@ def pads() -> np.ndarray:
     """Slow detuned chords that change with each breath cycle inside a passage's harmony."""
     frames = 480 * RATE
     out = np.zeros((frames, 2), dtype=np.float32)
-    progressions = [
-        [(50, 57, 62, 65), (46, 53, 62, 65), (48, 55, 60, 64), (45, 52, 60, 64)],
-        [(50, 57, 60, 65), (53, 57, 60, 65), (48, 55, 60, 64), (50, 57, 62, 64)],
-        [(50, 57, 62, 66), (52, 57, 62, 66), (55, 59, 62, 66), (50, 57, 62, 64)],
-        [(50, 57, 62, 66), (43, 55, 59, 62), (45, 57, 62, 64), (50, 57, 62, 69)],
-    ]
     overlap = 3 * RATE
     for cycle in range(30):
         start = cycle * 16 * RATE
         second = float(cycle * 16)
-        passage = min(int(second // PASSAGE_SECONDS), 3)
-        chord = progressions[passage][cycle % 4]
+        passage = passage_index(second)
+        chord = PROGRESSIONS[passage][cycle % 4]
         count = min(16 * RATE + overlap, frames - start)
         t = np.arange(count) / RATE
         voice_mix = np.zeros((count, 2), dtype=np.float32)
@@ -158,7 +180,7 @@ def pads() -> np.ndarray:
                 phase = 2 * np.pi * f * detune * t + voice * 1.1 + channel * .4
                 tone = np.sin(phase) + .30 * np.sin(phase * 2 + .15 * np.sin(t * .5 + voice)) + .10 * np.sin(phase * 3) + .05 * np.sin(phase * 4)
                 # Wordless formant hint in the later passages: a slow "oh" shimmer above the chord.
-                formant = np.sin(phase * 5 + .3 * np.sin(t * .27)) * (.05 if passage >= 2 else .015)
+                formant = np.sin(phase * 5 + .3 * np.sin(t * .27)) * FORMANT[passage]
                 motion = .86 + .14 * np.sin(t * .29 + voice + cycle)
                 voice_mix[:, channel] += ((tone + formant) * motion * .019).astype(np.float32)
         ramp = envelope(t, 3.0, 3.0, count / RATE)
@@ -169,23 +191,23 @@ def pads() -> np.ndarray:
 
 
 def shimmer() -> np.ndarray:
-    """High glass partials that bloom during each full hold, brightest in the rings passage."""
+    """High glass partials that bloom on sixteenth notes through each full hold, brightest in the rings passage."""
     frames = 480 * RATE
     out = np.zeros((frames, 2), dtype=np.float32)
     rng = np.random.default_rng(2204)
     for cycle in range(30):
         second = float(cycle * 16 + 4)
-        passage = min(int(second // PASSAGE_SECONDS), 3)
+        passage = passage_index(second)
         blend = passage_weights(np.array([second]))[0]
-        level = .022 * (.5 * blend[0] + .8 * blend[1] + 1.0 * blend[2] + .7 * blend[3])
+        level = .022 * float(blend @ np.array(SHIMMER))
         for k in range(5):
-            note = [86, 89, 93, 98, 101][k] + (2 if passage >= 2 else 0) * (k % 2)
+            note = [86, 89, 93, 98, 101][k] + (2 if passage >= 4 else 0) * (k % 2)
             f = hz(note)
             duration = 6.5
             tt = np.arange(int(duration * RATE)) / RATE
             tone = np.sin(2 * np.pi * f * tt + .2 * np.sin(tt * 3.0 + k)) * (1 + .3 * np.sin(2 * np.pi * 5.2 * tt + k))
             tone *= envelope(tt, 1.2 + k * .25, 3.5, duration) * level * (.6 + .4 * rng.random())
-            add_note(out, int((second + k * .35) * RATE), tone.astype(np.float32), np.sin(k * 2.1) * .6)
+            add_note(out, int((second + k * .25) * RATE), tone.astype(np.float32), np.sin(k * 2.1) * .6)
     return out
 
 
@@ -193,12 +215,11 @@ def sub_bass() -> np.ndarray:
     """A sine root that follows each cycle's chord, dipping under every heartbeat."""
     frames = 480 * RATE
     out = np.zeros((frames, 2), dtype=np.float32)
-    roots = [[38, 34, 36, 33], [38, 41, 36, 38], [38, 40, 43, 38], [38, 31, 33, 38]]
     t = np.arange(16 * RATE) / RATE
     for cycle in range(30):
         second = float(cycle * 16)
-        passage = min(int(second // PASSAGE_SECONDS), 3)
-        f = hz(roots[passage][cycle % 4])
+        # The root follows the lowest voice of the cycle's pad chord.
+        f = hz(PROGRESSIONS[passage_index(second)][cycle % 4][0] - 12)
         tone = np.sin(2 * np.pi * f * t) + .12 * np.sin(2 * np.pi * f * 2 * t)
         duck = 1 - .35 * np.exp(-np.mod(t, 1.0) / .12)
         tone *= envelope(t, .8, 1.5, 16.0) * duck * .028 * (.6 + .4 * breath_shape(t + second))
@@ -249,10 +270,10 @@ def score(entry: dict) -> dict:
         run(['oggenc', '-Q', '-q', '5', '-o', str(pending), str(normalized)])
         assert abs(float(probe(pending)['format']['duration']) - 480) < .01
         pending.replace(target)
-    master = MASTERS / 'visionary_journey60_v26.wav'
+    master = MASTERS / 'visionary_journey60_v27.wav'
     wavfile.write(master, RATE, mix)
     sources = [dict(file=master.name, sha256=hashlib.sha256(master.read_bytes()).hexdigest(), origin='Authored deterministic synthesis, no sampled or generated backing recording')]
-    result = dict(id=entry['id'], title=entry['title'], artist='Breathwork VR', model='authored electronic synthesis', duration=480, file=entry['music'], sha256=hashlib.sha256(target.read_bytes()).hexdigest(), delivery_bytes=target.stat().st_size, target_lufs=-20, tempo_bpm=60, beat_frames=BEAT_FRAMES, beat_count=480, cycle_beats=CYCLE_BEATS, passages=['eye lattice', 'flame mandala', 'kaleidoscope rings', 'painted temple'], arrangement=DIRECTION, sources=sources)
+    result = dict(id=entry['id'], title=entry['title'], artist='Breathwork VR', model='authored electronic synthesis', duration=480, file=entry['music'], sha256=hashlib.sha256(target.read_bytes()).hexdigest(), delivery_bytes=target.stat().st_size, target_lufs=-20, tempo_bpm=60, beat_frames=BEAT_FRAMES, beat_count=480, cycle_beats=CYCLE_BEATS, passages=PASSAGES, passage_seconds=PASSAGE_SECONDS, transition_seconds=TRANSITION_SECONDS, transitions=transition_midpoints(), arrangement=DIRECTION, sources=sources)
     (ROOT / 'audio/visionary_journey_provenance.json').write_text(json.dumps(result, indent=2) + '\n')
     print('Mastered eight-minute 60 BPM visionary journey', flush=True)
     return result

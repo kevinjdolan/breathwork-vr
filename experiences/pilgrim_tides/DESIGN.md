@@ -18,7 +18,9 @@ The nearest low promenade carries readable heads, torsos, arms and alternating l
 
 ## Music direction
 
-Intimate chamber-minimalist ambient: felt piano with widely spaced irregular notes, soft bowed cello harmonic clouds, sustained reed-organ warmth, and occasional tiny celesta responses. Quiet companionship and shared breathing, with long gaps, rounded attacks and long decays. No audible footsteps, percussion, rhythmic pulse, voices, abrupt accents or climactic crescendo. Shared music production and spatial sound integration are owned by the parent session.
+Humanist chamber-minimalist ambient in F major at exactly 60 BPM (version 2.9): an unhurried felt-piano walking pulse on every beat under warm chamber strings, a soft low clarinet and sustained, tender consonant harmony. Quiet companionship and shared breathing, with no voices, drum kit, abrupt accents or climactic crescendo. Three Lyria 3.5 movements (setting out, walking together, arriving) are placed so Lyria's own pulse lands on the breath ticks and are joined on bar lines, so the pulse never breaks. Each sixteen-second breath is four bars. Prompts, measurements and joins are in `audio/generate_lyria60.py` and `audio/suite_provenance.json`.
+
+Earlier direction (before 2.8, no beat grid): felt piano with widely spaced irregular notes, soft bowed cello harmonic clouds, reed-organ warmth and tiny celesta responses, with long gaps and no rhythmic pulse.
 
 Recommended background: `Color(0.006, 0.012, 0.023)`, a deep blue night. The material lighting is deliberately low contrast within each person, maintaining a readable figure without a bright white crowd.
 

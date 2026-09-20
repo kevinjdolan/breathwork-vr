@@ -1,32 +1,216 @@
 {
-  "placeholder": false,
+  "id": "aurora_lake",
+  "title": "Aurora Lake",
+  "artist": "Breathwork VR / Google Lyria",
   "model": "lyria-3.5",
+  "endpoint": "https://generativelanguage.googleapis.com/v1beta/interactions",
   "duration": 480,
-  "transition_starts": [
-    168,
-    336
-  ],
-  "crossfade_seconds": 10,
+  "file": "assets/audio/music.ogg",
+  "sha256": "0616cb5d2c508e0160ca6a95ccce866abb96e3fd90bdfedeb98761614175139b",
+  "delivery_bytes": 9577200,
   "target_lufs": -18,
-  "vorbis_quality": 6,
+  "tempo_bpm": 60,
+  "beat_frames": 48000,
+  "transitions": [
+    152.0,
+    160.0,
+    168.0,
+    308.0,
+    316.0,
+    324.0
+  ],
+  "crossfades": [
+    [
+      152,
+      168
+    ],
+    [
+      308,
+      324
+    ]
+  ],
+  "crossfade_seconds": 16,
+  "fade_in_seconds": 8,
+  "fade_out_seconds": 8,
+  "joins": [
+    {
+      "fade": 152,
+      "largest_lift_db": 1.52,
+      "largest_cut_db": -2.92,
+      "predicted": {
+        "before": 0.06,
+        "after": -6.44,
+        "dip": 0.39,
+        "step": 2.77
+      },
+      "after_ride": {
+        "before": -22.83,
+        "after": -29.48,
+        "dip": 0.13,
+        "step": 1.19
+      }
+    },
+    {
+      "fade": 308,
+      "largest_lift_db": 2.16,
+      "largest_cut_db": -1.15,
+      "predicted": {
+        "before": 0.27,
+        "after": -2.13,
+        "dip": -1.41,
+        "step": 1.88
+      },
+      "after_ride": {
+        "before": -22.85,
+        "after": -25.01,
+        "dip": -0.43,
+        "step": 1.81
+      }
+    }
+  ],
+  "tick_phase_ms": 22.94,
+  "synthesized_pulse": false,
+  "beat_grid": {
+    "tick_reference_ms": 35.0,
+    "librosa_tempo_bpm": 60.09,
+    "best_fold_period_s": 1.0,
+    "beat_phase_ms": 25.0,
+    "beat_peak": 10.68,
+    "beats_within_50ms": 0.981,
+    "on_grid_fraction": 0.857,
+    "transitions": [
+      {
+        "start": 140.0,
+        "phase_ms": 25.0,
+        "peak": 9.83,
+        "on_grid": 0.802,
+        "at": 152.0
+      },
+      {
+        "start": 148.0,
+        "phase_ms": 25.0,
+        "peak": 10.57,
+        "on_grid": 0.931,
+        "at": 160.0
+      },
+      {
+        "start": 156.0,
+        "phase_ms": 25.0,
+        "peak": 11.15,
+        "on_grid": 0.963,
+        "at": 168.0
+      },
+      {
+        "start": 296.0,
+        "phase_ms": 25.0,
+        "peak": 11.11,
+        "on_grid": 0.873,
+        "at": 308.0
+      },
+      {
+        "start": 304.0,
+        "phase_ms": 25.0,
+        "peak": 11.44,
+        "on_grid": 0.887,
+        "at": 316.0
+      },
+      {
+        "start": 312.0,
+        "phase_ms": 25.0,
+        "peak": 11.76,
+        "on_grid": 0.904,
+        "at": 324.0
+      }
+    ]
+  },
+  "note": "Lyria 3.5 keeps the 60 BPM written into its prompt on a steady grid, so each movement is only resampled by its measured period error and placed so its own beats land with the breath ticks; no pulse is synthesized. Lyria RealTime ignored its bpm setting (about 72 BPM when asked for 60) and is no longer used.",
+  "movements": [
+    {
+      "name": "still_water",
+      "prompt": "Create a 3-minute instrumental track. Meditative ambient in D major at exactly 60 BPM in 4/4, with a steady tempo that never changes from the first second to the last. A soft felt-mallet note sounds on every beat, even quarter notes at 60 BPM like a calm slow heartbeat, continuing through every section. Warm rounded analog pads, a deep soft D and A drone, distant glass harmonics, generous warm reverb. No vocals, no drum kit, no hi-hats, no tempo changes, no rubato, no ritardando, no silent gaps.\n[0:00 - 0:10] The felt-mallet pulse and a warm D and A drone begin together at once, with no silence.\n[0:10 - 1:30] Slowly breathing pad swells over the steady pulse, sparse luminous overtones, intimate and reassuring.\n[1:30 - 2:40] Gradually enrich the D major voicing with F sharp and A while the pulse stays even.\n[2:40 - 3:00] Sustain a full D major pad with the pulse continuing evenly to the very last second; no cadence and no fade-out.",
+      "file": "aurora_lake_1_still_water_take2.mp3",
+      "sha256": "ba0165dced17062b4b5c673516bf4f22241f04f9272ee54ca80e7934bb3348df",
+      "duration": 176.3,
+      "present": [
+        3.0,
+        173.0
+      ],
+      "period_ppm": 23.6,
+      "wander_ms": 2.8,
+      "beat_to_offbeat": 50.61,
+      "downbeat": 0,
+      "downbeat_confidence": 2.51,
+      "session_bar_line": -0.0,
+      "session_start": -0.1058,
+      "gain_db": -10.8,
+      "phase_ms": 128.71
+    },
+    {
+      "name": "curtains_of_light",
+      "prompt": "Create a 3-minute instrumental track. Meditative ambient in D major at exactly 60 BPM in 4/4, with a steady tempo that never changes from the first second to the last. A soft felt-mallet note sounds on every beat, even quarter notes at 60 BPM like a calm slow heartbeat, continuing through every section. Warm rounded analog pads, a deep soft D and A drone, distant glass harmonics, generous warm reverb. No vocals, no drum kit, no hi-hats, no tempo changes, no rubato, no ritardando, no silent gaps.\n[0:00 - 0:10] The felt-mallet pulse and a sustained warm D major pad begin together at once, with no silence.\n[0:10 - 1:00] Gently widen the stereo image and introduce slowly moving suspended D major harmonies.\n[1:00 - 2:20] Richer upper glass harmonics shimmer like curtains of light over the steady pulse; floating attention.\n[2:20 - 3:00] Luminous and spacious: sustain a full D major texture with the pulse continuing evenly to the very last second; no cadence and no fade-out.",
+      "file": "aurora_lake_2_curtains_of_light_take1.mp3",
+      "sha256": "f18c1ee148b890df6cf671245d4f5c3f6d6c4cb494dbab789305e0fdac48ff38",
+      "duration": 178.965,
+      "present": [
+        0.0,
+        176.0
+      ],
+      "period_ppm": 14.8,
+      "wander_ms": 3.42,
+      "beat_to_offbeat": 4.06,
+      "downbeat": 0,
+      "downbeat_confidence": 1.239,
+      "session_bar_line": 148.0,
+      "session_start": 147.9098,
+      "gain_db": -10.65,
+      "phase_ms": 113.12
+    },
+    {
+      "name": "return_to_stillness",
+      "prompt": "Create a 3-minute instrumental track. Meditative ambient in D major at exactly 60 BPM in 4/4, with a steady tempo that never changes from the first second to the last. A soft felt-mallet note sounds on every beat, even quarter notes at 60 BPM like a calm slow heartbeat, continuing through every section. Warm rounded analog pads, a deep soft D and A drone, distant glass harmonics, generous warm reverb. No vocals, no drum kit, no hi-hats, no tempo changes, no rubato, no ritardando, no silent gaps.\n[0:00 - 0:10] The felt-mallet pulse and the full luminous D major pad begin together at once, with no silence.\n[0:10 - 1:00] The richest gently enveloping texture, slowly blooming stereo pads, no sharp peaks.\n[1:00 - 2:00] Gradually remove the upper layers, returning toward the warm D and A drone.\n[2:00 - 3:00] Only the soft drone, a quiet warm pad and the pulse remain, settled and still, the pulse even to the very last second; no ritardando and no fade-out.",
+      "file": "aurora_lake_3_return_to_stillness_take1.mp3",
+      "sha256": "bbde0b3bacc8c8a52450e1762e7d2f2f3f0abd78d618554eea06e413b60b9404",
+      "duration": 177.868,
+      "present": [
+        0.0,
+        174.0
+      ],
+      "period_ppm": 5.5,
+      "wander_ms": 2.93,
+      "beat_to_offbeat": 2.61,
+      "downbeat": 0,
+      "downbeat_confidence": 2.01,
+      "session_bar_line": 304.0,
+      "session_start": 303.9275,
+      "gain_db": -10.9,
+      "phase_ms": 95.45
+    }
+  ],
   "sources": [
     {
-      "id": "calm",
-      "sha256": "ce0be978d9489c0969d05e7b2e433a94432613a047d6581341f27eebe0500173",
-      "source_seconds": 171.154208,
-      "conformed_seconds": 178
+      "file": "aurora_lake_1_still_water_take2.mp3",
+      "sha256": "ba0165dced17062b4b5c673516bf4f22241f04f9272ee54ca80e7934bb3348df",
+      "interaction_id": "v1_ChdJOUdxYXV6Z09lMnNxdHNQc3FlcWdRURIXSTlHcWF1emdPZTJzcXRzUHNxZXFnUVE",
+      "origin": "Untouched Lyria 3.5 MP3 response"
     },
     {
-      "id": "deepening",
-      "sha256": "e574e3385f39152abb93be7b0086d9b6a3c0580aea06e8562e1fa295566ebc24",
-      "source_seconds": 178.912583,
-      "conformed_seconds": 178
+      "file": "aurora_lake_2_curtains_of_light_take1.mp3",
+      "sha256": "f18c1ee148b890df6cf671245d4f5c3f6d6c4cb494dbab789305e0fdac48ff38",
+      "interaction_id": "v1_ChdPZEdxYW92OEJlMnNxdHNQc3FlcWdRURIXT2RHcWFvdjhCZTJzcXRzUHNxZXFnUVE",
+      "origin": "Untouched Lyria 3.5 MP3 response"
     },
     {
-      "id": "peak_resolve",
-      "sha256": "8e3608563f25fc3518e6463e2b997f4a29b284812b1039bdad348666ba09742f",
-      "source_seconds": 137.691375,
-      "conformed_seconds": 144
+      "file": "aurora_lake_3_return_to_stillness_take1.mp3",
+      "sha256": "bbde0b3bacc8c8a52450e1762e7d2f2f3f0abd78d618554eea06e413b60b9404",
+      "interaction_id": "v1_ChdjZEdxYXEtRE9OcThxdHNQcUxLei1BSRIXY2RHcWFxLURPTnE4cXRzUHFMS3otQUk",
+      "origin": "Untouched Lyria 3.5 MP3 response"
+    },
+    {
+      "file": "aurora_lake_60bpm_master.wav",
+      "sha256": "ef6533c8c79e2aede641ff930db7b87f1f839c78896c6a63dd7a0aa506037a2b",
+      "origin": "Placed and crossfaded movements before loudness normalization"
     }
-  ]
+  ],
+  "placeholder": false,
+  "vorbis_quality": 6
 }

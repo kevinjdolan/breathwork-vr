@@ -21,8 +21,8 @@ void vertex() {
     float size = 15.0 * (1.0 + breath_fill * 0.18);
     vec3 world = star_position + mat3(journey_frame) * vec3(local * size, 0.0);
     POSITION = PROJECTION_MATRIX * VIEW_MATRIX * vec4(world, 1.0);
-    vec2 corner = vec2(mod(sprite, 2.0), floor(sprite / 2.0));
-    sprite_uv = (UV + corner) * 0.5;
+    vec2 corner = vec2(mod(sprite, 4.0), floor(sprite / 4.0));
+    sprite_uv = (UV + corner) * vec2(0.25, 0.5);
 }
 void fragment() {
     vec4 sample = texture(sprite_sheet, sprite_uv);

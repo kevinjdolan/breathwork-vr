@@ -1,6 +1,6 @@
 shader_type spatial;
 render_mode unshaded, blend_add, depth_draw_never, cull_disabled, fog_disabled;
-uniform vec3 mouth_position;
+uniform vec3 exhale_origin;
 uniform vec3 head_position;
 uniform vec3 head_right;
 uniform vec3 head_up;
@@ -22,11 +22,11 @@ vec3 path(float t,float id) {
     vec3 radial = head_right*cos(angle)+head_up*sin(angle);
     vec3 tangent = -head_right*sin(angle)+head_up*cos(angle);
     float reach = (4.5+hash(seed+6.0)*1.3)*(1.0-breath_fill*.40);
-    vec3 end = mouth_position+head_forward*(3.5+hash(seed+3.0)*1.8)+radial*reach;
-    vec3 c1 = mouth_position+head_forward*(1.1+hash(seed+7.0)*.4)+radial*.07;
-    vec3 c2 = mouth_position+head_forward*(3.8+hash(seed+9.0)) + radial*reach*.45 + tangent*(hash(seed+12.0)-.5)*1.7;
+    vec3 end = exhale_origin+head_forward*(3.5+hash(seed+3.0)*1.8)+radial*reach;
+    vec3 c1 = exhale_origin+head_forward*(1.1+hash(seed+7.0)*.4)+radial*.07;
+    vec3 c2 = exhale_origin+head_forward*(3.8+hash(seed+9.0)) + radial*reach*.45 + tangent*(hash(seed+12.0)-.5)*1.7;
     float q = 1.0-t;
-    return q*q*q*mouth_position+3.0*q*q*t*c1+3.0*q*t*t*c2+t*t*t*end;
+    return q*q*q*exhale_origin+3.0*q*q*t*c1+3.0*q*t*t*c2+t*t*t*end;
 }
 void vertex() {
     float t = VERTEX.x;

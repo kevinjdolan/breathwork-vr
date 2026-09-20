@@ -1,3 +1,130 @@
+# Version 2.9 verification — counts, breath and beats on one clock
+
+Authored and verified on macOS with Godot 4.6.3. Audio checks ran on Godot's headless dummy audio driver, which uses the same mixer as the Quest. Nothing was installed on the Quest 3, so headset listening, the device's audio output latency and comfort are unverified.
+
+The full `tools/verify.sh` run passed: all eleven Godot suites and 14 Python contracts, in 454 s.
+
+## Shared clock
+
+**Cause.** The breath cue started each tick from the frame loop. `play()` takes effect at the next mix step. Godot's Android OpenSL driver mixes 1,024 frames at a time (about 21 ms) and reports no output latency, so each tick landed up to one mix buffer after its second, by a different amount each time. The score and the breath guide were also started, paused and resumed one call apart, without the audio server lock.
+
+**Fix.** The ticks are now a looping track generated per breath pattern. `MeditationDirector` starts, pauses and resumes the score, the breath guide and the tick track inside `AudioServer.lock()`.
+
+**`tests/test_breath_cue.gd`** (part of `verify.sh`) checks:
+- **Tick tracks, four patterns:** each loops exactly one cycle. Every tick's attack sits at the same sample offset from its second as in the tick sample itself. The louder ticks (4:1) fall exactly on phase boundaries.
+- **All nine worlds:**
+  - The breath guide and the ticks stay within 3.5 ms of the score after starting from 0 s and from 97.25 s, and after four pause/resume cycles each. They measured 0.0 ms.
+  - The tick track stops before the settle.
+- **Negative control:** players started a frame apart without the lock measured −85 ms.
+
+**`python tools/check_cue_alignment.py`** captured each world's score, breath guide and ticks from Godot's own mixer, on separate buses, for 24 s from 64 s into the session, through a 0.8 s pause. It then matched the tick sample, the delivered score and the breath loop inside the captures.
+
+| World | Ticks | Tick spacing error | Score offset at each tick (matches) | Breath guide offset (matches) | Louder ticks on phase boundaries |
+|---|---:|---:|---:|---:|---|
+| Aurora Lake | 22 | 0.0 ms | 0.0 ms (20) | 0.04 ms (19) | yes |
+| Prismatic Sanctuary | 22 | 0.0 ms | 0.0 ms (20) | 0.0 ms (12) | yes |
+| Fractal Garden | 22 | 0.0 ms | 0.0 ms (20) | 0.0 ms (20) | yes |
+| Tidal Origami | 22 | 0.0 ms | 0.0 ms (20) | 0.0 ms (19) | yes |
+| Cloud Atelier | 22 | 0.0 ms | 0.0 ms (20) | 0.0 ms (19) | yes |
+| Neural Constellation | 22 | 0.0 ms | 0.0 ms (20) | 0.0 ms (20) | yes |
+| Circuit Garden | 22 | 0.0 ms | 0.0 ms (20) | 0.0 ms (20) | yes |
+| Pilgrim Tides | 22 | 0.0 ms | 0.0 ms (20) | 0.0 ms (17) | yes |
+| Visionary Temple | 23 | 0.0 ms | 0.0 ms (21) | 0.0 ms (14) | yes |
+
+- **Sensitivity:** shifting the captured ticks by 5 ms was reported as 5.0 ms.
+- **Stale import caught:** a first run matched no score audio for Aurora Lake. Godot was still playing its imported copy of the previous score, so the tool now reimports before capturing.
+- **Capture fixes:** two early runs paused a few milliseconds after a tick and counted its resumed tail as a tick. The capture now pauses halfway through a second on the audio clock, and the analysis finds the pause from the recorded silence.
+- **Consequence:** `python -m audio.beat_grid` puts every beat of every score on a whole second, and these captures put every tick and breath phase on a whole second of the score. Counts, breath phases and beats therefore line up in all nine worlds.
+
+## Lyria scores
+
+**Probes**
+- **Lyria 3.5:** 60-second clips prompted for "exactly 60 BPM" held a steady beat grid. The Aurora clip measured 60.00 BPM with 3.3 ms beat residual. A 178-second take kept its beat phase at 105 ms in all eleven 16-second windows.
+- **ElevenLabs Music v2.5:** held 60 BPM for two of three styles; the Tidal clip had no steady grid.
+- **Lyria 3.5 limits:** asking for 4 minutes 10 seconds returned 178 s. A prompt containing a song title was blocked.
+
+**Takes**
+- Eighteen takes were generated, two per movement.
+- Sixteen were steady: period error −32 to +58 ppm, beat wander 2.3–11.6 ms.
+- Two were rejected: Tidal *deeper water* take 2 (+848 ppm, 177 ms wander) and Tidal *stillness* take 1 (12.2 ms wander).
+
+**Joins**
+- The first assembly (all three scores) had three joins that sagged 3–8 LU below the quieter side or rose about 7 LU in two seconds. Two outgoing movements ended softly as the next began softly. That assembly was replaced.
+- The final assembly places joins where both takes are at full level. It rides the gain through each join by at most +5.0/−2.9 dB.
+
+| Score | Takes used | Joins | Deepest dip / largest 2 s step (EBU R128 short-term, delivered file) | librosa tempo | Fold period | Beat peak (tick 35 ms) | Peak ratio | Tracked beats ≤ 50 ms | Beats with an onset (strong) |
+|---|---|---|---|---:|---:|---:|---:|---:|---:|
+| Aurora Lake | 2, 1, 1 (+24, +15, +6 ppm) | 152–168, 308–324 s | 0.4 / 1.8 LU | 60.09 | 1.0000 | 25 ms | 10.7 | 98% | 100% (93%) |
+| Tidal Origami | 2, 1, 2 (+22, −21, −32 ppm) | 152–168, 308–324 s | 0.2 / 1.7 LU | 60.09 | 0.9997 | 25 ms | 7.9 | 100% | 100% (96%) |
+| Pilgrim Tides | 2, 1, 1 (0, +18, −23 ppm) | 160–176, 308–324 s | 0.5 / 2.0 LU | 60.09 | 1.0001 | 25 ms | 8.3 | 98% | 90% (56%) |
+
+**Checks**
+- **Beat grid:** every 16-second window and all six windows around each score's joins keep the beat within 20 ms of the tick measurement. `tests/test_suite_audio.py` checks the provenance and measures every join of each delivery.
+- **Automated audition:** Gemini 3.8 Flash reviewed the three deliveries.
+  - Aurora Lake and Pilgrim Tides: an audible pulse, steady tempo, seamless joins, and no voices, drum kit, harsh attacks or startling changes.
+  - Tidal Origami: seamless joins and a calm character, but it described fluid plucks rather than a distinct pulse on every beat. The onset measurement contradicts this: every beat carries an onset at the tick. Automated audition does not settle it; it needs a listen in the headset.
+
+**Not verified:** listening in the headset, and the Quest's delay between the visible count and the heard tick.
+
+## Previous release records
+
+# Version 2.7 and 2.8 verification — sculpted Visionary Temple and tick-aligned scores
+
+Authored and verified on macOS with Godot 4.6.3 (Mobile renderer on Metal/MoltenVK). A Quest 3 was connected, but these versions were not installed or measured on it: headset comfort, stereo depth and frame timing remain unverified. Everything below is desktop evidence.
+
+The full `tools/verify.sh` run passed. It covered editor import, both session tiers, hands, natural audio end, the nine-world suite, the session menu, breath cue, palm wave, wave tracking, and the Prismatic and Visionary contracts. It also ran 13 Python contracts in 276 s, including tick alignment of all nine scores and the painting, relief, matcap and provenance hashes.
+
+**Visionary Temple (2.7)**
+
+- `tests/test_visionary.gd` checks these, and passes:
+  - **Passages and dissolves:** eight one-minute passages, with 30-second dissolves over the final half of each minute. Neighbouring passages never turn the same way. At every swap the outgoing shell is fully open and the arriving shell is at rest.
+  - **Shell clearance:** each arriving shell clears the dissolving one by more than 10 cm, using a CPU mirror of every cross-section.
+  - **Tube:** 140,800 triangles per shell, with near and far conveyor rings joined by one static ring. Relief textures match their paintings.
+  - **Relics:**
+    - 25 modelled types and 384 relics, each mesh 48–1,168 triangles, solid with normals.
+    - Six cross-section paths and three along-tunnel motions.
+    - Every relic stays inside its breathing shell, clear of the central sightline, and invisible outside its drawing window.
+    - At most 130 relics are drawn (measured worst case 105, about 78,000 triangles), and at most 63 are in view.
+    - The relic shader's motion constants match `relics.gd`.
+  - **Inhale source:** a visible relic with a six-second sightline in every sampled breath cycle.
+- **Height maps:** Nano Banana Pro matched the four procedural passages' exact heights with zero-offset edge alignment (height correlation 0.61–0.94). gpt-image-2's answer was rejected: edge correlation 0.09.
+- **Seam repair:** the worst wrap-edge ratios fell from 2.2–4.3 to 0.8–1.8.
+- **Desktop review:** 18 renders (every passage, three dissolves at several depths, reclined views) plus a three-angle gallery of all 25 relic types. Review led to a thinner, fading dissolve rim (the white rim scribbled on thin cords), lower flame relief, feather cutouts, fuller lotus petals and per-relic culling (the first cut drew up to 255 relics).
+- **Full preview:** `tools/render_previews.py --only visionary_temple --full` rendered 14,400 frames at 1440×900 and 30 FPS with the score and breath audio of the time. Mean audio −22.2 dB, peak −4.5 dB; stills at every passage were inspected. A 1280×800 HEVC copy (220 MB) was made for sharing. Both stay under `build/previews`. The preview predates the 2.8 scores.
+
+**Scores (2.8)**
+
+`python -m audio.beat_grid` measured every delivery with librosa. The reference is the breath tick sample on whole seconds, measured the same way: 35 ms.
+
+| Score | librosa tempo | Fold period | Beat peak (ms) | Peak ratio | Tracked beats ≤ 50 ms | Prominent onsets on grid | Transitions checked |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Aurora Lake | 60.09 | 1.0000 | 25 | 7.1 | 95% | 86% | 3 |
+| Prismatic Sanctuary | 60.09 | 0.9999 | 35 | 3.1 | 98% | 32% | 4 |
+| Fractal Garden | 60.09 | 1.0000 | 25 | 10.2 | 100% | 100% | — |
+| Tidal Origami | 60.09 | 1.0000 | 25 | 13.0 | 100% | 100% | 3 |
+| Cloud Atelier | 60.09 | 1.0000 | 25 | 8.3 | 100% | 52% | — |
+| Neural Constellation | 60.09 | 1.0000 | 25 | 14.7 | 100% | 98% | — |
+| Circuit Garden | 60.09 | 1.0000 | 35 | 11.5 | 100% | 100% | — |
+| Pilgrim Tides | 60.09 | 1.0000 | 35 | 9.5 | 99% | 87% | 3 |
+| Visionary Temple | 60.09 | 1.0001 | 35 | 6.0 | 94% | 97% | 7 |
+
+- **Grid:** every 16-second window with a clear beat, and 24 seconds around every movement change, dissolve and session join, keeps its strongest onset on the tick grid. The only exception is Visionary's geode-to-temple dissolve, whose strongest onset is the sixteenth after the tick.
+- **On-grid share:** this is a diagnostic only. Prismatic and Cloud Atelier score lower because slowly beating pads and noise swells produce many weak detections. Their beat peaks and tracked beats are firmly on the ticks.
+- **Analyzer lessons:**
+  - A median across mel bands erased sine plucks.
+  - A circular mean is cancelled by sixteenth-note arpeggios.
+  - Harmonic-percussive separation removed the synthesized pulses.
+  - The final analyzer avoids all three.
+- **Lyria RealTime:** it ignored `bpm` in measurement.
+  - A drum-led take requested at 60 BPM repeated every 0.824 s (72.8 BPM) even after `reset_context`.
+  - A take requested at 90 BPM settled near 128 BPM.
+  - A full-length take ended with service error 1011 at ten minutes of wall time, so each bed is two 264-second sessions, all six recorded completely.
+- **Lyria pulses:** mastering chose the gentlest pulse level that locks: Aurora 0.22 (12.8 dB under the bed), Tidal 0.18 (18.1 dB) and Pilgrim 0.20 (9.4 dB). The pulse roots stay within each bed's measured scale (D major, A major, F major).
+- **Levels:** no level jump at any movement change or session join. Pilgrim Tides has one 7.4 dB phrase entry at 379 s inside the bed, preceded by a 1.5-second quiet breath.
+- **Not verified:** the scores and pulse balance have not been listened to in the headset.
+
+## Previous release records
+
 # Version 2.6 verification — Visionary Temple
 
 This ninth world was authored and verified in a Linux container with Godot 4.6.3 (official Linux build), Xvfb and Mesa's software Vulkan driver (llvmpipe) using the Mobile rendering method. No Meta Quest, Android SDK or physical headset was available in this session, so there is no APK, no installation and no device frame-timing sample for this release. Everything below is desktop evidence.

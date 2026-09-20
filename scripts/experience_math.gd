@@ -41,14 +41,14 @@ static func inhale_gate(seconds: float) -> float:
 
 static func inhale_visibility(seconds: float, length: float = CYCLE_SECONDS) -> float:
     # Begin gathering near the orb before the audio cue, continuous across wrap.
-    var lead_time: float = seconds - length if seconds >= length - 1.5 else seconds
+    var lead_time: float = seconds - length if seconds >= length - 0.5 else seconds
     if lead_time >= INHALE_SECONDS:
         return 0.0
-    return softer_unit((lead_time + 1.5) / 2.7) * (1.0 - softer_unit((lead_time - 2.65) / 1.35))
+    return softer_unit((lead_time + 0.5) / 2.7) * (1.0 - softer_unit((lead_time - 2.65) / 1.35))
 
 static func inhale_front(seconds: float, length: float = CYCLE_SECONDS) -> float:
-    var lead_time: float = seconds - length if seconds >= length - 1.5 else seconds
-    return 1.14 * smooth_unit((lead_time + 1.5) / 1.8) if lead_time < INHALE_SECONDS else 0.0
+    var lead_time: float = seconds - length if seconds >= length - 0.5 else seconds
+    return 1.14 * smooth_unit((lead_time + 0.5) / 1.8) if lead_time < INHALE_SECONDS else 0.0
 
 static func mote_cluster(time: float, cluster: int) -> Dictionary:
     var duration: float = 20.0 + float(cluster) * 2.3

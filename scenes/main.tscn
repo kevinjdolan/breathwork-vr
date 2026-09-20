@@ -33,8 +33,8 @@
 shader = ExtResource("1_2f3dj")
 shader_parameter/exhale_reach = null
 shader_parameter/head_position = null
-shader_parameter/mouth_position = null
-shader_parameter/mouth_basis = null
+shader_parameter/exhale_origin = null
+shader_parameter/breath_basis = null
 shader_parameter/exhale_visibility = null
 shader_parameter/exhale_active = null
 
@@ -345,7 +345,7 @@ material = SubResource("ShaderMaterial_1v6qk")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2s0kr"]
 shader = ExtResource("13_5he1u")
-shader_parameter/mouth_target = null
+shader_parameter/inhale_target = null
 shader_parameter/orb_position = null
 shader_parameter/head_right = null
 shader_parameter/head_up = null
@@ -431,10 +431,9 @@ fov = 85.0
 near = 0.02
 far = 500.0
 
-[node name="MouthTarget" type="Marker3D" parent="XROrigin3D/XRCamera3D" unique_id=2131660523]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.08, -0.06)
+[node name="BreathCenter" type="Marker3D" parent="XROrigin3D/XRCamera3D" unique_id=2131660523]
 
-[node name="ExhaleStream" type="GPUParticles3D" parent="XROrigin3D/XRCamera3D/MouthTarget" unique_id=1415795436]
+[node name="ExhaleStream" type="GPUParticles3D" parent="XROrigin3D/XRCamera3D/BreathCenter" unique_id=1415795436]
 cast_shadow = 0
 amount = 1500
 amount_ratio = 0.0

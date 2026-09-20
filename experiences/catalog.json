@@ -14,8 +14,9 @@
     "duration": 480,
     "music": "assets/audio/music.ogg",
     "artist": "Breathwork VR / Google Lyria",
-    "genre": "Unhurried release ambient",
-    "music_direction": ""
+    "genre": "60 BPM unhurried release ambient",
+    "tempo_bpm": 60,
+    "music_direction": "Three Lyria 3.5 movements in D major (still water, curtains of light, return to stillness): warm analog pads, a D and A drone and distant glass harmonics over a soft felt-mallet note that Lyria plays on every beat at 60 BPM, joined on bar lines so the beat never breaks."
   },
   {
     "id": "prismatic_sanctuary",
@@ -32,9 +33,9 @@
     "duration": 480,
     "music": "assets/audio/prismatic_sanctuary.ogg",
     "artist": "Breathwork VR",
-    "genre": "90 BPM psybient trance",
-    "music_direction": "A single cohesive 90 BPM electronic arrangement: rounded low kick, soft offbeat bass, quiet filtered shaker, and sustained warm synth chords. No piano, plucked melody or independently timed backing music.",
-    "tempo_bpm": 90
+    "genre": "60 BPM transcendental ambient electronica",
+    "tempo_bpm": 60,
+    "music_direction": "A moving, spacious 60 BPM electronic journey, every beat on the breath ticks: warm choir-like synth pads, suspended ninths, a gradual minor-to-major opening, slow legato melodic responses, rounded heartbeat pulses, sustained bass and diffused echoes. Five movements rise gently into luminous harmony and settle into a long soft release. No speech, sampled voices, piano, plucked attacks or independently timed backing music."
   },
   {
     "id": "fractal_garden",
@@ -51,8 +52,9 @@
     "duration": 480,
     "music": "assets/audio/fractal_garden.ogg",
     "artist": "Breathwork VR",
-    "genre": "Recursive harmonic ambient",
-    "music_direction": "Recursive glass harmonics in nested three- and six-note canons, beneath slowly unfolding harmonic fields."
+    "genre": "60 BPM recursive harmonic ambient",
+    "tempo_bpm": 60,
+    "music_direction": "Recursive glass harmonics in nested three- and six-note canons over a quiet glass pulse on every beat at 60 BPM, beneath slowly unfolding harmonic fields."
   },
   {
     "id": "tidal_origami",
@@ -69,8 +71,9 @@
     "duration": 480,
     "music": "assets/audio/tidal_origami.ogg",
     "artist": "Breathwork VR / Google Lyria",
-    "genre": "Long release ambient",
-    "music_direction": "Aquatic ambient: low singing bowls, muted marimba droplets, fluid glass resonances and deep rounded waterlike synth chords. Wide rippling acoustic space, no splash transients, long warm suspended waves."
+    "genre": "60 BPM long release ambient",
+    "tempo_bpm": 60,
+    "music_direction": "Three Lyria 3.5 movements in A major (a spacious welcome, deeper water, resolving into stillness): low singing bowls, fluid bowed-glass resonances and a deep warm bass under soft felt-piano droplets that Lyria plays on every beat at 60 BPM, joined on bar lines so the pulse never breaks."
   },
   {
     "id": "cloud_atelier",
@@ -87,8 +90,9 @@
     "duration": 480,
     "music": "assets/audio/cloud_atelier.ogg",
     "artist": "Breathwork VR",
-    "genre": "Airborne harmonic ambient",
-    "music_direction": "Weightless sustained string-like harmonics, airy vowel-free glass tones, long overlapping swells and no rhythmic percussion."
+    "genre": "60 BPM airborne harmonic ambient",
+    "tempo_bpm": 60,
+    "music_direction": "Weightless sustained string-like harmonics, airy vowel-free glass tones and long overlapping swells over a soft, low breathing bloom on every beat at 60 BPM. No drums."
   },
   {
     "id": "neural_constellation",
@@ -105,8 +109,9 @@
     "duration": 480,
     "music": "assets/audio/neural_constellation.ogg",
     "artist": "Breathwork VR",
-    "genre": "Cellular electronic ambient",
-    "music_direction": "Rounded cellular sine resonances answer across the stereo field over an evolving warm harmonic network."
+    "genre": "60 BPM cellular electronic ambient",
+    "tempo_bpm": 60,
+    "music_direction": "Rounded cellular sine resonances answer across the stereo field on a gentle 60 BPM firing pulse over an evolving warm harmonic network."
   },
   {
     "id": "circuit_garden",
@@ -123,8 +128,9 @@
     "duration": 480,
     "music": "assets/audio/circuit_garden.ogg",
     "artist": "Breathwork VR",
-    "genre": "Warm analogue ambient",
-    "music_direction": "Warm analogue oscillator chords and softly charged, slowly sequenced electronic tones. No acoustic instruments or percussion."
+    "genre": "60 BPM warm analogue ambient",
+    "tempo_bpm": 60,
+    "music_direction": "Warm analogue oscillator chords and softly charged electronic tones sequenced on a gentle 60 BPM pulse. No acoustic instruments or drums."
   },
   {
     "id": "pilgrim_tides",
@@ -141,13 +147,14 @@
     "duration": 480,
     "music": "assets/audio/pilgrim_tides.ogg",
     "artist": "Breathwork VR / Google Lyria",
-    "genre": "Gentle four-phase ambient",
-    "music_direction": "Humanist minimalist ambient: delicate felt piano, distant warm chamber strings, soft low clarinet, irregular slow call-and-response motifs, patient communal motion, consonant tender harmony. No marching pulse, no percussion, no vocals."
+    "genre": "60 BPM gentle four-phase ambient",
+    "tempo_bpm": 60,
+    "music_direction": "Three Lyria 3.5 movements in F major (setting out, walking together, arriving): warm chamber strings and a soft low clarinet over an unhurried felt-piano walking pulse that Lyria plays on every beat at 60 BPM, joined on bar lines so the pulse never breaks."
   },
   {
     "id": "visionary_temple",
     "title": "Visionary Temple",
-    "description": "A painted tunnel of eyes, flames and mandalas opening into a temple",
+    "description": "A sculpted tunnel of eyes, jewels, flames, feathers, lotuses and crystals opening into a temple",
     "rhythm": [
       4,
       4,
@@ -160,7 +167,7 @@
     "music": "assets/audio/visionary_temple.ogg",
     "artist": "Breathwork VR",
     "genre": "60 BPM transcendental psybient",
-    "music_direction": "A single deterministic 60 BPM psybient journey aligned to the sixteen-second breath: tanpura-like drone, sub-bass heartbeat, breath-shaped sixteenth-note plucked arpeggios, glass shimmer and wordless formant pads, moving through four harmonic passages that mirror the tunnel.",
-    "tempo_bpm": 60
+    "tempo_bpm": 60,
+    "music_direction": "A single deterministic 60 BPM psybient journey aligned to the sixteen-second breath: tanpura-like drone, a sub-bass heartbeat on every tick, breath-shaped sixteenth-note plucked arpeggios, glass shimmer and wordless formant pads, moving through eight harmonic passages that dissolve with the tunnel."
   }
 ]

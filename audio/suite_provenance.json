@@ -7,17 +7,77 @@
       "model": "authored electronic synthesis",
       "duration": 480,
       "file": "assets/audio/prismatic_sanctuary.ogg",
-      "sha256": "6d042077c5948c8654b8aa191870f04c6d59678ca0f3d3a2c84cd36b8e4883c7",
-      "delivery_bytes": 3081774,
+      "sha256": "4f39a6e44513c20a97c8b8877dfe1c15b052cd1a2b295d5400f4c5a2e5ead342",
+      "delivery_bytes": 3402468,
       "target_lufs": -20,
-      "tempo_bpm": 90,
-      "beat_frames": 32000,
-      "beat_count": 720,
-      "arrangement": "One clocked arrangement: rounded kick, offbeat synth bass, filtered shaker and sustained 32-beat synth chords. No piano, plucked melody or independently timed backing recording.",
+      "tempo_bpm": 60,
+      "beat_frames": 48000,
+      "beat_count": 480,
+      "arrangement": "One exact 60 BPM arrangement in five 96-second movements: Awakening, Longing, Opening, Radiance and Homecoming, every sixteen-beat phrase one 4/4/4/4 breath cycle. Warm bowed and choir-like synth pads, suspended ninths, a gradual minor-to-major opening, slow legato melodic responses, a rounded heartbeat kick on every beat with the breath ticks, sustained bass and quiet diffused echoes on whole beats. Long soft arrivals and a spacious final release; no speech, sampled voices, piano, plucked attacks or independent backing track.",
+      "movements": [
+        {
+          "title": "Awakening",
+          "start_seconds": 0
+        },
+        {
+          "title": "Longing",
+          "start_seconds": 96
+        },
+        {
+          "title": "Opening",
+          "start_seconds": 192
+        },
+        {
+          "title": "Radiance",
+          "start_seconds": 288
+        },
+        {
+          "title": "Homecoming",
+          "start_seconds": 384
+        }
+      ],
+      "chord_progression": [
+        "dm9",
+        "dm9",
+        "bbmaj9",
+        "fmaj9",
+        "cadd9",
+        "dm9",
+        "dm9",
+        "bbmaj9",
+        "fmaj9",
+        "cadd9",
+        "dm9",
+        "gsus",
+        "bbmaj9",
+        "fmaj9",
+        "cadd9",
+        "gsus",
+        "gmaj9",
+        "asus",
+        "dmaj9",
+        "gmaj9",
+        "dmaj9",
+        "asus",
+        "dmaj9",
+        "gmaj9",
+        "gmaj9",
+        "dmaj9",
+        "asus",
+        "dmaj9",
+        "gmaj9",
+        "dmaj9"
+      ],
+      "transitions": [
+        96.0,
+        192.0,
+        288.0,
+        384.0
+      ],
       "sources": [
         {
-          "file": "prismatic_trance90_cohesive.wav",
-          "sha256": "9fdf0c4fcef8250a375d22625a47f106bb6ef9f636056643f4523c317cbf712e",
+          "file": "prismatic_transcendental60.wav",
+          "sha256": "0a6ce3a1b62fce597b67e2da12b8f7f3e9b7aa6365165d25e13de7b701e7de7b",
           "origin": "Authored deterministic synthesis, no sampled/generated backing recording"
         }
       ]
@@ -29,14 +89,16 @@
       "model": "authored deterministic synthesis",
       "duration": 480,
       "file": "assets/audio/fractal_garden.ogg",
-      "sha256": "1bb4d616d85f32f4cebf149ae401752e25ad640128ab2aca158c2dbf6a1fa8d8",
-      "delivery_bytes": 3708967,
+      "sha256": "fc8aab36383da279bdff120fdef90c2fb6018eb211a6665555e0233750ca0540",
+      "delivery_bytes": 3747615,
       "target_lufs": -20,
-      "arrangement": "Recursive glass harmonics in nested three- and six-note canons, beneath slowly unfolding harmonic fields.",
+      "tempo_bpm": 60,
+      "beat_frames": 48000,
+      "arrangement": "Recursive glass harmonics in nested three- and six-note canons over a quiet glass pulse on every beat at 60 BPM, beneath slowly unfolding harmonic fields.",
       "sources": [
         {
-          "file": "fractal_garden_themed_v24.wav",
-          "sha256": "fd4de158419e4a8b4c997ec7350ac4dc8a867bf3cdf280113bff84c41a3b7bf0",
+          "file": "fractal_garden_themed_60bpm.wav",
+          "sha256": "f054f19172ca107bde9ab2a93578d1160736ebbdbfa92116f3127d8e158577a6",
           "origin": "Original synthesized oscillator arrangement; no sampled backing track"
         }
       ]
@@ -46,235 +108,212 @@
       "title": "Tidal Origami",
       "artist": "Breathwork VR / Google Lyria",
       "model": "lyria-3.5",
+      "endpoint": "https://generativelanguage.googleapis.com/v1beta/interactions",
       "duration": 480,
       "file": "assets/audio/tidal_origami.ogg",
-      "sha256": "ce62230616f2e1fbd28c696a9742d55db9b0124900465ac321635e119d885673",
-      "delivery_bytes": 7801554,
+      "sha256": "81a80919002addf800cff1277acf3f433f19053103f77380ec51ce951c792935",
+      "delivery_bytes": 8000365,
       "target_lufs": -20,
-      "transition_starts": [
-        168,
-        336
+      "tempo_bpm": 60,
+      "beat_frames": 48000,
+      "transitions": [
+        152.0,
+        160.0,
+        168.0,
+        308.0,
+        316.0,
+        324.0
       ],
-      "crossfade_seconds": 10,
+      "crossfades": [
+        [
+          152,
+          168
+        ],
+        [
+          308,
+          324
+        ]
+      ],
+      "crossfade_seconds": 16,
+      "fade_in_seconds": 8,
+      "fade_out_seconds": 8,
+      "joins": [
+        {
+          "fade": 152,
+          "largest_lift_db": 2.14,
+          "largest_cut_db": -2.4,
+          "predicted": {
+            "before": 0.91,
+            "after": 0.27,
+            "dip": -1.18,
+            "step": 2.93
+          },
+          "after_ride": {
+            "before": -21.96,
+            "after": -22.71,
+            "dip": -0.19,
+            "step": 0.84
+          }
+        },
+        {
+          "fade": 308,
+          "largest_lift_db": 5.01,
+          "largest_cut_db": -0.5,
+          "predicted": {
+            "before": -4.07,
+            "after": 1.25,
+            "dip": -1.19,
+            "step": 5.01
+          },
+          "after_ride": {
+            "before": -27.07,
+            "after": -21.71,
+            "dip": 0.09,
+            "step": 1.66
+          }
+        }
+      ],
+      "tick_phase_ms": 22.94,
+      "synthesized_pulse": false,
+      "beat_grid": {
+        "tick_reference_ms": 35.0,
+        "librosa_tempo_bpm": 60.09,
+        "best_fold_period_s": 0.9997,
+        "beat_phase_ms": 25.0,
+        "beat_peak": 7.9,
+        "beats_within_50ms": 1.0,
+        "on_grid_fraction": 0.992,
+        "transitions": [
+          {
+            "start": 140.0,
+            "phase_ms": 25.0,
+            "peak": 8.99,
+            "on_grid": 1.0,
+            "at": 152.0
+          },
+          {
+            "start": 148.0,
+            "phase_ms": 25.0,
+            "peak": 8.74,
+            "on_grid": 1.0,
+            "at": 160.0
+          },
+          {
+            "start": 156.0,
+            "phase_ms": 25.0,
+            "peak": 8.44,
+            "on_grid": 0.991,
+            "at": 168.0
+          },
+          {
+            "start": 296.0,
+            "phase_ms": 25.0,
+            "peak": 7.65,
+            "on_grid": 0.976,
+            "at": 308.0
+          },
+          {
+            "start": 304.0,
+            "phase_ms": 25.0,
+            "peak": 7.57,
+            "on_grid": 0.977,
+            "at": 316.0
+          },
+          {
+            "start": 312.0,
+            "phase_ms": 25.0,
+            "peak": 7.51,
+            "on_grid": 0.978,
+            "at": 324.0
+          }
+        ]
+      },
+      "note": "Lyria 3.5 keeps the 60 BPM written into its prompt on a steady grid, so each movement is only resampled by its measured period error and placed so its own beats land with the breath ticks; no pulse is synthesized. Lyria RealTime ignored its bpm setting (about 72 BPM when asked for 60) and is no longer used.",
+      "movements": [
+        {
+          "name": "welcome",
+          "prompt": "Create a 3-minute instrumental track. Tranquil aquatic chamber ambient in A major at exactly 60 BPM in 4/4, with a steady tempo that never changes from the first second to the last. Soft rounded felt-piano droplet notes fall precisely on every beat, even quarter notes at 60 BPM, continuing through every section, over low singing bowls, fluid bowed-glass resonances and a deep warm bass bed with long shimmering tails. Calm floating stillness with softened attacks. No vocals, no drum kit, no hi-hats, no tempo changes, no rubato, no ritardando, no silent gaps.\n[0:00 - 0:10] The droplet pulse and a low singing-bowl drone begin together at once, with no silence.\n[0:10 - 1:30] A quiet, spacious welcome: a slowly opening watery A major chord beneath the steady droplets.\n[1:30 - 2:40] Fluid bowed-glass resonances rise and fall in long waves while the pulse stays even.\n[2:40 - 3:00] Sustain a warm A major chord with the droplets continuing evenly to the very last second; no cadence and no fade-out.",
+          "file": "tidal_origami_1_welcome_take2.mp3",
+          "sha256": "c6aa28e8553b41f3c8ef7bb0769e7383ab5ed3a31451023eed99a294588ef99b",
+          "duration": 170.292,
+          "present": [
+            0.0,
+            167.0
+          ],
+          "period_ppm": 21.6,
+          "wander_ms": 2.82,
+          "beat_to_offbeat": 1.72,
+          "downbeat": 0,
+          "downbeat_confidence": 1.555,
+          "session_bar_line": -0.0,
+          "session_start": -0.076,
+          "gain_db": -10.75,
+          "phase_ms": 98.98
+        },
+        {
+          "name": "deeper_water",
+          "prompt": "Create a 3-minute instrumental track. Tranquil aquatic chamber ambient in A major at exactly 60 BPM in 4/4, with a steady tempo that never changes from the first second to the last. Soft rounded felt-piano droplet notes fall precisely on every beat, even quarter notes at 60 BPM, continuing through every section, over low singing bowls, fluid bowed-glass resonances and a deep warm bass bed with long shimmering tails. Calm floating stillness with softened attacks. No vocals, no drum kit, no hi-hats, no tempo changes, no rubato, no ritardando, no silent gaps.\n[0:00 - 0:10] The droplet pulse and a sustained warm A major chord begin together at once, with no silence.\n[0:10 - 1:10] Deeper water: richer consonant overtones and a fuller warm bass, restrained and stable.\n[1:10 - 2:20] Slow shimmering glass harmonics circle overhead like light through water above the steady pulse.\n[2:20 - 3:00] Sustain the full watery A major texture with the droplets continuing evenly to the very last second; no cadence and no fade-out.",
+          "file": "tidal_origami_2_deeper_water_take1.mp3",
+          "sha256": "1b68b5441bf03f88bd7b41d8983299dc411ec47ec4233223059e365cfacd8b16",
+          "duration": 178.913,
+          "present": [
+            7.0,
+            176.0
+          ],
+          "period_ppm": -20.9,
+          "wander_ms": 6.52,
+          "beat_to_offbeat": 1.96,
+          "downbeat": 0,
+          "downbeat_confidence": 2.326,
+          "session_bar_line": 148.0,
+          "session_start": 147.9377,
+          "gain_db": -9.94,
+          "phase_ms": 85.2
+        },
+        {
+          "name": "stillness",
+          "prompt": "Create a 3-minute instrumental track. Tranquil aquatic chamber ambient in A major at exactly 60 BPM in 4/4, with a steady tempo that never changes from the first second to the last. Soft rounded felt-piano droplet notes fall precisely on every beat, even quarter notes at 60 BPM, continuing through every section, over low singing bowls, fluid bowed-glass resonances and a deep warm bass bed with long shimmering tails. Calm floating stillness with softened attacks. No vocals, no drum kit, no hi-hats, no tempo changes, no rubato, no ritardando, no silent gaps.\n[0:00 - 0:10] The droplet pulse and the full watery A major chord begin together at once, with no silence.\n[0:10 - 1:00] The deepest, most enveloping water texture, gently undulating, no sharp peaks.\n[1:00 - 2:00] Resolving into stillness: the texture slowly thins toward the singing bowls and the bass.\n[2:00 - 3:00] Only a long warm chord, the low bowls and the quiet droplet pulse remain, settled and still, the pulse even to the very last second; no ritardando and no fade-out.",
+          "file": "tidal_origami_3_stillness_take2.mp3",
+          "sha256": "04b0887c0deb4bd8bd1c7ebbdbc56fe7c5f3f559e4e64c4680c361f692910ffa",
+          "duration": 179.2,
+          "present": [
+            0.0,
+            176.0
+          ],
+          "period_ppm": -32.4,
+          "wander_ms": 3.81,
+          "beat_to_offbeat": 2.84,
+          "downbeat": 0,
+          "downbeat_confidence": 1.128,
+          "session_bar_line": 304.0,
+          "session_start": 303.9138,
+          "gain_db": -10.48,
+          "phase_ms": 109.16
+        }
+      ],
       "sources": [
         {
-          "id": "tidal_origami_0",
-          "model": "lyria-3.5",
-          "endpoint": "https://generativelanguage.googleapis.com/v1beta/interactions",
-          "interaction_id": "v1_ChdyVEtsYXVxck5JN296N0lQMC1Hc2lRcxIXclRLbGF1cXJOSTdvejdJUDAtR3NpUXM",
-          "prompt": "Create 178 seconds of original instrumental meditation music. Aquatic ambient: low singing bowls, muted marimba droplets, fluid glass resonances and deep rounded waterlike synth chords. Wide rippling acoustic space, no splash transients, long warm suspended waves. Establish a quiet spacious welcome, gradually open into a sustained texture. No vocals, speech, drums, beat, climaxes, sudden attacks, harsh high frequencies, ominous tension, or dramatic tempo changes. The listener is lying still and breathing slowly. Calming energy throughout. Very soft edges and deep continuous musical development. End naturally; preserve ample reverb decay.",
-          "file": "tidal_origami_0.mp3",
-          "sha256": "4d1521a7c4968604e6e95216a7cee5e0e11af5fb9e7d55b8bd9626aab637ccb7",
-          "probe": {
-            "streams": [
-              {
-                "index": 0,
-                "codec_name": "mp3",
-                "codec_long_name": "MP3 (MPEG audio layer 3)",
-                "codec_type": "audio",
-                "codec_tag_string": "[0][0][0][0]",
-                "codec_tag": "0x0000",
-                "mime_codec_string": "mp4a.40.34",
-                "sample_fmt": "fltp",
-                "sample_rate": "44100",
-                "channels": 2,
-                "channel_layout": "stereo",
-                "bits_per_sample": 0,
-                "initial_padding": 0,
-                "r_frame_rate": "0/0",
-                "avg_frame_rate": "0/0",
-                "time_base": "1/14112000",
-                "start_pts": 0,
-                "start_time": "0.000000",
-                "duration_ts": 2372566476,
-                "duration": "168.124042",
-                "bit_rate": "192000",
-                "disposition": {
-                  "default": 0,
-                  "dub": 0,
-                  "original": 0,
-                  "comment": 0,
-                  "lyrics": 0,
-                  "karaoke": 0,
-                  "forced": 0,
-                  "hearing_impaired": 0,
-                  "visual_impaired": 0,
-                  "clean_effects": 0,
-                  "attached_pic": 0,
-                  "timed_thumbnails": 0,
-                  "non_diegetic": 0,
-                  "captions": 0,
-                  "descriptions": 0,
-                  "metadata": 0,
-                  "dependent": 0,
-                  "still_image": 0,
-                  "multilayer": 0
-                }
-              }
-            ],
-            "format": {
-              "filename": "tidal_origami_0.mp3",
-              "nb_streams": 1,
-              "nb_programs": 0,
-              "nb_stream_groups": 0,
-              "format_name": "mp3",
-              "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
-              "start_time": "0.000000",
-              "duration": "168.124042",
-              "size": "4041054",
-              "bit_rate": "192289",
-              "probe_score": 51
-            }
-          },
-          "response_text": [
-            "[[A0]]\n[[B1]]\n[[C2]]"
-          ]
+          "file": "tidal_origami_1_welcome_take2.mp3",
+          "sha256": "c6aa28e8553b41f3c8ef7bb0769e7383ab5ed3a31451023eed99a294588ef99b",
+          "interaction_id": "v1_ChdkOUdxYXBpQk9zR2dxdHNQX1AtemlBRRIXZDlHcWFwaUJPc0dncXRzUF9QLXppQUU",
+          "origin": "Untouched Lyria 3.5 MP3 response"
         },
         {
-          "id": "tidal_origami_1",
-          "model": "lyria-3.5",
-          "endpoint": "https://generativelanguage.googleapis.com/v1beta/interactions",
-          "interaction_id": "v1_Chd4VEtsYXJMeUwtV2g2ZGtQeFBENzhBMBIXeFRLbGFyTHlMLVdoNmRrUHhQRDc4QTA",
-          "prompt": "Create 178 seconds of original instrumental meditation music. Aquatic ambient: low singing bowls, muted marimba droplets, fluid glass resonances and deep rounded waterlike synth chords. Wide rippling acoustic space, no splash transients, long warm suspended waves. Deepen gently into richer consonant overtones, keep intensity restrained and stable. No vocals, speech, drums, beat, climaxes, sudden attacks, harsh high frequencies, ominous tension, or dramatic tempo changes. The listener is lying still and breathing slowly. Calming energy throughout. Very soft edges and deep continuous musical development. End naturally; preserve ample reverb decay.",
-          "file": "tidal_origami_1.mp3",
-          "sha256": "f5f92982590cf88818a6d692515670681f5dcb699e230d36027dd5ef6552dc38",
-          "probe": {
-            "streams": [
-              {
-                "index": 0,
-                "codec_name": "mp3",
-                "codec_long_name": "MP3 (MPEG audio layer 3)",
-                "codec_type": "audio",
-                "codec_tag_string": "[0][0][0][0]",
-                "codec_tag": "0x0000",
-                "mime_codec_string": "mp4a.40.34",
-                "sample_fmt": "fltp",
-                "sample_rate": "44100",
-                "channels": 2,
-                "channel_layout": "stereo",
-                "bits_per_sample": 0,
-                "initial_padding": 0,
-                "r_frame_rate": "0/0",
-                "avg_frame_rate": "0/0",
-                "time_base": "1/14112000",
-                "start_pts": 0,
-                "start_time": "0.000000",
-                "duration_ts": 2391735276,
-                "duration": "169.482375",
-                "bit_rate": "192000",
-                "disposition": {
-                  "default": 0,
-                  "dub": 0,
-                  "original": 0,
-                  "comment": 0,
-                  "lyrics": 0,
-                  "karaoke": 0,
-                  "forced": 0,
-                  "hearing_impaired": 0,
-                  "visual_impaired": 0,
-                  "clean_effects": 0,
-                  "attached_pic": 0,
-                  "timed_thumbnails": 0,
-                  "non_diegetic": 0,
-                  "captions": 0,
-                  "descriptions": 0,
-                  "metadata": 0,
-                  "dependent": 0,
-                  "still_image": 0,
-                  "multilayer": 0
-                }
-              }
-            ],
-            "format": {
-              "filename": "tidal_origami_1.mp3",
-              "nb_streams": 1,
-              "nb_programs": 0,
-              "nb_stream_groups": 0,
-              "format_name": "mp3",
-              "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
-              "start_time": "0.000000",
-              "duration": "169.482375",
-              "size": "4073654",
-              "bit_rate": "192286",
-              "probe_score": 51
-            }
-          },
-          "response_text": [
-            "[[A0]]\n[[B1]]\n[[C2]]\n[[D3]]"
-          ]
+          "file": "tidal_origami_2_deeper_water_take1.mp3",
+          "sha256": "1b68b5441bf03f88bd7b41d8983299dc411ec47ec4233223059e365cfacd8b16",
+          "interaction_id": "v1_ChdSZEdxYXNYdU80SDhxdHNQOUpIOThBRRIXUmRHcWFzWHVPNEg4cXRzUDlKSDk4QUU",
+          "origin": "Untouched Lyria 3.5 MP3 response"
         },
         {
-          "id": "tidal_origami_2",
-          "model": "lyria-3.5",
-          "endpoint": "https://generativelanguage.googleapis.com/v1beta/interactions",
-          "interaction_id": "v1_Chc0VEtsYW9MLUM5M3BxdHNQZ2VXM3dROBIXNFRLbGFvTC1DOTNwcXRzUGdlVzN3UTg",
-          "prompt": "Create 144 seconds of original instrumental meditation music. Aquatic ambient: low singing bowls, muted marimba droplets, fluid glass resonances and deep rounded waterlike synth chords. Wide rippling acoustic space, no splash transients, long warm suspended waves. Gently resolve and thin into stillness, with a long soft final decay. No vocals, speech, drums, beat, climaxes, sudden attacks, harsh high frequencies, ominous tension, or dramatic tempo changes. The listener is lying still and breathing slowly. Calming energy throughout. Very soft edges and deep continuous musical development. End naturally; preserve ample reverb decay.",
-          "file": "tidal_origami_2.mp3",
-          "sha256": "7d0c6025452854fda72ed71b99bb6ed678b77f552a2323acc8bf120644328e1a",
-          "probe": {
-            "streams": [
-              {
-                "index": 0,
-                "codec_name": "mp3",
-                "codec_long_name": "MP3 (MPEG audio layer 3)",
-                "codec_type": "audio",
-                "codec_tag_string": "[0][0][0][0]",
-                "codec_tag": "0x0000",
-                "mime_codec_string": "mp4a.40.34",
-                "sample_fmt": "fltp",
-                "sample_rate": "44100",
-                "channels": 2,
-                "channel_layout": "stereo",
-                "bits_per_sample": 0,
-                "initial_padding": 0,
-                "r_frame_rate": "0/0",
-                "avg_frame_rate": "0/0",
-                "time_base": "1/14112000",
-                "start_pts": 0,
-                "start_time": "0.000000",
-                "duration_ts": 1959320664,
-                "duration": "138.840750",
-                "bit_rate": "192000",
-                "disposition": {
-                  "default": 0,
-                  "dub": 0,
-                  "original": 0,
-                  "comment": 0,
-                  "lyrics": 0,
-                  "karaoke": 0,
-                  "forced": 0,
-                  "hearing_impaired": 0,
-                  "visual_impaired": 0,
-                  "clean_effects": 0,
-                  "attached_pic": 0,
-                  "timed_thumbnails": 0,
-                  "non_diegetic": 0,
-                  "captions": 0,
-                  "descriptions": 0,
-                  "metadata": 0,
-                  "dependent": 0,
-                  "still_image": 0,
-                  "multilayer": 0
-                }
-              }
-            ],
-            "format": {
-              "filename": "tidal_origami_2.mp3",
-              "nb_streams": 1,
-              "nb_programs": 0,
-              "nb_stream_groups": 0,
-              "format_name": "mp3",
-              "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
-              "start_time": "0.000000",
-              "duration": "138.840750",
-              "size": "3338255",
-              "bit_rate": "192350",
-              "probe_score": 51
-            }
-          },
-          "response_text": [
-            "[[A0]]\n[[B1]]\n[[C2]]"
-          ]
+          "file": "tidal_origami_3_stillness_take2.mp3",
+          "sha256": "04b0887c0deb4bd8bd1c7ebbdbc56fe7c5f3f559e4e64c4680c361f692910ffa",
+          "interaction_id": "v1_ChdhTkdxYW9qeEotaWdxdHNQNnBpS29RURIXYU5HcWFvanhKLWlncXRzUDZwaUtvUVE",
+          "origin": "Untouched Lyria 3.5 MP3 response"
+        },
+        {
+          "file": "tidal_origami_60bpm_master.wav",
+          "sha256": "4c0158e441d25c4e4c699337963bbd82174230f5097aad31d957bc98141dd4ea",
+          "origin": "Placed and crossfaded movements before loudness normalization"
         }
       ]
     },
@@ -285,14 +324,16 @@
       "model": "authored deterministic synthesis",
       "duration": 480,
       "file": "assets/audio/cloud_atelier.ogg",
-      "sha256": "f0cb62c8750f4622a48fdd7bf27490aa0eb15a69e20b931a633c0d2a0086460e",
-      "delivery_bytes": 3134232,
+      "sha256": "933432a2f626fbef40878ff50e04bd80d2920da20e99144da3ca80662db85cdd",
+      "delivery_bytes": 3113131,
       "target_lufs": -20,
-      "arrangement": "Weightless sustained string-like harmonics, airy vowel-free glass tones, long overlapping swells and no rhythmic percussion.",
+      "tempo_bpm": 60,
+      "beat_frames": 48000,
+      "arrangement": "Weightless sustained string-like harmonics, airy vowel-free glass tones and long overlapping swells over a soft, low breathing bloom on every beat at 60 BPM. No drums.",
       "sources": [
         {
-          "file": "cloud_atelier_themed_v24.wav",
-          "sha256": "e23e95501f05450b060c7572ee0d5842832a03373233fa5737a0cac8f9acd86b",
+          "file": "cloud_atelier_themed_60bpm.wav",
+          "sha256": "406e2042d313a76e14e0a173b4723f06573e46afa9c6c6bcb5e75f43aebac0d4",
           "origin": "Original synthesized oscillator arrangement; no sampled backing track"
         }
       ]
@@ -304,14 +345,16 @@
       "model": "authored deterministic synthesis",
       "duration": 480,
       "file": "assets/audio/neural_constellation.ogg",
-      "sha256": "6a05d2785cf7acd8da08aff1bbe0d4a9d96a38b6de90a90b0be7e5179c09d5e6",
-      "delivery_bytes": 2902940,
+      "sha256": "c62d2eef4d97013769160f681b70403c1c7cf94ba51c7feeea0b940404593196",
+      "delivery_bytes": 2987906,
       "target_lufs": -20,
-      "arrangement": "Rounded cellular sine resonances answer across the stereo field over an evolving warm harmonic network.",
+      "tempo_bpm": 60,
+      "beat_frames": 48000,
+      "arrangement": "Rounded cellular sine resonances answer across the stereo field on a gentle 60 BPM firing pulse over an evolving warm harmonic network.",
       "sources": [
         {
-          "file": "neural_constellation_themed_v24.wav",
-          "sha256": "4872b20c899ed88c3beb9aeddfeb40acfae7cdbcc8766831fa16a204fa68bfc1",
+          "file": "neural_constellation_themed_60bpm.wav",
+          "sha256": "1f195e1081f9bfae261d0182aabaffdc8e5fe232752621835869a945f0adcf06",
           "origin": "Original synthesized oscillator arrangement; no sampled backing track"
         }
       ]
@@ -323,14 +366,16 @@
       "model": "authored deterministic synthesis",
       "duration": 480,
       "file": "assets/audio/circuit_garden.ogg",
-      "sha256": "f97bb3af653c1086dd475203340ff7b595522ddad2b2f9f37e097e15b774f748",
-      "delivery_bytes": 2336021,
+      "sha256": "b695d1989cad311ccb867499ad2d50529b7ccc744b53c770abeb9fe3c6b4a42d",
+      "delivery_bytes": 2618419,
       "target_lufs": -20,
-      "arrangement": "Warm analogue oscillator chords and softly charged, slowly sequenced electronic tones. No acoustic instruments or percussion.",
+      "tempo_bpm": 60,
+      "beat_frames": 48000,
+      "arrangement": "Warm analogue oscillator chords and softly charged electronic tones sequenced on a gentle 60 BPM pulse. No acoustic instruments or drums.",
       "sources": [
         {
-          "file": "circuit_garden_themed_v24.wav",
-          "sha256": "a15f0fceaf11399ceaedfe212c21f50de680354314cb7091746c0a91ca07d580",
+          "file": "circuit_garden_themed_60bpm.wav",
+          "sha256": "741c1cae92a4ea29d902777bbe026166a3d3525211c58c33ef822a63deca81b4",
           "origin": "Original synthesized oscillator arrangement; no sampled backing track"
         }
       ]
@@ -340,235 +385,212 @@
       "title": "Pilgrim Tides",
       "artist": "Breathwork VR / Google Lyria",
       "model": "lyria-3.5",
+      "endpoint": "https://generativelanguage.googleapis.com/v1beta/interactions",
       "duration": 480,
       "file": "assets/audio/pilgrim_tides.ogg",
-      "sha256": "7a09e6f1166efa1d8ad655c6974ce3a38a41d1992bfd658d0e7fb35f5d5cbbab",
-      "delivery_bytes": 7355232,
+      "sha256": "f5415a52547c8ed04d68be02aee15777c7ae9b36c683b2f56817f8697b8a8bfa",
+      "delivery_bytes": 7463190,
       "target_lufs": -20,
-      "transition_starts": [
-        168,
-        336
+      "tempo_bpm": 60,
+      "beat_frames": 48000,
+      "transitions": [
+        160.0,
+        168.0,
+        176.0,
+        308.0,
+        316.0,
+        324.0
       ],
-      "crossfade_seconds": 10,
+      "crossfades": [
+        [
+          160,
+          176
+        ],
+        [
+          308,
+          324
+        ]
+      ],
+      "crossfade_seconds": 16,
+      "fade_in_seconds": 8,
+      "fade_out_seconds": 8,
+      "joins": [
+        {
+          "fade": 160,
+          "largest_lift_db": 4.3,
+          "largest_cut_db": -1.34,
+          "predicted": {
+            "before": -0.06,
+            "after": -3.24,
+            "dip": -3.59,
+            "step": 3.29
+          },
+          "after_ride": {
+            "before": -22.98,
+            "after": -26.25,
+            "dip": 0.03,
+            "step": 1.96
+          }
+        },
+        {
+          "fade": 308,
+          "largest_lift_db": 2.99,
+          "largest_cut_db": -1.89,
+          "predicted": {
+            "before": 0.91,
+            "after": -0.05,
+            "dip": -1.83,
+            "step": 2.06
+          },
+          "after_ride": {
+            "before": -22.31,
+            "after": -22.92,
+            "dip": -0.49,
+            "step": 1.22
+          }
+        }
+      ],
+      "tick_phase_ms": 22.94,
+      "synthesized_pulse": false,
+      "beat_grid": {
+        "tick_reference_ms": 35.0,
+        "librosa_tempo_bpm": 60.09,
+        "best_fold_period_s": 1.0001,
+        "beat_phase_ms": 25.0,
+        "beat_peak": 8.31,
+        "beats_within_50ms": 0.98,
+        "on_grid_fraction": 0.919,
+        "transitions": [
+          {
+            "start": 148.0,
+            "phase_ms": 25.0,
+            "peak": 8.24,
+            "on_grid": 0.922,
+            "at": 160.0
+          },
+          {
+            "start": 156.0,
+            "phase_ms": 25.0,
+            "peak": 9.49,
+            "on_grid": 0.912,
+            "at": 168.0
+          },
+          {
+            "start": 164.0,
+            "phase_ms": 25.0,
+            "peak": 10.5,
+            "on_grid": 0.845,
+            "at": 176.0
+          },
+          {
+            "start": 296.0,
+            "phase_ms": 25.0,
+            "peak": 8.44,
+            "on_grid": 1.0,
+            "at": 308.0
+          },
+          {
+            "start": 304.0,
+            "phase_ms": 25.0,
+            "peak": 8.4,
+            "on_grid": 1.0,
+            "at": 316.0
+          },
+          {
+            "start": 312.0,
+            "phase_ms": 25.0,
+            "peak": 8.46,
+            "on_grid": 1.0,
+            "at": 324.0
+          }
+        ]
+      },
+      "note": "Lyria 3.5 keeps the 60 BPM written into its prompt on a steady grid, so each movement is only resampled by its measured period error and placed so its own beats land with the breath ticks; no pulse is synthesized. Lyria RealTime ignored its bpm setting (about 72 BPM when asked for 60) and is no longer used.",
+      "movements": [
+        {
+          "name": "setting_out",
+          "prompt": "Create a 3-minute instrumental track. Humanist chamber-minimalist ambient in F major at exactly 60 BPM in 4/4, with a steady tempo that never changes from the first second to the last. A soft low felt-piano note sounds on every beat, even quarter notes at 60 BPM like an unhurried walking pulse, continuing through every section, with warm chamber strings, a soft low clarinet and sustained, tender consonant harmony. Quiet companionship. No vocals, no drum kit, no hi-hats, no tempo changes, no rubato, no ritardando, no silent gaps.\n[0:00 - 0:10] The felt-piano pulse and a quiet string drone begin together at once, with no silence.\n[0:10 - 1:30] Setting out: spacious and tender sustained strings over the steady walking pulse.\n[1:30 - 2:40] A soft low clarinet enters with long, patient phrases while the pulse stays even.\n[2:40 - 3:00] Sustain warm F major string harmony with the pulse continuing evenly to the very last second; no cadence and no fade-out.",
+          "file": "pilgrim_tides_1_setting_out_take2.mp3",
+          "sha256": "de9a590fdcd94342259e0250bb9c2b7dfe813e5cb5837b184142597dc5417c0d",
+          "duration": 177.92,
+          "present": [
+            4.0,
+            174.0
+          ],
+          "period_ppm": 0.4,
+          "wander_ms": 4.35,
+          "beat_to_offbeat": 4.85,
+          "downbeat": 0,
+          "downbeat_confidence": 1.629,
+          "session_bar_line": -0.0,
+          "session_start": -0.0561,
+          "gain_db": -10.77,
+          "phase_ms": 79.09
+        },
+        {
+          "name": "walking_together",
+          "prompt": "Create a 3-minute instrumental track. Humanist chamber-minimalist ambient in F major at exactly 60 BPM in 4/4, with a steady tempo that never changes from the first second to the last. A soft low felt-piano note sounds on every beat, even quarter notes at 60 BPM like an unhurried walking pulse, continuing through every section, with warm chamber strings, a soft low clarinet and sustained, tender consonant harmony. Quiet companionship. No vocals, no drum kit, no hi-hats, no tempo changes, no rubato, no ritardando, no silent gaps.\n[0:00 - 0:10] The felt-piano pulse and sustained warm F major strings begin together at once, with no silence.\n[0:10 - 1:20] Walking together: slow call-and-response between the clarinet and the strings.\n[1:20 - 2:30] Fuller communal harmony, gently rising and settling over the steady pulse.\n[2:30 - 3:00] Sustain the warm ensemble harmony with the pulse continuing evenly to the very last second; no cadence and no fade-out.",
+          "file": "pilgrim_tides_2_walking_together_take1.mp3",
+          "sha256": "2fd7b4be0b02ea2a30e56345b253f40203e8f60f3fbb9978d8091bb3a0b14315",
+          "duration": 172.042,
+          "present": [
+            2.0,
+            168.0
+          ],
+          "period_ppm": 17.9,
+          "wander_ms": 2.29,
+          "beat_to_offbeat": 5.06,
+          "downbeat": 2,
+          "downbeat_confidence": 1.098,
+          "session_bar_line": 164.0,
+          "session_start": 161.9058,
+          "gain_db": -11.41,
+          "phase_ms": 117.18
+        },
+        {
+          "name": "arriving",
+          "prompt": "Create a 3-minute instrumental track. Humanist chamber-minimalist ambient in F major at exactly 60 BPM in 4/4, with a steady tempo that never changes from the first second to the last. A soft low felt-piano note sounds on every beat, even quarter notes at 60 BPM like an unhurried walking pulse, continuing through every section, with warm chamber strings, a soft low clarinet and sustained, tender consonant harmony. Quiet companionship. No vocals, no drum kit, no hi-hats, no tempo changes, no rubato, no ritardando, no silent gaps.\n[0:00 - 0:10] The felt-piano pulse and the warm ensemble harmony begin together at once, with no silence.\n[0:10 - 1:00] The ensemble at its warmest, sustained and tender, no sharp peaks.\n[1:00 - 2:00] Arriving: the clarinet falls silent and the strings settle into long sustained harmony.\n[2:00 - 3:00] Only quiet sustained strings and the soft pulse remain, settled and still, the pulse even to the very last second; no ritardando and no fade-out.",
+          "file": "pilgrim_tides_3_arriving_take1.mp3",
+          "sha256": "dff57229751ffe546852098f364dc29554bfb9888715c707ad0a31b8621127c9",
+          "duration": 176.927,
+          "present": [
+            0.0,
+            168.0
+          ],
+          "period_ppm": -23.1,
+          "wander_ms": 8.12,
+          "beat_to_offbeat": 2.95,
+          "downbeat": 0,
+          "downbeat_confidence": 1.82,
+          "session_bar_line": 312.0,
+          "session_start": 311.9296,
+          "gain_db": -10.9,
+          "phase_ms": 93.31
+        }
+      ],
       "sources": [
         {
-          "id": "pilgrim_tides_0",
-          "model": "lyria-3.5",
-          "endpoint": "https://generativelanguage.googleapis.com/v1beta/interactions",
-          "interaction_id": "v1_Chduak9sYXZxaks4anB6N0lQd3NDZXdRdxIXbmpPbGF2cWpLOGpwejdJUHdzQ2V3UXc",
-          "prompt": "Create 178 seconds of original instrumental meditation music. Humanist minimalist ambient: delicate felt piano, distant warm chamber strings, soft low clarinet, irregular slow call-and-response motifs, patient communal motion, consonant tender harmony. No marching pulse, no percussion, no vocals. Establish a quiet spacious welcome, gradually open into a sustained texture. No vocals, speech, drums, beat, climaxes, sudden attacks, harsh high frequencies, ominous tension, or dramatic tempo changes. The listener is lying still and breathing slowly. Calming energy throughout. Very soft edges and deep continuous musical development. End naturally; preserve ample reverb decay.",
-          "file": "pilgrim_tides_0.mp3",
-          "sha256": "9fb09989722557bd2a36c2c1adfb9a61ec2fc53167a870b4ec0364884e86ac14",
-          "probe": {
-            "streams": [
-              {
-                "index": 0,
-                "codec_name": "mp3",
-                "codec_long_name": "MP3 (MPEG audio layer 3)",
-                "codec_type": "audio",
-                "codec_tag_string": "[0][0][0][0]",
-                "codec_tag": "0x0000",
-                "mime_codec_string": "mp4a.40.34",
-                "sample_fmt": "fltp",
-                "sample_rate": "44100",
-                "channels": 2,
-                "channel_layout": "stereo",
-                "bits_per_sample": 0,
-                "initial_padding": 0,
-                "r_frame_rate": "0/0",
-                "avg_frame_rate": "0/0",
-                "time_base": "1/14112000",
-                "start_pts": 0,
-                "start_time": "0.000000",
-                "duration_ts": 2410904664,
-                "duration": "170.840750",
-                "bit_rate": "192000",
-                "disposition": {
-                  "default": 0,
-                  "dub": 0,
-                  "original": 0,
-                  "comment": 0,
-                  "lyrics": 0,
-                  "karaoke": 0,
-                  "forced": 0,
-                  "hearing_impaired": 0,
-                  "visual_impaired": 0,
-                  "clean_effects": 0,
-                  "attached_pic": 0,
-                  "timed_thumbnails": 0,
-                  "non_diegetic": 0,
-                  "captions": 0,
-                  "descriptions": 0,
-                  "metadata": 0,
-                  "dependent": 0,
-                  "still_image": 0,
-                  "multilayer": 0
-                }
-              }
-            ],
-            "format": {
-              "filename": "pilgrim_tides_0.mp3",
-              "nb_streams": 1,
-              "nb_programs": 0,
-              "nb_stream_groups": 0,
-              "format_name": "mp3",
-              "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
-              "start_time": "0.000000",
-              "duration": "170.840750",
-              "size": "4106255",
-              "bit_rate": "192284",
-              "probe_score": 51
-            }
-          },
-          "response_text": [
-            "[[A0]]\n[[B1]]\n[[C2]]\n[[D3]]\n[[C4]]\n[[E5]]"
-          ]
+          "file": "pilgrim_tides_1_setting_out_take2.mp3",
+          "sha256": "de9a590fdcd94342259e0250bb9c2b7dfe813e5cb5837b184142597dc5417c0d",
+          "interaction_id": "v1_ChdvTkdxYXBhUkx1Q2Y2ZGtQdGJHbi1BVRIXb05HcWFwYVJMdUNmNmRrUHRiR24tQVU",
+          "origin": "Untouched Lyria 3.5 MP3 response"
         },
         {
-          "id": "pilgrim_tides_1",
-          "model": "lyria-3.5",
-          "endpoint": "https://generativelanguage.googleapis.com/v1beta/interactions",
-          "interaction_id": "v1_Chd3RE9sYXQtZUMtT2c2ZGtQNE55WGdBWRIXd0RPbGF0LWVDLU9nNmRrUDROeVhnQVk",
-          "prompt": "Create 178 seconds of original instrumental meditation music. Humanist minimalist ambient: delicate felt piano, distant warm chamber strings, soft low clarinet, irregular slow call-and-response motifs, patient communal motion, consonant tender harmony. No marching pulse, no percussion, no vocals. Deepen gently into richer consonant overtones, keep intensity restrained and stable. No vocals, speech, drums, beat, climaxes, sudden attacks, harsh high frequencies, ominous tension, or dramatic tempo changes. The listener is lying still and breathing slowly. Calming energy throughout. Very soft edges and deep continuous musical development. End naturally; preserve ample reverb decay.",
-          "file": "pilgrim_tides_1.mp3",
-          "sha256": "8849e819521fdb8895c923f275755c33a1857c7afaa43b42eea42917e1744210",
-          "probe": {
-            "streams": [
-              {
-                "index": 0,
-                "codec_name": "mp3",
-                "codec_long_name": "MP3 (MPEG audio layer 3)",
-                "codec_type": "audio",
-                "codec_tag_string": "[0][0][0][0]",
-                "codec_tag": "0x0000",
-                "mime_codec_string": "mp4a.40.34",
-                "sample_fmt": "fltp",
-                "sample_rate": "44100",
-                "channels": 2,
-                "channel_layout": "stereo",
-                "bits_per_sample": 0,
-                "initial_padding": 0,
-                "r_frame_rate": "0/0",
-                "avg_frame_rate": "0/0",
-                "time_base": "1/14112000",
-                "start_pts": 0,
-                "start_time": "0.000000",
-                "duration_ts": 2438184336,
-                "duration": "172.773833",
-                "bit_rate": "192000",
-                "disposition": {
-                  "default": 0,
-                  "dub": 0,
-                  "original": 0,
-                  "comment": 0,
-                  "lyrics": 0,
-                  "karaoke": 0,
-                  "forced": 0,
-                  "hearing_impaired": 0,
-                  "visual_impaired": 0,
-                  "clean_effects": 0,
-                  "attached_pic": 0,
-                  "timed_thumbnails": 0,
-                  "non_diegetic": 0,
-                  "captions": 0,
-                  "descriptions": 0,
-                  "metadata": 0,
-                  "dependent": 0,
-                  "still_image": 0,
-                  "multilayer": 0
-                }
-              }
-            ],
-            "format": {
-              "filename": "pilgrim_tides_1.mp3",
-              "nb_streams": 1,
-              "nb_programs": 0,
-              "nb_stream_groups": 0,
-              "format_name": "mp3",
-              "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
-              "start_time": "0.000000",
-              "duration": "172.773833",
-              "size": "4152649",
-              "bit_rate": "192281",
-              "probe_score": 51
-            }
-          },
-          "response_text": [
-            "[[A0]]\n[[B1]]\n[[C2]]\n[[D3]]\n[[E4]]"
-          ]
+          "file": "pilgrim_tides_2_walking_together_take1.mp3",
+          "sha256": "2fd7b4be0b02ea2a30e56345b253f40203e8f60f3fbb9978d8091bb3a0b14315",
+          "interaction_id": "v1_ChdpOUdxYXVlb0F0Q0RxdHNQNlktZHNRYxIXaTlHcWF1ZW9BdENEcXRzUDZZLWRzUWM",
+          "origin": "Untouched Lyria 3.5 MP3 response"
         },
         {
-          "id": "pilgrim_tides_2",
-          "model": "lyria-3.5",
-          "endpoint": "https://generativelanguage.googleapis.com/v1beta/interactions",
-          "interaction_id": "v1_ChczRE9sYXJlOEU3dTdtdGtQdzZ1XzhBcxIXM0RPbGFyZThFN3U3bXRrUHc2dV84QXM",
-          "prompt": "Create 144 seconds of original instrumental meditation music. Humanist minimalist ambient: delicate felt piano, distant warm chamber strings, soft low clarinet, irregular slow call-and-response motifs, patient communal motion, consonant tender harmony. No marching pulse, no percussion, no vocals. Gently resolve and thin into stillness, with a long soft final decay. No vocals, speech, drums, beat, climaxes, sudden attacks, harsh high frequencies, ominous tension, or dramatic tempo changes. The listener is lying still and breathing slowly. Calming energy throughout. Very soft edges and deep continuous musical development. End naturally; preserve ample reverb decay.",
-          "file": "pilgrim_tides_2.mp3",
-          "sha256": "1af050134bf24471dd93407c29c4c000953b2a1b3ac7972ef76ed3b259bfb6c8",
-          "probe": {
-            "streams": [
-              {
-                "index": 0,
-                "codec_name": "mp3",
-                "codec_long_name": "MP3 (MPEG audio layer 3)",
-                "codec_type": "audio",
-                "codec_tag_string": "[0][0][0][0]",
-                "codec_tag": "0x0000",
-                "mime_codec_string": "mp4a.40.34",
-                "sample_fmt": "fltp",
-                "sample_rate": "44100",
-                "channels": 2,
-                "channel_layout": "stereo",
-                "bits_per_sample": 0,
-                "initial_padding": 0,
-                "r_frame_rate": "0/0",
-                "avg_frame_rate": "0/0",
-                "time_base": "1/14112000",
-                "start_pts": 0,
-                "start_time": "0.000000",
-                "duration_ts": 1985125632,
-                "duration": "140.669333",
-                "bit_rate": "192000",
-                "disposition": {
-                  "default": 0,
-                  "dub": 0,
-                  "original": 0,
-                  "comment": 0,
-                  "lyrics": 0,
-                  "karaoke": 0,
-                  "forced": 0,
-                  "hearing_impaired": 0,
-                  "visual_impaired": 0,
-                  "clean_effects": 0,
-                  "attached_pic": 0,
-                  "timed_thumbnails": 0,
-                  "non_diegetic": 0,
-                  "captions": 0,
-                  "descriptions": 0,
-                  "metadata": 0,
-                  "dependent": 0,
-                  "still_image": 0,
-                  "multilayer": 0
-                }
-              }
-            ],
-            "format": {
-              "filename": "pilgrim_tides_2.mp3",
-              "nb_streams": 1,
-              "nb_programs": 0,
-              "nb_stream_groups": 0,
-              "format_name": "mp3",
-              "format_long_name": "MP2/3 (MPEG audio layer 2/3)",
-              "start_time": "0.000000",
-              "duration": "140.669333",
-              "size": "3382141",
-              "bit_rate": "192345",
-              "probe_score": 51
-            }
-          },
-          "response_text": [
-            "[[A0]]\n[[B1]]\n[[B2]]\n[[B3]]\n[[C4]]"
-          ]
+          "file": "pilgrim_tides_3_arriving_take1.mp3",
+          "sha256": "dff57229751ffe546852098f364dc29554bfb9888715c707ad0a31b8621127c9",
+          "interaction_id": "v1_ChdzTkdxYXJMVEE2ZXN6N0lQZ3JySWlBMBIXc05HcWFyTFRBNmVzejdJUGdycklpQTA",
+          "origin": "Untouched Lyria 3.5 MP3 response"
+        },
+        {
+          "file": "pilgrim_tides_60bpm_master.wav",
+          "sha256": "410c9c2d7829ccff0868ca6f80919c79ff5f94be8e517a09947f6fe54d0550b5",
+          "origin": "Placed and crossfaded movements before loudness normalization"
         }
       ]
     },
@@ -579,8 +601,8 @@
       "model": "authored electronic synthesis",
       "duration": 480,
       "file": "assets/audio/visionary_temple.ogg",
-      "sha256": "7a2a2f0096805257931f0668664ce121ce1d374697172abf58225aaf1a8ebb34",
-      "delivery_bytes": 4995411,
+      "sha256": "bc66809c1452dd3b8d0b104f9f02cd93af4a54059645891d5fefc3c4f0d77d75",
+      "delivery_bytes": 4876773,
       "target_lufs": -20,
       "tempo_bpm": 60,
       "beat_frames": 48000,
@@ -588,23 +610,38 @@
       "cycle_beats": 16,
       "passages": [
         "eye lattice",
+        "Indra's net",
         "flame mandala",
+        "peacock vault",
         "kaleidoscope rings",
+        "lotus garden",
+        "crystal geode",
         "painted temple"
       ],
-      "arrangement": "A single deterministic 60 BPM psybient journey aligned to the sixteen-second breath: tanpura-like drone, sub-bass heartbeat, breath-shaped sixteenth-note plucked arpeggios, glass shimmer and wordless formant pads, moving through four harmonic passages that mirror the tunnel.",
+      "passage_seconds": 60,
+      "transition_seconds": 30,
+      "transitions": [
+        45.0,
+        105.0,
+        165.0,
+        225.0,
+        285.0,
+        345.0,
+        405.0
+      ],
+      "arrangement": "A single deterministic 60 BPM psybient journey aligned to the sixteen-second breath: tanpura-like drone, a sub-bass heartbeat on every tick, breath-shaped sixteenth-note plucked arpeggios, glass shimmer and wordless formant pads, moving through eight harmonic passages that dissolve with the tunnel.",
       "sources": [
         {
-          "file": "visionary_journey60_v26.wav",
-          "sha256": "a010f53487cb22ddf8af1a9d926df008b74ea17260f3b2a9459d9fc0cbef1f32",
+          "file": "visionary_journey60_v27.wav",
+          "sha256": "b658efac464aa457e3bb6cf6ae8775809e93f10d5fdc89500afd0aace0dbaa00",
           "origin": "Authored deterministic synthesis, no sampled or generated backing recording"
         }
       ]
     }
   ],
   "generated_tracks": 8,
-  "master_count": 21,
+  "master_count": 12,
   "failed": 0,
-  "master_bytes": 184320058,
-  "delivery_bytes": 35316131
+  "master_bytes": 1129014356,
+  "delivery_bytes": 36209867
 }

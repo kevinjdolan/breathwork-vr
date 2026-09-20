@@ -1,10 +1,49 @@
+# Version 2.9 — counts, breath and beats on one clock
+
+In all nine worlds, the breath cue's count ticks, the breath guide and the score now play from one sample clock. Aurora Lake, Tidal Origami and Pilgrim Tides are regenerated so that the music itself moves at 60 BPM.
+
+- **Ticks on the beat.**
+  - Before: the once-a-second tick (louder at each phase change) started when a frame noticed the second had turned. On Quest that lands up to one audio mix buffer late, by a different amount each second.
+  - Now: the ticks are a looping track exactly one breath cycle long, with each tick on the first sample of its second. The score, the breath guide and the ticks start, pause and resume on the same mix step.
+  - Result: every count, every breath phase change and every beat sound together, from the first second, and after the session menu or a headset focus change.
+- **Lyria scores that play 60 BPM themselves.**
+  - Before: Lyria RealTime ignored its tempo setting, so 2.8 laid a synthesized pulse over beds that moved at their own pace.
+  - Lyria 3.5 keeps a tempo written into its prompt. Each score is now three Lyria 3.5 movements that play their own soft pulse on every beat: a felt mallet (Aurora Lake), felt-piano droplets (Tidal Origami) and a felt-piano walking pulse (Pilgrim Tides).
+  - Each take is measured with librosa. Takes whose beat wandered are rejected. Each take is corrected by its tiny period error (at most 32 parts per million in the chosen takes) and placed so its beats land on the ticks.
+  - Movements join on bar lines, at the points where both sides are at full level. The gain is ridden through each join, so no join sags or lurches. No pulse is added.
+- **Verification from the mixer.** `tools/check_cue_alignment.py` records each world's score, breath guide and ticks from Godot's own mixer, through a pause. It checks that every tick sounds with a whole second of the score and the matching moment of the breath guide.
+
+## Previous release records
+
+# Version 2.8 — every score on the breath ticks
+
+All nine scores are regenerated on a strict 60 BPM grid. Every beat lands on a whole second, where the breath cue's ticks sound, and the grid holds through every movement change, crossfade and dissolve.
+
+- **Prismatic Sanctuary** moves from 50 to 60 BPM. Each sixteen-beat phrase now spans exactly one 4/4/4/4 breath cycle, and its heartbeat kick is firmer. The tunnel's light pulses follow the new tempo.
+- **Visionary Temple** now has eight one-minute harmonic passages that dissolve with the tunnel's 30-second dissolves, and its heartbeat plays on every tick.
+- **Fractal Garden, Cloud Atelier, Neural Constellation and Circuit Garden** keep their themes. Motifs, echoes and chord changes move onto whole beats, over a gentle pulse that suits each theme: a glass pluck, a low bloom, a cellular blip and a sequenced analogue tone.
+- **Aurora Lake, Tidal Origami and Pilgrim Tides** are regenerated as continuous Lyria RealTime beds steered through their movements by prompt blending. Under each bed a sample-exact felt-mallet, water-droplet or felt-piano pulse follows the bed's harmony and accents each breath cycle. Lyria RealTime did not honour its BPM setting in measurement, so the beds are beatless and the pulse defines the grid.
+
+`python -m audio.beat_grid` checks every delivery with librosa against the tick sample measured the same way. It requires a 60 BPM tempo, onsets folding at exactly 1.000 s, a beat peak with the tick, at least nine in ten tracked beats within 50 ms, and alignment held in every 16-second window and every transition. `tests/test_suite_audio.py` runs the same check.
+
+## Previous release records
+
+# Version 2.7 — Visionary Temple in eight sculpted passages
+
+**Visionary Temple** now travels through eight one-minute passages instead of four two-minute ones. Four new AI-painted passages join the procedural eye lattice, flame mandala, kaleidoscope rings and temple: *Indra's Net* (golden cords and jewels over a nebula void), *Peacock Vault* (overlapping feathers laid like roof tiles), *Lotus Garden* (layered blossoms on lapis water) and *Crystal Geode* (amethyst and citrine mandalas), in the order eyes, net, flames, peacock, rings, lotus, geode, temple. gpt-image-2 painted the new tiles and four matching sigils; wrap seams were repaired by repainting a feathered central cross.
+
+The tunnel wall now follows the contours of its paintings. Nano Banana Pro produced a pixel-aligned height map for every passage, including the procedural four. The vertex shader displaces a denser tube by up to 0.75 m, and the fragment shader lights the relief from the same maps. Vertices move with the travelling and turning surface, so relief does not swim. Besides the temple's flat-floored hall, the net has a soft hexagonal cross-section, the peacock vault is scalloped, the lotus garden is a tall ellipse and the geode is an octagon with one mandala per facet.
+
+Flat drifting sigils are replaced by 384 modelled 3D relics of 25 types, from eye orbs and gem lattices to armillary spheres, lotus flowers, crystal clusters and temple bells. Nano Banana Pro material-capture spheres give them gold and gemstone surfaces. They tumble freely and follow six kinds of path across the tunnel; some linger ahead and some overtake the viewer from behind.
+
+Dissolves last 30 seconds (previously 24) and now have depth. The outgoing passage opens along its own contours, ground first, so its ornament floats for a while. Behind it the next passage waits on a wider, dimmer shell, turning in a different direction, then settles into place. The breath rhythm, plasma inhale, petal outflow, destination light and score are unchanged; the score's four harmonic sections now each span two passages. See `experiences/visionary_temple/DESIGN.md`. Desktop captures establish composition only; headset comfort and frame rate during the two-shell dissolves need headset review.
+
 # Version 2.6 — Visionary Temple
 
 A ninth world, **Visionary Temple**, joins the selector. It is a gaze-following painted tunnel in the manner of Prismatic Sanctuary, but its walls are an original visionary-art surface that paths through four two-minute passages: a lattice of staring eyes woven by golden geometry, a turning flame-and-feather mandala with dotted mushrooms, nested kaleidoscope ring cells in gold octagon frames, and a painted temple hall of fluted columns, starry pointed arches, a blue-green diamond floor and a rosette dome. Each passage dissolves into the next along its raised ornament over 24 seconds, and the tunnel cross-section eases into a flat-floored hall for the temple. Drifting painted sigils (eye, flame lotus, ring cell, rosette) carry the current passage's motif and serve as golden inhale sources; sixteen violet-to-cyan petals leave the mouth on the exhale; the white destination light keeps its 500 ms hold-growth and exhale-collapse rays.
 
 The rhythm is a long-release box (4 s in, 4 s hold, 6 s out, 2 s rest; thirty cycles). The score is a new deterministic 60 BPM transcendental psybient journey whose sixteen-beat bars coincide with the breath cycle: a tanpura-like drone, a sub heartbeat that rests in the empty pause, breath-shaped plucked sixteenth arpeggios, hold-time glass shimmer and slow pads that move through four harmonic passages with the visuals. The supplied reference clips informed original procedural ornament baked by `tools/bake_visionary_tiles.py`; no reference frames are bundled. See `experiences/visionary_temple/DESIGN.md` for the tile mapping, breath timings and budgets. Desktop captures establish composition only; headset comfort and sustained frame rate are unverified.
 
-## Previous release records
 
 # Version 2.5 — cloud tunnel and video previews
 
@@ -43,15 +82,15 @@ The new worlds were authored in seven separate implementation subsessions. Each 
 
 | Experience | Creative direction | Seconds: in / full pause / out / empty pause | Cycles | Music direction |
 |---|---|---:|---:|---|
-| Aurora Lake | Close layered auroras above irregular breathing waves; a giving and recovering golden particle orb | 4 / 2 / 8 / 0 | 34 + 4s settling | Warm evolving ambient, positional water and particle voices |
-| Prismatic Sanctuary | A gaze-following geometric tunnel: sixteen shape families, green plasma inhale, sixteen rainbow outflow beams and a bright white center | 4 / 4 / 4 / 4 | 30 | 90 BPM electronic trance: warm synth textures, rounded kick, bass and arpeggios |
-| Fractal Garden | Actual Barnsley fern and tetrahedral IFS structures; seedpods gather, branch and dissolve | 6 / 0 / 6 / 0 | 40 | Organic woodland electroacoustic textures |
-| Tidal Origami | Water folds into impossible suspended arches and smaller floating liquid forms | 6 / 2 / 8 / 0 | 30 | Rounded resonant bowls, fluid glass and soft waterlike tones |
-| Cloud Atelier | Clouds sculpt a breathing vault; irregular stratus islands and nearby whorls part and gather | 5 / 0 / 5 / 0 | 48 | Airborne neoclassical ambient and soft suspended strings |
-| Neural Constellation | Organic dendrites connect particle somas; gentle signals propagate with the breath | 5 / 0 / 7 / 0 | 40 | Intimate bioelectronic harmonics and answering echoes |
-| Circuit Garden | Floating circuit lattices store charge and release a slow, soft current | 4 / 0 / 6 / 0 | 48 | Warm analog synths and sparse electric-piano-like tones |
-| Pilgrim Tides | Hundreds of simple humanoids walk floating promenades, gather, and bring their hands inward on inhalation | 6 / 2 / 6 / 2 | 30 | Patient humanist chamber minimalism |
-| Visionary Temple | A painted tunnel through four visionary passages: eye lattice, flame mandala, kaleidoscope rings and a temple hall; golden plasma inhale, violet petal outflow, white destination light | 4 / 4 / 6 / 2 | 30 | 60 BPM transcendental psybient clocked to the breath |
+| Aurora Lake | Close layered auroras above irregular breathing waves; a giving and recovering golden particle orb | 4 / 2 / 8 / 0 | 34 + 4s settling | 60 BPM: three Lyria 3.5 movements in D major with a soft felt-mallet note on every beat, positional water and particle voices |
+| Prismatic Sanctuary | A gaze-following geometric tunnel: sixteen shape families, green plasma inhale, sixteen rainbow outflow beams and a bright white center | 4 / 4 / 4 / 4 | 30 | 60 BPM transcendental electronica: warm choir-like synths, slow legato melody, heartbeat pulse and a gradual minor-to-major opening |
+| Fractal Garden | Actual Barnsley fern and tetrahedral IFS structures; seedpods gather, branch and dissolve | 6 / 0 / 6 / 0 | 40 | 60 BPM recursive glass harmonics over a quiet glass pulse |
+| Tidal Origami | Water folds into impossible suspended arches and smaller floating liquid forms | 6 / 2 / 8 / 0 | 30 | 60 BPM: three Lyria 3.5 movements of singing bowls, bowed glass and warm bass with felt-piano droplets on every beat |
+| Cloud Atelier | Clouds sculpt a breathing vault; irregular stratus islands and nearby whorls part and gather | 5 / 0 / 5 / 0 | 48 | 60 BPM airborne harmonics over a soft low breathing bloom |
+| Neural Constellation | Organic dendrites connect particle somas; gentle signals propagate with the breath | 5 / 0 / 7 / 0 | 40 | 60 BPM cellular resonances answering over a gentle firing pulse |
+| Circuit Garden | Floating circuit lattices store charge and release a slow, soft current | 4 / 0 / 6 / 0 | 48 | 60 BPM warm analogue chords over a softly sequenced pulse |
+| Pilgrim Tides | Hundreds of simple humanoids walk floating promenades, gather, and bring their hands inward on inhalation | 6 / 2 / 6 / 2 | 30 | 60 BPM: three Lyria 3.5 chamber movements, strings and low clarinet over a felt-piano walking pulse |
+| Visionary Temple | A sculpted, painted tunnel through eight one-minute passages: eye lattice, Indra's net, flame mandala, peacock vault, kaleidoscope rings, lotus garden, crystal geode and a temple hall, with layered contour dissolves; golden plasma inhale, violet petal outflow, white destination light | 4 / 4 / 6 / 2 | 30 | 60 BPM transcendental psybient clocked to the breath |
 
 These are gentle pacing invitations. The startup menu explicitly invites comfortable breathing and treating holds as gentle pauses. Nothing requires the user to perform a forced breath or keep pace to continue.
 
@@ -97,3 +136,11 @@ Prismatic Sanctuary now travels through a 16,384-point vault, follows gaze with 
 ### Version 2.3 refinement
 
 The Prismatic walls now combine 32,768 dense relief tiles with 8,192 floating filament particles. Deep radial folds carry nested rosettes, curling filigree and woven geometry. Occasional stylized eyes and geckos emerge during separate long passages, with gradual palette and relief changes. The music has also been rebuilt as one clocked electronic arrangement: generated backing recordings and keyboard-like plucks were removed after headset feedback found them jarring against the 90 BPM beat. A runtime test confirms that lake and mote players do not accompany this experience.
+
+## Heart-directed inhale and transcendental score
+
+Prismatic Sanctuary’s two green inhale arcs now descend toward a heart-directed offset 14 cm below and 12 cm forward of the shared neck breath center, including when reclining. Its current score is an authored 50 BPM electronic arrangement in five 96-second movements: Awakening, Longing, Opening, Radiance and Homecoming. Slowly changing suspended harmony opens from minor into major, with sustained melodic responses, warm choir-like synth pads, quiet heartbeat pulses, bass and diffused echoes. The tunnel’s subtle light pulses follow the catalog tempo. The eight-minute session and 4/4/4/4 breathing rhythm stay the same. Earlier 90 BPM descriptions above document previous iterations.
+
+## Universal breath center
+
+Every world now receives one world-space neck reference computed from `BreathGeometry.BREATH_CENTER_OFFSET`, 18 cm below the headset in headset space. Aurora’s particles, Prismatic’s curves, Visionary Temple’s paths and all six themed flows use it for incoming destinations and outgoing origins. Optional offsets are applied in the headset basis relative to this shared point, never reconstructed from independent mouth/nose coordinates. Prismatic retains a lower incoming offset; its outgoing rainbow starts at the neck. The reusable `breath-visualization-patterns` skill records this as a MUST.

@@ -1,4 +1,4 @@
-"""Generate and master seven distinct resumable eight-minute Lyria scores."""
+"""Generate and master the eight non-lake scores with their authored or Lyria pipeline."""
 
 from concurrent.futures import ThreadPoolExecutor
 import argparse
@@ -68,9 +68,14 @@ def movement(entry: dict, index: int, seconds: int) -> tuple[Path, dict]:
 
 def score(entry: dict) -> dict:
     """Assemble three musical movements and verify a sample-exact delivery."""
-    if entry.get('tempo_bpm') == 90 and entry['id'] == 'prismatic_sanctuary':
+    if entry['id'] == 'prismatic_sanctuary':
         from audio.generate_prismatic_trance import score as trance_score
         return trance_score(entry)
+    if entry['id'] == 'visionary_temple':
+        from audio.generate_visionary_journey import score as visionary_score
+        return visionary_score(entry)
+    # The stitched movements below ignore the 60 BPM grid that every delivery now shares with the breath ticks.
+    raise SystemExit(f"{entry['id']} is delivered by audio.generate_theme_scores or audio.generate_lyria60; this stitched Lyria path is kept for reference only")
     report_path = MASTERS / f'{entry["id"]}_delivery.json'
     target = ROOT / entry['music']
     sources = [movement(entry, index, seconds) for index, seconds in enumerate([178,178,144])]
@@ -117,7 +122,7 @@ def main() -> None:
     parser.add_argument('--one')
     args = parser.parse_args()
     entries = json.loads((ROOT/'experiences/catalog.json').read_text())[1:]
-    assert len(entries) == 7 and len({e['id'] for e in entries}) == 7
+    assert len(entries) == 8 and len({e['id'] for e in entries}) == 8
     MASTERS.mkdir(parents=True,exist_ok=True)
     if args.one:
         score(next(e for e in entries if e['id'] == args.one))
@@ -126,10 +131,11 @@ def main() -> None:
         reports = list(pool.map(score, entries))
     for report in reports:
         for source in report['sources']:
-            source['probe']['format']['filename'] = source['file']
-    output = dict(tracks=reports,generated_tracks=7,master_count=21,failed=0,master_bytes=sum((MASTERS/s['file']).stat().st_size for r in reports for s in r['sources']),delivery_bytes=sum(r['delivery_bytes'] for r in reports))
+            if 'probe' in source:
+                source['probe']['format']['filename'] = source['file']
+    output = dict(tracks=reports,generated_tracks=len(reports),master_count=sum(len(r['sources']) for r in reports),failed=0,master_bytes=sum((MASTERS/s['file']).stat().st_size for r in reports for s in r['sources']),delivery_bytes=sum(r['delivery_bytes'] for r in reports))
     (ROOT/'audio/suite_provenance.json').write_text(json.dumps(output,indent=2)+'\n')
-    print('Validated all seven scores',flush=True)
+    print(f'Validated all {len(reports)} scores',flush=True)
 
 
 if __name__ == '__main__':

@@ -5,8 +5,8 @@
   "model": "authored electronic synthesis",
   "duration": 480,
   "file": "assets/audio/visionary_temple.ogg",
-  "sha256": "7a2a2f0096805257931f0668664ce121ce1d374697172abf58225aaf1a8ebb34",
-  "delivery_bytes": 4995411,
+  "sha256": "bc66809c1452dd3b8d0b104f9f02cd93af4a54059645891d5fefc3c4f0d77d75",
+  "delivery_bytes": 4876773,
   "target_lufs": -20,
   "tempo_bpm": 60,
   "beat_frames": 48000,
@@ -14,15 +14,30 @@
   "cycle_beats": 16,
   "passages": [
     "eye lattice",
+    "Indra's net",
     "flame mandala",
+    "peacock vault",
     "kaleidoscope rings",
+    "lotus garden",
+    "crystal geode",
     "painted temple"
   ],
-  "arrangement": "A single deterministic 60 BPM psybient journey aligned to the sixteen-second breath: tanpura-like drone, sub-bass heartbeat, breath-shaped sixteenth-note plucked arpeggios, glass shimmer and wordless formant pads, moving through four harmonic passages that mirror the tunnel.",
+  "passage_seconds": 60,
+  "transition_seconds": 30,
+  "transitions": [
+    45.0,
+    105.0,
+    165.0,
+    225.0,
+    285.0,
+    345.0,
+    405.0
+  ],
+  "arrangement": "A single deterministic 60 BPM psybient journey aligned to the sixteen-second breath: tanpura-like drone, a sub-bass heartbeat on every tick, breath-shaped sixteenth-note plucked arpeggios, glass shimmer and wordless formant pads, moving through eight harmonic passages that dissolve with the tunnel.",
   "sources": [
     {
-      "file": "visionary_journey60_v26.wav",
-      "sha256": "a010f53487cb22ddf8af1a9d926df008b74ea17260f3b2a9459d9fc0cbef1f32",
+      "file": "visionary_journey60_v27.wav",
+      "sha256": "b658efac464aa457e3bb6cf6ae8775809e93f10d5fdc89500afd0aace0dbaa00",
       "origin": "Authored deterministic synthesis, no sampled or generated backing recording"
     }
   ]

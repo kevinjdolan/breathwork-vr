@@ -17,8 +17,11 @@ extends Node
 
 ## Tunnel journeys share the distant focal light, quieter guide and 72 Hz cadence.
 const JOURNEY_IDS: Array[String] = ["prismatic_sanctuary", "visionary_temple"]
+## Seconds before the settle that the tick track stops: after the previous tick (0.49 s long) and before the next.
+const TICK_RELEASE: float = 0.4
 
 var session_menu: SessionMenu
+var breath_cue: BreathCue
 var experience_id: String = "aurora_lake"
 var experience: Dictionary
 var experience_layer: Node3D
@@ -73,9 +76,9 @@ var _mote_cues: Array[int] = [-1, -1, -1, -1, -1]
 @onready var music: AudioStreamPlayer = get_node("../Audio/Music")
 @onready var breath: AudioStreamPlayer = get_node("../Audio/Breath")
 @onready var camera: XRCamera3D = get_node("../XROrigin3D/XRCamera3D")
-@onready var mouth: Marker3D = get_node("../XROrigin3D/XRCamera3D/MouthTarget")
+@onready var breath_center: Marker3D = get_node("../XROrigin3D/XRCamera3D/BreathCenter")
 @onready var inhale: GPUParticles3D = get_node("../Orb/InhaleStream")
-@onready var exhale: GPUParticles3D = get_node("../XROrigin3D/XRCamera3D/MouthTarget/ExhaleStream")
+@onready var exhale: GPUParticles3D = get_node("../XROrigin3D/XRCamera3D/BreathCenter/ExhaleStream")
 @onready var halo: GPUParticles3D = get_node("../Orb/Halo")
 @onready var field: GPUParticles3D = get_node("../FractalField")
 @onready var sky_material: ShaderMaterial = (get_node("../WorldEnvironment") as WorldEnvironment).environment.sky.sky_material
@@ -85,6 +88,7 @@ var _mote_cues: Array[int] = [-1, -1, -1, -1, -1]
 @onready var arc: AnimationPlayer = $AnimationPlayer
 
 func _ready() -> void:
+    breath_center.position = BreathGeometry.BREATH_CENTER_OFFSET
     # Each visit owns background state; returning to the lake restores its sky.
     var world: WorldEnvironment = get_node("../WorldEnvironment")
     world.environment = world.environment.duplicate()
@@ -148,6 +152,9 @@ func _ready() -> void:
     session_menu.continued.connect(_on_focus)
     session_menu.return_requested.connect(_return_from_session_menu)
     add_child(session_menu)
+    breath_cue = BreathCue.new()
+    camera.add_child(breath_cue)
+    breath_cue.configure(clock.display_pattern())
     if _test_mode:
         set_process(false)
         return
@@ -193,37 +200,62 @@ func _start_session() -> void:
     _gaze_direction = -camera.global_basis.z.normalized()
     orb.global_position = camera.global_position + _gaze_direction * ExperienceMath.ORB_DISTANCE
     orb.global_position.y = maxf(0.45, orb.global_position.y)
-    print("VRMED START model=", OS.get_model_name(), " tier=", tier, " head=", camera.global_position, " mouth=", mouth.global_position)
+    print("VRMED START model=", OS.get_model_name(), " tier=", tier, " head=", camera.global_position, " breath_center=", breath_center.global_position)
     _initialize_field.call_deferred()
+    var start: float = 0.0
     if not _review_path.is_empty():
         DirAccess.make_dir_recursive_absolute(_review_path)
-        music.play(_review_start)
-        breath.play(fmod(_review_start, clock.loop_seconds))
+        start = _review_start
     elif _capture_time >= 0.0:
-        music.play(_capture_time)
-        breath.play(fmod(_capture_time, clock.loop_seconds))
-    else:
-        music.play()
-        breath.play()
+        start = _capture_time
+    play_session_audio(start)
     if experience_id in ["aurora_lake", "tidal_origami"]:
         for index: int in range(3):
             (get_node("../Audio/Water" + str(index)) as AudioStreamPlayer3D).play(float(index) * 9.3)
 
-func _on_focus() -> void:
-    var paused: bool = session_menu != null and session_menu.is_open
+## Start the score, the breath loop and the breath cue's tick track on one mix step. Holding the audio server lock
+## keeps the mixer thread from running between the calls, so the three share one sample clock: every count, tick and
+## breath phase boundary falls on a whole second of the score, which is where its 60 BPM beats are.
+func play_session_audio(from: float) -> void:
+    var cycle_position: float = fposmod(from, clock.loop_seconds)
+    AudioServer.lock()
+    music.play(from)
+    breath.play(cycle_position)
+    breath_cue.tick_player.play(cycle_position)
+    AudioServer.unlock()
+
+## Pause or resume every session sound on one mix step so the shared clock survives the session menu and headset focus.
+func set_audio_paused(paused: bool) -> void:
+    AudioServer.lock()
     music.stream_paused = paused
     breath.stream_paused = paused
+    breath_cue.tick_player.stream_paused = paused
     for player: AudioStreamPlayer3D in _spatial_audio:
         player.stream_paused = paused
+    AudioServer.unlock()
+
+## How far the breath loop and the tick track sit from the score within one breath cycle, in milliseconds.
+## Positions are read until no mix step lands between the reads, so the three come from one moment.
+func audio_offsets_ms() -> Vector2:
+    var cycle: float = clock.loop_seconds
+    for attempt: int in range(8):
+        var score: float = music.get_playback_position()
+        var guide: float = breath.get_playback_position()
+        var ticks: float = breath_cue.tick_player.get_playback_position()
+        if score == music.get_playback_position():
+            var guide_offset: float = fposmod(guide - score + cycle * 0.5, cycle) - cycle * 0.5
+            var tick_offset: float = fposmod(ticks - score + cycle * 0.5, cycle) - cycle * 0.5
+            return Vector2(guide_offset, tick_offset) * 1000.0
+    return Vector2(INF, INF)
+
+func _on_focus() -> void:
+    set_audio_paused(session_menu != null and session_menu.is_open)
 
 func _on_unfocus() -> void:
     (inhale.process_material as ShaderMaterial).set_shader_parameter("inhale_visibility", 0.0)
     (exhale.process_material as ShaderMaterial).set_shader_parameter("exhale_visibility", 0.0)
     (exhale.process_material as ShaderMaterial).set_shader_parameter("exhale_active", false)
-    music.stream_paused = true
-    breath.stream_paused = true
-    for player: AudioStreamPlayer3D in _spatial_audio:
-        player.stream_paused = true
+    set_audio_paused(true)
     _held.clear()
 
 func _on_tracker_added(tracker_name: StringName, _type: int) -> void:
@@ -303,6 +335,9 @@ func _process(delta: float) -> void:
         clock.update_from_position(clock.loop_seconds - 0.001, elapsed)
     else:
         clock.sample(breath, elapsed)
+    # The settle cues no further breath: release the tick track after the last tick has decayed, before the next one.
+    if elapsed >= clock.settle_at() - TICK_RELEASE and breath_cue.tick_player.playing:
+        breath_cue.tick_player.stop()
     if experience_layer != null:
         breath_particles_enabled = ExperienceMath.smooth_unit(elapsed / 3.0) * (1.0 - ExperienceMath.smooth_unit((elapsed - 476.0) / 4.0))
     _follow_orb(delta)
@@ -331,6 +366,8 @@ func _on_exhale() -> void:
     _ripple_origin = Vector2(camera.global_position.x, camera.global_position.z)
 
 func _push_visuals(_delta: float) -> void:
+    breath_center.global_position = BreathGeometry.center(camera.global_position, camera.global_basis)
+    breath_cue.update_cue(clock.seconds, clock.display_pattern(), (1.0 - fade) * (0.0 if session_menu.is_open else 1.0))
     var release_wave: float = sin(clock.exhale_t * PI) if clock.is_exhale else 0.0
     for material: ShaderMaterial in _visual_materials:
         material.set_shader_parameter("time", elapsed)
@@ -349,7 +386,7 @@ func _push_visuals(_delta: float) -> void:
     water_material.set_shader_parameter("wave_cycle", float(clock.cycle_index))
     water_material.set_shader_parameter("orb_position", orb.global_position)
     inhale.amount_ratio = 1.0
-    (inhale.process_material as ShaderMaterial).set_shader_parameter("mouth_target", mouth.global_position)
+    (inhale.process_material as ShaderMaterial).set_shader_parameter("inhale_target", breath_center.global_position)
     (inhale.process_material as ShaderMaterial).set_shader_parameter("head_right", camera.global_basis.x.normalized())
     (inhale.process_material as ShaderMaterial).set_shader_parameter("head_up", camera.global_basis.y.normalized())
     var incoming_visibility: float = clock.incoming_visibility() * breath_particles_enabled
@@ -365,8 +402,8 @@ func _push_visuals(_delta: float) -> void:
     exhale.amount_ratio = clock.outgoing_gate() * breath_particles_enabled * 0.32
     (exhale.process_material as ShaderMaterial).set_shader_parameter("exhale_active", clock.is_exhale)
     (exhale.process_material as ShaderMaterial).set_shader_parameter("exhale_visibility", exhale_visibility)
-    (exhale.process_material as ShaderMaterial).set_shader_parameter("mouth_position", mouth.global_position)
-    (exhale.process_material as ShaderMaterial).set_shader_parameter("mouth_basis", mouth.global_basis.orthonormalized())
+    (exhale.process_material as ShaderMaterial).set_shader_parameter("exhale_origin", breath_center.global_position)
+    (exhale.process_material as ShaderMaterial).set_shader_parameter("breath_basis", breath_center.global_basis.orthonormalized())
     (exhale.process_material as ShaderMaterial).set_shader_parameter("exhale_reach", exhale_reach)
     (exhale.process_material as ShaderMaterial).set_shader_parameter("head_position", camera.global_position)
     var pulse: float = lerpf(1.0, 0.76, clock.breath_fill)
@@ -414,9 +451,9 @@ func _push_visuals(_delta: float) -> void:
             player.global_position = Vector3(cos(angle) * radius, 0.15, sin(angle) * radius)
             player.volume_db = (-14.0 + release_wave * 2.0 + 1.5 * sin(elapsed * 0.11 + float(index) * 2.2)) + audio_fade
     if experience_layer != null and experience_layer.is_inside_tree():
-        experience_layer.update_experience({"elapsed": elapsed, "phase_seconds": clock.seconds, "intensity": 1.0 - fade, "breath_fill": clock.breath_fill, "inhale_t": clock.inhale_t, "exhale_t": clock.exhale_t, "is_inhale": clock.is_inhale, "is_exhale": clock.is_exhale, "is_pause": clock.is_pause, "head_position": camera.global_position, "mouth_position": mouth.global_position, "orb_position": orb.global_position, "head_basis": camera.global_basis})
+        experience_layer.update_experience({"elapsed": elapsed, "phase_seconds": clock.seconds, "intensity": 1.0 - fade, "breath_fill": clock.breath_fill, "inhale_t": clock.inhale_t, "exhale_t": clock.exhale_t, "is_inhale": clock.is_inhale, "is_exhale": clock.is_exhale, "is_pause": clock.is_pause, "head_position": camera.global_position, "breath_center": breath_center.global_position, "orb_position": orb.global_position, "head_basis": camera.global_basis})
     if _theme_breath != null and _theme_breath.is_inside_tree():
-        _theme_breath.update_experience({"elapsed":elapsed,"phase_seconds":clock.seconds,"intensity":1.0-fade,"breath_fill":clock.breath_fill,"head_position":camera.global_position,"mouth_position":mouth.global_position,"orb_position":orb.global_position,"head_basis":camera.global_basis})
+        _theme_breath.update_experience({"elapsed":elapsed,"phase_seconds":clock.seconds,"intensity":1.0-fade,"breath_fill":clock.breath_fill,"head_position":camera.global_position,"breath_center":breath_center.global_position,"orb_position":orb.global_position,"head_basis":camera.global_basis})
     (fade_mesh.material_override as ShaderMaterial).set_shader_parameter("fade", fade)
 
 func _update_mote_audio(cluster: int, state: Dictionary) -> void:
@@ -454,8 +491,10 @@ func _finish_exit() -> void:
     set_process(false)
     music.stop()
     breath.stop()
+    breath_cue.tick_player.stop()
     music.stream = null
     breath.stream = null
+    breath_cue.tick_player.stream = null
     for player: AudioStreamPlayer3D in _spatial_audio:
         player.stop()
         player.stream = null
@@ -549,7 +588,7 @@ func _save_review_frame(frame: int) -> void:
     get_viewport().get_texture().get_image().save_png(_review_path.path_join("frame_%05d.png" % frame))
     var snapshot: Dictionary = {
         "seconds": elapsed, "inhale": clock.is_inhale, "pause": clock.is_pause, "exhale": clock.is_exhale, "breath_fill": clock.breath_fill,
-        "head": str(camera.global_transform), "mouth": str(mouth.global_position),
+        "head": str(camera.global_transform), "breath_center": str(breath_center.global_position),
         "orb": str(orb.global_position), "trail": movement_trail.amount_ratio,
         "orb_scale": core_material.get_shader_parameter("breath_scale"),
         "mote_cues": _mote_cues,
@@ -567,7 +606,8 @@ func _record_performance(delta: float) -> void:
     _perf_frames += 1
     _perf_worst = maxf(_perf_worst, delta)
     if _perf_elapsed >= (5.0 if experience_id == "prismatic_sanctuary" else 10.0):
-        print("VRMED FRAME SAMPLE fps=", snappedf(float(_perf_frames) / _perf_elapsed, 0.1), " worst_ms=", snappedf(_perf_worst * 1000.0, 0.1), " head=", camera.global_position, " mouth_distance=", snappedf(camera.global_position.distance_to(mouth.global_position), 0.001))
+        var offsets: Vector2 = audio_offsets_ms() if breath.playing and breath_cue.tick_player.playing else Vector2.ZERO
+        print("VRMED FRAME SAMPLE fps=", snappedf(float(_perf_frames) / _perf_elapsed, 0.1), " worst_ms=", snappedf(_perf_worst * 1000.0, 0.1), " head=", camera.global_position, " breath_center_distance=", snappedf(camera.global_position.distance_to(breath_center.global_position), 0.001), " breath_offset_ms=", snappedf(offsets.x, 0.1), " tick_offset_ms=", snappedf(offsets.y, 0.1))
         _perf_elapsed = 0.0
         _perf_frames = 0
         _perf_worst = 0.0

@@ -24,7 +24,9 @@ run_engine --headless --xr-mode off --path "$project_dir" --script tests/test_ha
 run_engine --headless --xr-mode off --path "$project_dir" --max-fps 90 --script tests/test_end.gd -- --test
 run_engine --headless --xr-mode off --path "$project_dir" --script tests/test_suite.gd -- --test
 run_engine --headless --xr-mode off --path "$project_dir" --script tests/test_session_menu.gd -- --test
+run_engine --headless --xr-mode off --path "$project_dir" --script tests/test_breath_cue.gd -- --test
 run_engine --headless --xr-mode off --path "$project_dir" --script tests/test_palm_wave.gd -- --test
+run_engine --headless --xr-mode off --path "$project_dir" --script tests/test_wave_tracking.gd -- --test
 run_engine --headless --xr-mode off --path "$project_dir" --script tests/test_prismatic.gd -- --test
 run_engine --headless --xr-mode off --path "$project_dir" --script tests/test_visionary.gd -- --test
 "$python_bin" -m unittest discover -s tests -p 'test_*.py' -v

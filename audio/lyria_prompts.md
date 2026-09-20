@@ -1,5 +1,7 @@
 # Breathwork VR — Lyria 3.5 movements
 
+> **Superseded in version 2.9.** Aurora Lake's score is again three Lyria 3.5 movements, now asked for a pulse on every beat at 60 BPM and placed so Lyria's own beats land on the breath ticks; see `audio/generate_lyria60.py` for the prompts, measurement and provenance. The movement prompts below document the earlier stitched 50 BPM-feel score, which ignored any beat grid.
+
 Model: `lyria-3.5`, Google Gemini Interactions API. Artist credit: Breathwork VR / generated with Google Lyria. Instrumental ambient, D major, 50 BPM feel, no percussion or vocals. Preserve original response audio in `audio/masters/` (excluded from APK). The script requests WAV output. Never publish credentials.
 
 The 10-second equal-power transitions START at cycle boundaries 168 and 336 seconds. Generate overlap handles: calm 178 seconds, deepening 178 seconds, peak_resolve 144 seconds. The resulting length is 178 + 178 + 144 − 20 = 480 seconds. Musical section labels refer to the mix timeline; overlaps extend the earlier section.

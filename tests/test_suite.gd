@@ -11,6 +11,67 @@ func check(condition: bool, message: String) -> void:
 func _initialize() -> void:
     run.call_deferred()
 
+func check_breath_centers(director: MeditationDirector, id: String) -> void:
+    for angles: Vector3 in [Vector3.ZERO, Vector3(1.4, .7, -.25)]:
+        director.camera.get_parent().position = Vector3(.3, .65, -.2)
+        director.camera.position = Vector3(.1, .2, .3)
+        director.camera.rotation = angles
+        director._push_visuals(.016)
+        var head: Transform3D = director.camera.global_transform
+        var center: Vector3 = director.breath_center.global_position
+        check((head.affine_inverse() * center).is_equal_approx(Vector3(0, -.18, 0)), id + ": shared reference stays at the neck under head/rig translation, tilt, yaw and roll")
+        var incoming: ShaderMaterial
+        var outgoing: ShaderMaterial
+        var offset: Vector3 = Vector3.ZERO
+        if id == "aurora_lake":
+            incoming = director.inhale.process_material
+            outgoing = director.exhale.process_material
+        elif id == "prismatic_sanctuary":
+            incoming = director.experience_layer._beams.material_override
+            outgoing = director.experience_layer._outflow.material_override
+            offset = Vector3(0, -.14, -.12)
+        elif id == "visionary_temple":
+            incoming = director.experience_layer.get_node("InhalePlasma").material_override
+            outgoing = director.experience_layer.get_node("VioletOutflow").material_override
+        elif id in ThemeBreath.IDS:
+            incoming = director._theme_breath.get_node("ThemedBreathFlow").material_override
+            outgoing = incoming
+        else:
+            check(false, id + ": add the new experience's breath materials to the shared-center contract")
+            return
+        var target: Vector3 = incoming.get_shader_parameter("inhale_target")
+        var origin: Vector3 = outgoing.get_shader_parameter("exhale_origin")
+        check((head.basis.inverse() * (target - center)).is_equal_approx(offset), id + ": inhale destination derives from the common center and declared local offset")
+        check(origin.is_equal_approx(center), id + ": exhale starts at the common center")
+    if id != "aurora_lake":
+        # A supplied anchor must win over any independently reconstructed head point.
+        var supplied_center: Vector3 = Vector3(4.0, 2.0, -3.0)
+        var basis: Basis = director.camera.global_basis
+        var state: Dictionary = {"head_position": director.camera.global_position, "head_basis": basis, "breath_center": supplied_center, "elapsed": 120.0, "phase_seconds": 2.0, "breath_fill": .5, "intensity": 1.0, "orb_position": director.orb.global_position}
+        if id == "prismatic_sanctuary":
+            director.experience_layer.update_experience(state)
+            var incoming: ShaderMaterial = director.experience_layer._beams.material_override
+            var outgoing: ShaderMaterial = director.experience_layer._outflow.material_override
+            check((outgoing.get_shader_parameter("exhale_origin") as Vector3).is_equal_approx(supplied_center), "Prismatic respects the supplied center")
+            check((incoming.get_shader_parameter("inhale_target") as Vector3).is_equal_approx(supplied_center + basis * Vector3(0, -.14, -.12)), "Prismatic heart offset is relative to the supplied center")
+        elif id == "visionary_temple":
+            director.experience_layer.update_experience(state)
+            var incoming: ShaderMaterial = director.experience_layer.get_node("InhalePlasma").material_override
+            var outgoing: ShaderMaterial = director.experience_layer.get_node("VioletOutflow").material_override
+            check((incoming.get_shader_parameter("inhale_target") as Vector3).is_equal_approx(supplied_center), "Visionary inhale respects the supplied neck center")
+            check((outgoing.get_shader_parameter("exhale_origin") as Vector3).is_equal_approx(supplied_center), "Visionary exhale respects the supplied neck center")
+        else:
+            var cue: ThemeBreath = director._theme_breath
+            cue.inhale_offset = Vector3(.03, -.04, -.05)
+            cue.exhale_offset = Vector3(-.02, .01, -.03)
+            cue.update_experience(state)
+            var material: ShaderMaterial = cue.get_node("ThemedBreathFlow").material_override
+            check((material.get_shader_parameter("inhale_target") as Vector3).is_equal_approx(supplied_center + basis * cue.inhale_offset), id + ": optional inhale offset uses the supplied reference")
+            check((material.get_shader_parameter("exhale_origin") as Vector3).is_equal_approx(supplied_center + basis * cue.exhale_offset), id + ": optional exhale offset uses the supplied reference")
+            cue.inhale_offset = Vector3.ZERO
+            cue.exhale_offset = Vector3.ZERO
+        director._push_visuals(.016)
+
 func run() -> void:
     # Exercise the real engine API even when desktop tests never enter XR mode.
     var interface: OpenXRInterface = OpenXRInterface.new()
@@ -48,6 +109,7 @@ func run() -> void:
         director.elapsed = 120.0
         director.fade = 0.0
         director._push_visuals(0.016)
+        check_breath_centers(director, entry["id"])
         check(director.experience_layer != null or entry["id"] == "aurora_lake", "Layer instantiated")
         if entry["id"] in ThemeBreath.IDS:
             var cue: ThemeBreath = director._theme_breath
@@ -62,7 +124,8 @@ func run() -> void:
             director._push_visuals(.016)
             var material: ShaderMaterial = cue.get_node("ThemedBreathFlow").material_override
             check(material.get_shader_parameter("head_forward").distance_to(-director.camera.global_basis.z)<.001, "Breath paths use the reclined head basis")
-            check(material.get_shader_parameter("mouth_position").distance_to(director.mouth.global_position)<.001, "Breath reaches the tracked mouth")
+            check(material.get_shader_parameter("inhale_target").distance_to(director.breath_center.global_position)<.001, "Inhale reaches the shared neck center")
+            check(material.get_shader_parameter("exhale_origin").distance_to(director.breath_center.global_position)<.001, "Exhale starts at the shared neck center")
             check(material.get_shader_parameter("focus_position").distance_to(director.camera.global_position)>1.0, "Focal sculpture stays outside the face")
             var triangle_count: int = count_triangles(scene)
             check(triangle_count<900000, "Per-world geometry budget below 900k triangles")

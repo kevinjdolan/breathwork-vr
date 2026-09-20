@@ -4,6 +4,7 @@ render_mode unshaded, blend_mix, depth_draw_never, cull_disabled, fog_disabled;
 uniform mat4 journey_frame;
 uniform sampler2D grain_texture : filter_linear_mipmap, repeat_disable;
 uniform float elapsed = 0.0;
+uniform float tempo_bpm = 60.0;
 uniform float travel = 0.0;
 uniform float breath_fill = 0.0;
 uniform float hold_glow;
@@ -86,7 +87,7 @@ void vertex() {
     vec2 point=mat2(vec2(cos(spin),sin(spin)),vec2(-sin(spin),cos(spin)))*VERTEX.xy;
     POSITION=PROJECTION_MATRIX*vec4(view+vec3(point*size,0),1);
     float distance_fade=(1.0-smoothstep(19.0,44.0,-depth))*smoothstep(-56.0,-47.0,depth)*(1.0-smoothstep(5.0,8.0,depth));
-    float breathing_light=1.0+hold_glow*(.18+.07*sin(elapsed*9.42477796));
+    float breathing_light=1.0+hold_glow*(.18+.07*sin(elapsed*6.28318531*tempo_bpm/60.0));
     tint*=breathing_light;
     // Slow, local density eddies never clear the entire enclosing cloud wall.
     float eddy=.83+.17*sin(mz*.41+a*7.0+elapsed*.08);

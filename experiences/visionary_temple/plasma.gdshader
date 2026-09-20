@@ -1,8 +1,8 @@
 shader_type spatial;
 render_mode unshaded, blend_add, depth_draw_never, cull_disabled, fog_disabled;
-// Two golden plasma arcs lead from the chosen sigil to the nose during each inhale.
+// Two golden plasma arcs lead from the chosen sigil to the shared neck center during each inhale.
 uniform vec3 source_position;
-uniform vec3 nose_position;
+uniform vec3 inhale_target;
 uniform vec3 head_position;
 uniform vec3 head_right;
 uniform vec3 head_up;
@@ -15,10 +15,10 @@ varying float opacity;
 varying float halo;
 varying float progress;
 vec3 path(float t, float side) {
-    vec3 c1 = mix(source_position, nose_position, 0.35) + head_right * side * 0.72 + head_up * 0.10;
-    vec3 c2 = nose_position + head_forward * 0.62 + head_right * side * 0.20;
+    vec3 c1 = mix(source_position, inhale_target, 0.35) + head_right * side * 0.72 + head_up * 0.10;
+    vec3 c2 = inhale_target + head_forward * 0.62 + head_right * side * 0.20;
     float q = 1.0 - t;
-    return q * q * q * source_position + 3.0 * q * q * t * c1 + 3.0 * q * t * t * c2 + t * t * t * nose_position;
+    return q * q * q * source_position + 3.0 * q * q * t * c1 + 3.0 * q * t * t * c2 + t * t * t * inhale_target;
 }
 void vertex() {
     float t = VERTEX.x;

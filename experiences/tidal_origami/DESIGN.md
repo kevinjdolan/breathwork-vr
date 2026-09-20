@@ -16,7 +16,9 @@ Breathing rhythm: six-second inhale, two-second comfortable full pause, eight-se
 
 ## Music prompt
 
-Original tranquil ambient chamber-water music, no voices, no percussion, no dramatic build: bowed glass harmonics and rounded felt-piano droplets suspended in a deep warm bass bed, long shimmering tails, sparse irregular notes with generous silence, fluid rubato phrasing, restrained aquatic timbres, calm curiosity and floating stillness, softened attacks and releases, no high-frequency hiss, no splashing transients, no rhythmic arpeggiator. Evolve slowly across eight minutes, begin gently, deepen through the middle, resolve into a quiet long fade. Leave room for a gentle six-second inhale, two-second pause, eight-second exhale breathing cue.
+Tranquil aquatic chamber ambient in A major at exactly 60 BPM (version 2.9): soft rounded felt-piano droplets fall on every beat over low singing bowls, fluid bowed-glass resonances and a deep warm bass bed with long shimmering tails. No voices, drum kit or dramatic build. Three Lyria 3.5 movements (a spacious welcome, deeper water, resolving into stillness) are placed so Lyria's own droplets land on the breath ticks and are joined on bar lines, so the pulse never breaks. Each sixteen-second breath is four bars. Prompts, measurements and joins are in `audio/generate_lyria60.py` and `audio/suite_provenance.json`.
+
+Earlier direction (before 2.8, no beat grid): bowed glass harmonics and rounded felt-piano droplets in a deep warm bass bed, sparse irregular notes, fluid rubato phrasing, softened attacks, evolving slowly across eight minutes and leaving room for the six-second inhale, two-second pause and eight-second exhale.
 
 Suitable positional accents: quiet resonant water droplets or low liquid chimes emitted infrequently at the three arch-depth rings, with staggered timing and long fades. Avoid constant wideband rushing water, which masks the breathing cue. Audio is supplied by the shared experience system; this layer does not allocate playback nodes.
 

@@ -35,7 +35,8 @@ func run() -> void:
     XRServer.add_tracker(tracker)
     tracker.set_hand_joint_flags(XRHandTracker.HAND_JOINT_PALM, XRHandTracker.HAND_JOINT_FLAG_POSITION_VALID | XRHandTracker.HAND_JOINT_FLAG_ORIENTATION_VALID)
     for step: int in range(20):
-        var pose: Transform3D = Transform3D(Basis(Vector3.RIGHT, -PI/2.0), Vector3(-0.15 + step*0.016, 0, -0.45))
+        # Godot's converted joint frame has +Y along the fingers and +Z out of the palm.
+        var pose: Transform3D = Transform3D(Basis.IDENTITY, Vector3(-0.15 + step*0.016, 0, -0.45))
         # Camera is a child of the tracking origin; convert into tracker space.
         pose.origin.y = director.camera.position.y
         tracker.set_hand_joint_transform(XRHandTracker.HAND_JOINT_PALM, pose)

@@ -23,8 +23,8 @@ def review(entry: dict) -> dict:
         if report['sha256'] == digest:
             return report
     prompt = 'Listen to this complete instrumental meditation score. Describe actual instrumentation and character. Identify any voices, rhythmic percussion, harsh attacks, sudden startling changes, or ominous tension. The goal is calming energy, not merely slow tempo. Be candid, do not infer from filename. Return JSON with description, voices_detected (boolean), rhythmic_percussion_detected (boolean), harsh_attacks_detected (boolean), startling_transitions_detected (boolean), ominous_tension_detected (boolean), suitability_notes, and any_problem_timestamps.'
-    if entry.get('tempo_bpm') == 90:
-        prompt += ' This score intentionally uses a constant soft 90 BPM electronic trance rhythm. Assess whether that pulse stays gentle and even, and whether the timbres sound electronic and distinct from acoustic ambient music.'
+    if entry.get('tempo_bpm'):
+        prompt += f" This score intentionally uses a soft {entry['tempo_bpm']} BPM electronic pulse. Assess whether that pulse stays gentle and even, whether the harmonic development feels moving and spacious, and whether the timbres stay cohesive."
     response = requests.post('https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent', headers={'x-goog-api-key': os.getenv('GEMINI_API_KEY') or os.getenv('GOOGLE_API_KEY')}, json={'contents':[{'parts':[{'text':prompt},{'inline_data':{'mime_type':'audio/ogg','data':base64.b64encode(path.read_bytes()).decode()}}]}], 'generationConfig':{'responseMimeType':'application/json'}}, timeout=240)
     if not response.ok:
         raise RuntimeError(f'Audio review HTTP {response.status_code}')

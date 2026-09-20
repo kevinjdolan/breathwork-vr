@@ -75,23 +75,26 @@ func update_from_position(playback: float, elapsed: float) -> void:
     _previous_phase = current_phase
     _previous_cycle = cycle_index
 
+func display_pattern() -> Array:
+    return pattern if custom_pattern else [4.0, 2.0, loop_seconds - 6.0, 0.0]
+
 func settle_at() -> float:
     return floor(480.0 / loop_seconds) * loop_seconds if custom_pattern else (470.0 if ratio_ramp else 476.0)
 
 func incoming_visibility() -> float:
     if not custom_pattern:
         return ExperienceMath.inhale_visibility(seconds, loop_seconds)
-    var lead: float = seconds - loop_seconds if seconds >= loop_seconds - 1.5 else seconds
+    var lead: float = seconds - loop_seconds if seconds >= loop_seconds - 0.5 else seconds
     var duration: float = pattern[0]
     if lead >= duration:
         return 0.0
-    return ExperienceMath.softer_unit((lead + 1.5) / 2.7) * (1.0 - ExperienceMath.softer_unit((lead - duration + 1.6) / 1.6))
+    return ExperienceMath.softer_unit((lead + 0.5) / 2.7) * (1.0 - ExperienceMath.softer_unit((lead - duration + 1.6) / 1.6))
 
 func incoming_front() -> float:
     if not custom_pattern:
         return ExperienceMath.inhale_front(seconds, loop_seconds)
-    var lead: float = seconds - loop_seconds if seconds >= loop_seconds - 1.5 else seconds
-    return 1.14 * ExperienceMath.smooth_unit((lead + 1.5) / 1.8) if lead < float(pattern[0]) else 0.0
+    var lead: float = seconds - loop_seconds if seconds >= loop_seconds - 0.5 else seconds
+    return 1.14 * ExperienceMath.smooth_unit((lead + 0.5) / 1.8) if lead < float(pattern[0]) else 0.0
 
 func outgoing_end() -> float:
     return float(pattern[0]) + float(pattern[1]) + float(pattern[2]) if custom_pattern else loop_seconds

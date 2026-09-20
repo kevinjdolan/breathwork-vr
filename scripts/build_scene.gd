@@ -61,9 +61,9 @@ func _initialize() -> void:
     camera.fov = 85.0
     camera.position.y = 1.4
     attach(origin, camera, "XRCamera3D", scene)
-    var mouth: Marker3D = Marker3D.new()
-    mouth.position = Vector3(0, -0.08, -0.06)
-    attach(camera, mouth, "MouthTarget", scene)
+    var breath_center: Marker3D = Marker3D.new()
+    breath_center.position = BreathGeometry.BREATH_CENTER_OFFSET
+    attach(camera, breath_center, "BreathCenter", scene)
     var director: Node = Node.new()
     director.set_script(load("res://scripts/director.gd"))
     attach(scene, director, "Director", scene)
@@ -144,7 +144,7 @@ func _initialize() -> void:
     inhale.draw_pass_1.material = inhale_draw
     inhale.explosiveness = 1.0
     inhale.amount_ratio = 1.0
-    var exhale: GPUParticles3D = particles(mouth, "ExhaleStream", 1500, 4.8, "res://shaders/exhale.gdshader", scene, breath_draw)
+    var exhale: GPUParticles3D = particles(breath_center, "ExhaleStream", 1500, 4.8, "res://shaders/exhale.gdshader", scene, breath_draw)
     exhale.amount_ratio = 0.0
     var field: GPUParticles3D = particles(scene, "FractalField", 12000, 600.0, "res://shaders/fractal_field.gdshader", scene, draw)
     field.explosiveness = 1.0

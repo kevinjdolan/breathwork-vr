@@ -51,13 +51,15 @@ class Canvas:
         color = np.asarray(color, dtype=np.float64)[None, None, :]
         self.rgb = self.rgb + color * mask[..., None] * amount
 
-    def save(self, name: str, store_height: bool = True) -> Path:
-        ROOT.mkdir(parents=True, exist_ok=True)
+    def pixels(self, store_height: bool = True) -> np.ndarray:
         rgb = np.clip(self.rgb, 0.0, 1.0)
         alpha = .15 + .85 * np.clip(self.height_map, 0.0, 1.0) if store_height else np.clip(self.alpha, 0.0, 1.0)
-        image = np.concatenate([rgb, alpha[..., None]], axis=-1)
+        return np.uint8(np.round(np.concatenate([rgb, alpha[..., None]], axis=-1) * 255))
+
+    def save(self, name: str, store_height: bool = True) -> Path:
+        ROOT.mkdir(parents=True, exist_ok=True)
         path = ROOT / name
-        Image.fromarray(np.uint8(np.round(image * 255))).save(path)
+        Image.fromarray(self.pixels(store_height)).save(path)
         return path
 
 
@@ -431,7 +433,11 @@ def bake_temple() -> None:
 
 
 def bake_sigils() -> None:
-    """Four transparent sigil sprites: eye, flame lotus, ring cell and temple rosette."""
+    """Four transparent sigil sprites (eye, flame lotus, ring cell, temple rosette) in their passage cells.
+
+    The sheet is a 4 x 2 grid of 512-pixel cells in passage order; cells 1, 3, 5 and 6 hold the AI-painted
+    sigils composed by `python -m art.visionary_passages sprites` and are preserved here.
+    """
     c = Canvas(1024, 1024, wrap_x=False, wrap_y=False)
     draw_eye(c, .25, .25, .19, .10, (.36, .26, .92), (.98, .72, .18), height=1.0, striation=30)
     for k in range(10):
@@ -448,7 +454,16 @@ def bake_sigils() -> None:
     c.paint(c.stroke(r - (.09 + .10 * petals ** 1.5), .004, 2), (.60, .12, .30), .9)
     draw_target(c, .25, .75, .19, [(.98, .66, .72), (.16, .58, .30), (.94, .40, .58), (.08, .32, .28), (.86, .86, .58)], 9, 1.0, .02)
     draw_rosette(c, .75, .75, .21, 12, [(.98, .58, .10), (.92, .20, .10), (.20, .84, .92), (1.0, .92, .60)], 1.0)
-    c.save('sigils.png', store_height=False)
+    quadrants = c.pixels(store_height=False)
+    path = ROOT / 'sigils.png'
+    sheet = np.zeros((1024, 2048, 4), np.uint8)
+    if path.exists() and Image.open(path).size == (2048, 1024):
+        sheet = np.asarray(Image.open(path).convert('RGBA')).copy()
+    for quadrant, cell in enumerate((0, 2, 4, 7)):
+        qx, qy = quadrant % 2 * 512, quadrant // 2 * 512
+        cx, cy = cell % 4 * 512, cell // 4 * 512
+        sheet[cy:cy + 512, cx:cx + 512] = quadrants[qy:qy + 512, qx:qx + 512]
+    Image.fromarray(sheet).save(path)
 
 
 def main() -> None:

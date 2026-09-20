@@ -1,0 +1,282 @@
+{
+  "experience": "visionary_temple",
+  "note": "Untouched API masters stay local under art/masters; this record lists every prompt and model used for the bundled textures.",
+  "passages": {
+    "eyes": {
+      "order": 1,
+      "tile": "experiences/visionary_temple/tiles/eyes.png",
+      "painting": {
+        "model": "procedural",
+        "source": "tools/bake_visionary_tiles.py"
+      },
+      "relief": {
+        "model": "gemini-3-pro-image",
+        "prompt": "Create the matching height map (displacement map) for this ornamental texture so it can be sculpted as 3D bas-relief on a tunnel wall. Output a grayscale image only: pure black is the deepest recessed ground and white is the highest raised surface. Preserve the exact composition: every shape at exactly the same position, size and outline as in the input, same framing, no crop, no zoom, no added or removed elements. Model natural rounded volumes: jewels, eyes and seed pods as smooth domes; cords, frames and outlines as rounded raised ridges with softly bevelled edges; petals, flames, feathers and crystals gently curved, with overlapping parts higher than the parts they cover; the open background as a low, even, dark plane with only very subtle variation. Encode height only: no lighting, shading, shadows, highlights, color or text.",
+        "master_sha256": "f28379af188dac48286010fe5ee862d737af0f554d4b034051584641f543be96",
+        "created": "2026-09-16T12:02:53+00:00",
+        "processing": "periodic-plus-smooth wrap repair, 0.5-99.7 percentile stretch, 1-texel Gaussian, wrapped central-difference slopes x16, equalised erosion order from 2.5-texel Gaussian height with low-frequency variation"
+      },
+      "tile_sha256": "e408b9bf75ee03089dedcf61761f46b7707efa489d994a333feb210b3ff14e12",
+      "relief_sha256": "8cfb08c9b4cfc2530327f64b47b35999f3a6b9851f0019199c8a38b4e4cb5def"
+    },
+    "net": {
+      "order": 2,
+      "tile": "experiences/visionary_temple/tiles/net.png",
+      "title": "Indra's Net",
+      "painting": {
+        "model": "gpt-image-2",
+        "prompt": "A seamless, repeating texture tile for the inner wall of a calm, slow-moving visionary-art tunnel experienced in virtual reality. Show the painted, sculpted surface flat and straight-on, like a scanned panel: no perspective, no vanishing point, no horizon, no cast shadows, no vignette, and even brightness from edge to edge. Style: luminous visionary sacred-geometry painting, ornate, harmonious and serene, with bold readable medium-to-large shapes, crisp dark outlines, fine gold detailing and saturated jewel colors over a deep dark ground. Every motif should read as carved bas-relief: clearly raised, rounded forms separated by darker recessed ground. Avoid fine high-contrast stripes, dense tiny repeats and noisy speckle that would shimmer in a headset. No text, letters, numbers, logos, signatures, watermarks, borders or frames; no people, faces, hands or creatures. The tile must wrap perfectly: anything leaving the right edge continues from the left edge and anything leaving the bottom continues from the top, so copies placed side by side form one continuous surface.\n\nSubject: Indra's Net. Glowing golden cords form a regular diamond lattice, exactly two diamonds across and two down the tile. At every crossing sits a large round faceted jewel in a small gold filigree setting, alternating sapphire blue, ruby red, emerald green and moonstone white, each with a soft inner sparkle. Inside each diamond, a deep indigo and midnight-teal cosmic void with soft nebula veils, a few faint stars and one small eight-petaled golden lotus knot at the diamond center.",
+        "master_sha256": "f175b97271e0fe26854dc0eb7abc06c52a268374fd2a9facf6b974d851fcc36b",
+        "created": "2026-09-16T11:59:42+00:00"
+      },
+      "seam_repair": {
+        "model": "gpt-image-2",
+        "prompt": "This square texture tile was cut and re-joined, so a thin horizontal seam and a thin vertical seam now cross at its center where the ornament does not line up. Repaint only the masked cross-shaped band so every shape flows continuously across it: complete any cut jewels, cords, petals, feathers or crystals as whole, natural forms at the same scale, in exactly the same painting style, colors, outline weight and carved relief as the rest of the tile. Keep the composition flat and straight-on, with no borders, text or new kinds of objects.",
+        "band_half_width": 150,
+        "feather": 60,
+        "realigned_shift": [
+          0,
+          0
+        ],
+        "seam_ratio_before": [
+          2.243814635459794,
+          4.304684131979093
+        ],
+        "seam_ratio_after": [
+          0.9620133884266604,
+          1.3854085955173707
+        ]
+      },
+      "roll": [
+        0,
+        0
+      ],
+      "relief": {
+        "model": "gemini-3-pro-image",
+        "prompt": "Create the matching height map (displacement map) for this ornamental texture so it can be sculpted as 3D bas-relief on a tunnel wall. Output a grayscale image only: pure black is the deepest recessed ground and white is the highest raised surface. Preserve the exact composition: every shape at exactly the same position, size and outline as in the input, same framing, no crop, no zoom, no added or removed elements. Model natural rounded volumes: jewels, eyes and seed pods as smooth domes; cords, frames and outlines as rounded raised ridges with softly bevelled edges; petals, flames, feathers and crystals gently curved, with overlapping parts higher than the parts they cover; the open background as a low, even, dark plane with only very subtle variation. Encode height only: no lighting, shading, shadows, highlights, color or text.",
+        "master_sha256": "3c6192d7e1e0aa7ac76ce5e8f5da11c16a0324d1f7a28124c256605f75681b53",
+        "created": "2026-09-16T12:13:22+00:00",
+        "processing": "periodic-plus-smooth wrap repair, 0.5-99.7 percentile stretch, 1-texel Gaussian, wrapped central-difference slopes x16, equalised erosion order from 2.5-texel Gaussian height with low-frequency variation"
+      },
+      "tile_sha256": "94aee2ca75a0541a10d19a5d1dbbf604b94a5bd42ac266bd7eaa8626db3d5330",
+      "relief_sha256": "ebd9077f28b043d6f2b694354221074cbdbff6394a335d9a37f8a1bf6e2cade2"
+    },
+    "flames": {
+      "order": 3,
+      "tile": "experiences/visionary_temple/tiles/flames.png",
+      "painting": {
+        "model": "procedural",
+        "source": "tools/bake_visionary_tiles.py"
+      },
+      "relief": {
+        "model": "gemini-3-pro-image",
+        "prompt": "Create the matching height map (displacement map) for this ornamental texture so it can be sculpted as 3D bas-relief on a tunnel wall. Output a grayscale image only: pure black is the deepest recessed ground and white is the highest raised surface. Preserve the exact composition: every shape at exactly the same position, size and outline as in the input, same framing, no crop, no zoom, no added or removed elements. Model natural rounded volumes: jewels, eyes and seed pods as smooth domes; cords, frames and outlines as rounded raised ridges with softly bevelled edges; petals, flames, feathers and crystals gently curved, with overlapping parts higher than the parts they cover; the open background as a low, even, dark plane with only very subtle variation. Encode height only: no lighting, shading, shadows, highlights, color or text.",
+        "master_sha256": "ca76dde2ef8b5426e5ade8e13f2d3eb468a289705573e405648027448fd92101",
+        "created": "2026-09-16T12:06:39+00:00",
+        "processing": "periodic-plus-smooth wrap repair, 0.5-99.7 percentile stretch, 1-texel Gaussian, wrapped central-difference slopes x16, equalised erosion order from 2.5-texel Gaussian height with low-frequency variation"
+      },
+      "tile_sha256": "29eb877fdb453522d1752e0beb974a0eb9c556532bd134fecd0809dfd2cd13a6",
+      "relief_sha256": "88dd0d9e3509e1e64079936eb989d564f5c4afd4114c4bc2af1d34f976ae1440"
+    },
+    "peacock": {
+      "order": 4,
+      "tile": "experiences/visionary_temple/tiles/peacock.png",
+      "title": "Peacock Vault",
+      "painting": {
+        "model": "gpt-image-2",
+        "prompt": "A seamless, repeating texture tile for the inner wall of a calm, slow-moving visionary-art tunnel experienced in virtual reality. Show the painted, sculpted surface flat and straight-on, like a scanned panel: no perspective, no vanishing point, no horizon, no cast shadows, no vignette, and even brightness from edge to edge. Style: luminous visionary sacred-geometry painting, ornate, harmonious and serene, with bold readable medium-to-large shapes, crisp dark outlines, fine gold detailing and saturated jewel colors over a deep dark ground. Every motif should read as carved bas-relief: clearly raised, rounded forms separated by darker recessed ground. Avoid fine high-contrast stripes, dense tiny repeats and noisy speckle that would shimmer in a headset. No text, letters, numbers, logos, signatures, watermarks, borders or frames; no people, faces, hands or creatures. The tile must wrap perfectly: anything leaving the right edge continues from the left edge and anything leaving the bottom continues from the top, so copies placed side by side form one continuous surface.\n\nSubject: a vault of overlapping peacock feathers laid like roof tiles in staggered rows, three feathers across per row and three rows down the tile, every feather pointing the same way with its rounded tip toward the top. Each feather carries one large luminous eye-spot of concentric rings: a deep violet-blue center, then turquoise, emerald and a golden-bronze outer ring, framed by soft golden-green barbs fanning outward. The feathers overlap so that only slivers of the dark violet ground show between them.",
+        "master_sha256": "7eb3f3e5c4367ab7d7286a52292f12514822943cf523ebb72173dab28418e57f",
+        "created": "2026-09-16T11:59:41+00:00"
+      },
+      "seam_repair": {
+        "model": "gemini-3-pro-image",
+        "prompt": "This square texture tile was cut and re-joined, so a thin horizontal seam and a thin vertical seam now cross at the exact center of the image, where the ornament does not line up. Repair only a narrow cross-shaped band, about one seventh of the image wide, around those two center lines: redraw the shapes inside it so every jewel, cord, petal, feather, crystal and background detail flows continuously across the center as whole, natural forms, in exactly the same painting style, colors, outline weight and carved relief. Everything outside that band must stay exactly as it is, pixel for pixel, with the same framing and scale. No borders, text or new kinds of objects.",
+        "band_half_width": 150,
+        "feather": 60,
+        "realigned_shift": [
+          0,
+          0
+        ],
+        "seam_ratio_before": [
+          1.205818050312187,
+          1.7048495863429154
+        ],
+        "seam_ratio_after": [
+          0.929093616030131,
+          1.2761517805469402
+        ]
+      },
+      "roll": [
+        0,
+        0
+      ],
+      "relief": {
+        "model": "gemini-3-pro-image",
+        "prompt": "Create the matching height map (displacement map) for this ornamental texture so it can be sculpted as 3D bas-relief on a tunnel wall. Output a grayscale image only: pure black is the deepest recessed ground and white is the highest raised surface. Preserve the exact composition: every shape at exactly the same position, size and outline as in the input, same framing, no crop, no zoom, no added or removed elements. Model natural rounded volumes: jewels, eyes and seed pods as smooth domes; cords, frames and outlines as rounded raised ridges with softly bevelled edges; petals, flames, feathers and crystals gently curved, with overlapping parts higher than the parts they cover; the open background as a low, even, dark plane with only very subtle variation. Encode height only: no lighting, shading, shadows, highlights, color or text.",
+        "master_sha256": "88e6731e2f68cdc593eabfa4ea7897e6c2e3c7cab26129397e7eb00327190c2e",
+        "created": "2026-09-16T12:13:23+00:00",
+        "processing": "periodic-plus-smooth wrap repair, 0.5-99.7 percentile stretch, 1-texel Gaussian, wrapped central-difference slopes x16, equalised erosion order from 2.5-texel Gaussian height with low-frequency variation"
+      },
+      "tile_sha256": "bd933ac8abe6ecdb4c6e9860fc9b3d528ef76b829f995e7d1bba801b15579a30",
+      "relief_sha256": "adcf9639e89cf0810601012f16c01aaf1282cae1648900ab9d3618bc3dca3b15"
+    },
+    "rings": {
+      "order": 5,
+      "tile": "experiences/visionary_temple/tiles/rings.png",
+      "painting": {
+        "model": "procedural",
+        "source": "tools/bake_visionary_tiles.py"
+      },
+      "relief": {
+        "model": "gemini-3-pro-image",
+        "prompt": "Create the matching height map (displacement map) for this ornamental texture so it can be sculpted as 3D bas-relief on a tunnel wall. Output a grayscale image only: pure black is the deepest recessed ground and white is the highest raised surface. Preserve the exact composition: every shape at exactly the same position, size and outline as in the input, same framing, no crop, no zoom, no added or removed elements. Model natural rounded volumes: jewels, eyes and seed pods as smooth domes; cords, frames and outlines as rounded raised ridges with softly bevelled edges; petals, flames, feathers and crystals gently curved, with overlapping parts higher than the parts they cover; the open background as a low, even, dark plane with only very subtle variation. Encode height only: no lighting, shading, shadows, highlights, color or text.",
+        "master_sha256": "ab0bc510bee6d5eb6140d33a8d728d0591dd1fdee483d961a66a8f5da651727f",
+        "created": "2026-09-16T12:06:42+00:00",
+        "processing": "periodic-plus-smooth wrap repair, 0.5-99.7 percentile stretch, 1-texel Gaussian, wrapped central-difference slopes x16, equalised erosion order from 2.5-texel Gaussian height with low-frequency variation"
+      },
+      "tile_sha256": "dfe75c4dfffdb918fe668cd56dfa5e0b0f1c2dffc746a2c54ff89a00cce7871e",
+      "relief_sha256": "cfd915a74af932d3ee7db2b1181fd69e170fb593e2768e06a365110d55711517"
+    },
+    "lotus": {
+      "order": 6,
+      "tile": "experiences/visionary_temple/tiles/lotus.png",
+      "title": "Lotus Garden",
+      "painting": {
+        "model": "gpt-image-2",
+        "prompt": "A seamless, repeating texture tile for the inner wall of a calm, slow-moving visionary-art tunnel experienced in virtual reality. Show the painted, sculpted surface flat and straight-on, like a scanned panel: no perspective, no vanishing point, no horizon, no cast shadows, no vignette, and even brightness from edge to edge. Style: luminous visionary sacred-geometry painting, ornate, harmonious and serene, with bold readable medium-to-large shapes, crisp dark outlines, fine gold detailing and saturated jewel colors over a deep dark ground. Every motif should read as carved bas-relief: clearly raised, rounded forms separated by darker recessed ground. Avoid fine high-contrast stripes, dense tiny repeats and noisy speckle that would shimmer in a headset. No text, letters, numbers, logos, signatures, watermarks, borders or frames; no people, faces, hands or creatures. The tile must wrap perfectly: anything leaving the right edge continues from the left edge and anything leaving the bottom continues from the top, so copies placed side by side form one continuous surface.\n\nSubject: a luminous lotus garden seen from directly above. Large open lotus blossoms with layered pointed petals in rose pink, coral and pearly white, each around a glowing golden seed-pod center, float among round jade-green lily pads with fine gold veins, on dark lapis-blue water with faint concentric ripples and tiny golden sparkles. Arrange three large blossoms per row in three staggered rows, with smaller closed buds between them.",
+        "master_sha256": "0c000882fba4d7626edd02459461eb98fccd203273c23ad48d1fc95e3fb36035",
+        "created": "2026-09-16T11:59:23+00:00"
+      },
+      "seam_repair": {
+        "model": "gemini-3-pro-image",
+        "prompt": "This square texture tile was cut and re-joined, so a thin horizontal seam and a thin vertical seam now cross at the exact center of the image, where the ornament does not line up. Repair only a narrow cross-shaped band, about one seventh of the image wide, around those two center lines: redraw the shapes inside it so every jewel, cord, petal, feather, crystal and background detail flows continuously across the center as whole, natural forms, in exactly the same painting style, colors, outline weight and carved relief. Everything outside that band must stay exactly as it is, pixel for pixel, with the same framing and scale. No borders, text or new kinds of objects.",
+        "band_half_width": 150,
+        "feather": 60,
+        "realigned_shift": [
+          0,
+          0
+        ],
+        "seam_ratio_before": [
+          1.6743948302754565,
+          1.5151004236672658
+        ],
+        "seam_ratio_after": [
+          1.2869776608890162,
+          1.038586596848221
+        ]
+      },
+      "roll": [
+        0,
+        0
+      ],
+      "relief": {
+        "model": "gemini-3-pro-image",
+        "prompt": "Create the matching height map (displacement map) for this ornamental texture so it can be sculpted as 3D bas-relief on a tunnel wall. Output a grayscale image only: pure black is the deepest recessed ground and white is the highest raised surface. Preserve the exact composition: every shape at exactly the same position, size and outline as in the input, same framing, no crop, no zoom, no added or removed elements. Model natural rounded volumes: jewels, eyes and seed pods as smooth domes; cords, frames and outlines as rounded raised ridges with softly bevelled edges; petals, flames, feathers and crystals gently curved, with overlapping parts higher than the parts they cover; the open background as a low, even, dark plane with only very subtle variation. Encode height only: no lighting, shading, shadows, highlights, color or text.",
+        "master_sha256": "b1ad62ea75e865cf67c6691ea5ddb85f5b77eef0fad96b05c0ad9fb20455c0cc",
+        "created": "2026-09-16T12:13:21+00:00",
+        "processing": "periodic-plus-smooth wrap repair, 0.5-99.7 percentile stretch, 1-texel Gaussian, wrapped central-difference slopes x16, equalised erosion order from 2.5-texel Gaussian height with low-frequency variation"
+      },
+      "tile_sha256": "9f745cd6179caaea53d54eaa6cf19e7e64a5baf251fd3ed911b6fa463ff5f1ce",
+      "relief_sha256": "59eefc0f1c71a9ceb4f246d8fb32023dd4e096c0440d24f5c2133c09c8b0a7dd"
+    },
+    "geode": {
+      "order": 7,
+      "tile": "experiences/visionary_temple/tiles/geode.png",
+      "title": "Crystal Geode",
+      "painting": {
+        "model": "gpt-image-2",
+        "prompt": "A seamless, repeating texture tile for the inner wall of a calm, slow-moving visionary-art tunnel experienced in virtual reality. Show the painted, sculpted surface flat and straight-on, like a scanned panel: no perspective, no vanishing point, no horizon, no cast shadows, no vignette, and even brightness from edge to edge. Style: luminous visionary sacred-geometry painting, ornate, harmonious and serene, with bold readable medium-to-large shapes, crisp dark outlines, fine gold detailing and saturated jewel colors over a deep dark ground. Every motif should read as carved bas-relief: clearly raised, rounded forms separated by darker recessed ground. Avoid fine high-contrast stripes, dense tiny repeats and noisy speckle that would shimmer in a headset. No text, letters, numbers, logos, signatures, watermarks, borders or frames; no people, faces, hands or creatures. The tile must wrap perfectly: anything leaving the right edge continues from the left edge and anything leaving the bottom continues from the top, so copies placed side by side form one continuous surface.\n\nSubject: the inside of a crystal geode arranged as a mandala. Two radiant golden sun-cores across and two down, in a staggered arrangement; from each core, clusters of sharp faceted amethyst and clear quartz crystal points radiate outward like petals, with citrine and rose-quartz points between them. Thin golden sacred-geometry lines connect the cores. Deep violet-black mineral ground with a gentle starry sparkle.",
+        "master_sha256": "53be5bcab0b49e1186d377a3ce5eb7b8d77f6be0d784be9e6468dd5ce66b150f",
+        "created": "2026-09-16T11:59:33+00:00"
+      },
+      "seam_repair": {
+        "model": "gemini-3-pro-image",
+        "prompt": "This square texture tile was cut and re-joined, so a thin horizontal seam and a thin vertical seam now cross at the exact center of the image, where the ornament does not line up. Repair only a narrow cross-shaped band, about one seventh of the image wide, around those two center lines: redraw the shapes inside it so every jewel, cord, petal, feather, crystal and background detail flows continuously across the center as whole, natural forms, in exactly the same painting style, colors, outline weight and carved relief. Everything outside that band must stay exactly as it is, pixel for pixel, with the same framing and scale. No borders, text or new kinds of objects.",
+        "band_half_width": 150,
+        "feather": 60,
+        "realigned_shift": [
+          0,
+          0
+        ],
+        "seam_ratio_before": [
+          1.2447144279566418,
+          2.5286387042649485
+        ],
+        "seam_ratio_after": [
+          0.835424317840855,
+          1.779157270798992
+        ]
+      },
+      "roll": [
+        0,
+        0
+      ],
+      "relief": {
+        "model": "gemini-3-pro-image",
+        "prompt": "Create the matching height map (displacement map) for this ornamental texture so it can be sculpted as 3D bas-relief on a tunnel wall. Output a grayscale image only: pure black is the deepest recessed ground and white is the highest raised surface. Preserve the exact composition: every shape at exactly the same position, size and outline as in the input, same framing, no crop, no zoom, no added or removed elements. Model natural rounded volumes: jewels, eyes and seed pods as smooth domes; cords, frames and outlines as rounded raised ridges with softly bevelled edges; petals, flames, feathers and crystals gently curved, with overlapping parts higher than the parts they cover; the open background as a low, even, dark plane with only very subtle variation. Encode height only: no lighting, shading, shadows, highlights, color or text.",
+        "master_sha256": "2a2f44cbad1e21450a949fef863901ed00a701e56342ca486981e09f4d1fea32",
+        "created": "2026-09-16T12:13:24+00:00",
+        "processing": "periodic-plus-smooth wrap repair, 0.5-99.7 percentile stretch, 1-texel Gaussian, wrapped central-difference slopes x16, equalised erosion order from 2.5-texel Gaussian height with low-frequency variation"
+      },
+      "tile_sha256": "818faab2e484661beb5f734bc475294ed844364750899e37d102da5d29eba0f9",
+      "relief_sha256": "4a576d77ff03f1c35dd5dd3cc7e44ec16b097f2c4e38aca43f27edf5f8173f7c"
+    },
+    "temple": {
+      "order": 8,
+      "tile": "experiences/visionary_temple/tiles/temple.png",
+      "painting": {
+        "model": "procedural",
+        "source": "tools/bake_visionary_tiles.py"
+      },
+      "relief": {
+        "model": "gemini-3-pro-image",
+        "prompt": "Create the matching height map (displacement map) for this ornamental texture so it can be sculpted as 3D bas-relief on a tunnel wall. Output a grayscale image only: pure black is the deepest recessed ground and white is the highest raised surface. Preserve the exact composition: every shape at exactly the same position, size and outline as in the input, same framing, no crop, no zoom, no added or removed elements. Model natural rounded volumes: jewels, eyes and seed pods as smooth domes; cords, frames and outlines as rounded raised ridges with softly bevelled edges; petals, flames, feathers and crystals gently curved, with overlapping parts higher than the parts they cover; the open background as a low, even, dark plane with only very subtle variation. Encode height only: no lighting, shading, shadows, highlights, color or text.",
+        "master_sha256": "09d3de82a468fec94aabf1198472024707b044eb53f321822270620ebf0db835",
+        "created": "2026-09-16T12:06:41+00:00",
+        "processing": "periodic-plus-smooth wrap repair, 0.5-99.7 percentile stretch, 1-texel Gaussian, wrapped central-difference slopes x16, equalised erosion order from 2.5-texel Gaussian height with low-frequency variation"
+      },
+      "tile_sha256": "dbf13359ae64a317ee2d34964a5ab17e5af90713b765529d19fb040659277627",
+      "relief_sha256": "83deb49c1c3e99e289fcb65904cac8d76e2c90a59c715a253e5bce9bb688c208"
+    }
+  },
+  "sprites": {
+    "sheet": "experiences/visionary_temple/tiles/sigils.png",
+    "sheet_sha256": "3de37fa2fcac0a8900597d7f6ea649a8bf29b31623534d0edaefb2a00c516438",
+    "procedural_cells": [
+      0,
+      2,
+      4,
+      7
+    ],
+    "generated": {
+      "net": {
+        "cell": 1,
+        "model": "gpt-image-2",
+        "prompt": "One isolated emblem, a single round faceted moonstone jewel held in an ornate golden filigree setting with four short cord stubs, centered on a fully transparent background, used as a floating sigil in a calm visionary-art VR tunnel. Radially balanced, filling about 85% of the square canvas with a clear margin on every side, crisp clean silhouette, luminous jewel colors with fine gold detail, flat straight-on view. No text, no drop shadow, no glow halo spilling outside the emblem, no background.",
+        "master_sha256": "a7ea96e2670ea3f710f1ac30cbab2679fbfb40885d32f396d96cb294460bf897",
+        "created": "2026-09-16T12:10:51+00:00"
+      },
+      "peacock": {
+        "cell": 3,
+        "model": "gpt-image-2",
+        "prompt": "One isolated emblem, a single peacock-feather eye-spot: concentric violet-blue, turquoise, emerald and golden-bronze rings inside soft golden-green barbs, centered on a fully transparent background, used as a floating sigil in a calm visionary-art VR tunnel. Radially balanced, filling about 85% of the square canvas with a clear margin on every side, crisp clean silhouette, luminous jewel colors with fine gold detail, flat straight-on view. No text, no drop shadow, no glow halo spilling outside the emblem, no background.",
+        "master_sha256": "46d1c333ffd91234ff08c548bfb1b29f58ab439b05316d60330b5b2f783c2679",
+        "created": "2026-09-16T12:10:48+00:00"
+      },
+      "lotus": {
+        "cell": 5,
+        "model": "gpt-image-2",
+        "prompt": "One isolated emblem, a single open lotus blossom seen from above, layered rose-pink and pearl petals around a glowing golden seed pod, centered on a fully transparent background, used as a floating sigil in a calm visionary-art VR tunnel. Radially balanced, filling about 85% of the square canvas with a clear margin on every side, crisp clean silhouette, luminous jewel colors with fine gold detail, flat straight-on view. No text, no drop shadow, no glow halo spilling outside the emblem, no background.",
+        "master_sha256": "ae8c6479282f2bedc25e739394a0172051659f521e881906583d8a750c96b90d",
+        "created": "2026-09-16T12:10:47+00:00"
+      },
+      "geode": {
+        "cell": 6,
+        "model": "gpt-image-2",
+        "prompt": "One isolated emblem, a single radiant crystal mandala: amethyst and clear quartz points radiating from a small plain faceted golden citrine core, centered on a fully transparent background, used as a floating sigil in a calm visionary-art VR tunnel. Radially balanced, filling about 85% of the square canvas with a clear margin on every side, crisp clean silhouette, luminous jewel colors with fine gold detail, flat straight-on view. No faces, figures or creatures anywhere in it, no text, no drop shadow, no glow halo spilling outside the emblem, no background.",
+        "master_sha256": "5063150b6e9c7bcfa8dc15375a8ab20a29f232287d12c60a9454c90773709d45",
+        "created": "2026-09-16T12:14:16+00:00"
+      }
+    }
+  }
+}

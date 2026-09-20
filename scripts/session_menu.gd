@@ -126,7 +126,7 @@ func _process(delta: float) -> void:
 
 func _sample_hands(delta: float) -> void:
     var head: Transform3D = camera.global_transform
-    var head_moved: bool = head_ready and (head.origin.distance_to(last_head.origin) > 0.035 or head.basis.get_rotation_quaternion().angle_to(last_head.basis.get_rotation_quaternion()) > 0.06)
+    var head_moved: bool = head_ready and (head.origin.distance_to(last_head.origin) > 0.05 or head.basis.get_rotation_quaternion().angle_to(last_head.basis.get_rotation_quaternion()) > 0.12)
     last_head = head
     head_ready = true
     var origin: XROrigin3D = camera.get_parent() as XROrigin3D
@@ -137,7 +137,9 @@ func _sample_hands(delta: float) -> void:
         if waves[index].samples == 0:
             gesture_heads[index] = head
         var anchor: Transform3D = gesture_heads[index]
-        var stable_head: bool = anchor.origin.distance_to(head.origin) < 0.10 and anchor.basis.get_rotation_quaternion().angle_to(head.basis.get_rotation_quaternion()) < 0.15
+        var stable_head: bool = anchor.origin.distance_to(head.origin) < 0.18 and anchor.basis.get_rotation_quaternion().angle_to(head.basis.get_rotation_quaternion()) < 0.45
+        if head_moved or not stable_head:
+            waves[index].reset()
         var tracker: XRHandTracker = XRServer.get_tracker("/user/hand_tracker/left" if index == 0 else "/user/hand_tracker/right") as XRHandTracker
         var valid: bool = tracker != null and not is_open and not head_moved and stable_head
         if valid:
@@ -150,11 +152,14 @@ func _sample_hands(delta: float) -> void:
         if valid:
             var palm: Transform3D = tracker.get_hand_joint_transform(XRHandTracker.HAND_JOINT_PALM)
             var world: Vector3 = tracking_to_world * (palm.origin * XRServer.world_scale)
-            point = head.affine_inverse() * world
-            # OpenXR palm +Y faces the back of the hand; -Y faces the palm.
-            var normal: Vector3 = -(tracking_to_world.basis * palm.basis.y).normalized()
+            # Measure motion in the pose at sweep start so head motion cannot fake a wave.
+            point = anchor.affine_inverse() * world
+            # XRHandTracker uses Godot's humanoid axes: +Z is out of the palm.
+            # The OpenXR extension converts raw joint bases before exposing them.
+            var normal: Vector3 = (tracking_to_world.basis * palm.basis.z).normalized()
             facing = normal.dot((head.origin - world).normalized())
         if waves[index].sample(point, facing, valid, delta):
+            print("VRMED PALM WAVE hand=", "left" if index == 0 else "right")
             open_menu()
 
 func _target_at_ray() -> int:

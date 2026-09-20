@@ -1,3 +1,6 @@
 numpy>=2.2,<3
 scipy>=1.15,<2
 requests>=2.32,<3
+librosa>=1.0,<2
+soundfile>=0.13,<1
+google-genai>=2.20,<3

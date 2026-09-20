@@ -3,8 +3,8 @@ render_mode disable_force, disable_velocity;
 #include "res://shaders/particle_common.gdshaderinc"
 uniform float exhale_reach = 0.4;
 uniform vec3 head_position = vec3(0.0,1.4,0.0);
-uniform vec3 mouth_position = vec3(0.0,1.32,-0.06);
-uniform mat3 mouth_basis;
+uniform vec3 exhale_origin;
+uniform mat3 breath_basis;
 uniform float exhale_visibility = 0.0;
 uniform bool exhale_active = false;
 void start() {
@@ -12,8 +12,8 @@ void start() {
     float angle = random.x*6.283185;
     float spread = sqrt(random.y)*0.18;
     vec3 direction = normalize(vec3(cos(angle)*spread,sin(angle)*spread,-1.0));
-    VELOCITY = mouth_basis*direction*mix(0.72,1.02,random.z);
-    TRANSFORM[3].xyz = mouth_position;
+    VELOCITY = breath_basis*direction*mix(0.72,1.02,random.z);
+    TRANSFORM[3].xyz = exhale_origin;
     CUSTOM = vec4(0.0,random);
     COLOR = vec4(0.13,0.68,1.0,0.0);
 }

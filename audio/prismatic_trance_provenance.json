@@ -5,17 +5,77 @@
   "model": "authored electronic synthesis",
   "duration": 480,
   "file": "assets/audio/prismatic_sanctuary.ogg",
-  "sha256": "6d042077c5948c8654b8aa191870f04c6d59678ca0f3d3a2c84cd36b8e4883c7",
-  "delivery_bytes": 3081774,
+  "sha256": "4f39a6e44513c20a97c8b8877dfe1c15b052cd1a2b295d5400f4c5a2e5ead342",
+  "delivery_bytes": 3402468,
   "target_lufs": -20,
-  "tempo_bpm": 90,
-  "beat_frames": 32000,
-  "beat_count": 720,
-  "arrangement": "One clocked arrangement: rounded kick, offbeat synth bass, filtered shaker and sustained 32-beat synth chords. No piano, plucked melody or independently timed backing recording.",
+  "tempo_bpm": 60,
+  "beat_frames": 48000,
+  "beat_count": 480,
+  "arrangement": "One exact 60 BPM arrangement in five 96-second movements: Awakening, Longing, Opening, Radiance and Homecoming, every sixteen-beat phrase one 4/4/4/4 breath cycle. Warm bowed and choir-like synth pads, suspended ninths, a gradual minor-to-major opening, slow legato melodic responses, a rounded heartbeat kick on every beat with the breath ticks, sustained bass and quiet diffused echoes on whole beats. Long soft arrivals and a spacious final release; no speech, sampled voices, piano, plucked attacks or independent backing track.",
+  "movements": [
+    {
+      "title": "Awakening",
+      "start_seconds": 0
+    },
+    {
+      "title": "Longing",
+      "start_seconds": 96
+    },
+    {
+      "title": "Opening",
+      "start_seconds": 192
+    },
+    {
+      "title": "Radiance",
+      "start_seconds": 288
+    },
+    {
+      "title": "Homecoming",
+      "start_seconds": 384
+    }
+  ],
+  "chord_progression": [
+    "dm9",
+    "dm9",
+    "bbmaj9",
+    "fmaj9",
+    "cadd9",
+    "dm9",
+    "dm9",
+    "bbmaj9",
+    "fmaj9",
+    "cadd9",
+    "dm9",
+    "gsus",
+    "bbmaj9",
+    "fmaj9",
+    "cadd9",
+    "gsus",
+    "gmaj9",
+    "asus",
+    "dmaj9",
+    "gmaj9",
+    "dmaj9",
+    "asus",
+    "dmaj9",
+    "gmaj9",
+    "gmaj9",
+    "dmaj9",
+    "asus",
+    "dmaj9",
+    "gmaj9",
+    "dmaj9"
+  ],
+  "transitions": [
+    96.0,
+    192.0,
+    288.0,
+    384.0
+  ],
   "sources": [
     {
-      "file": "prismatic_trance90_cohesive.wav",
-      "sha256": "9fdf0c4fcef8250a375d22625a47f106bb6ef9f636056643f4523c317cbf712e",
+      "file": "prismatic_transcendental60.wav",
+      "sha256": "0a6ce3a1b62fce597b67e2da12b8f7f3e9b7aa6365165d25e13de7b701e7de7b",
       "origin": "Authored deterministic synthesis, no sampled/generated backing recording"
     }
   ]
